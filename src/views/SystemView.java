@@ -60,7 +60,7 @@ public class SystemView extends javax.swing.JFrame {
         btn_photo = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        tab_productos = new javax.swing.JPanel();
+        tab_products = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,7 +82,7 @@ public class SystemView extends javax.swing.JFrame {
         txt_search_product = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         product_table = new javax.swing.JTable();
-        tab_compras = new javax.swing.JPanel();
+        tab_purchases = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -106,7 +106,7 @@ public class SystemView extends javax.swing.JFrame {
         btn_new_purchase = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        tab_clientes = new javax.swing.JPanel();
+        tab_clients = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -126,7 +126,7 @@ public class SystemView extends javax.swing.JFrame {
         txt_search_customer = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         customers_table = new javax.swing.JTable();
-        tab_empleados = new javax.swing.JPanel();
+        tab_employees = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -176,7 +176,19 @@ public class SystemView extends javax.swing.JFrame {
         txt_search_supplier = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         suppliers_table = new javax.swing.JTable();
-        jPanel9 = new javax.swing.JPanel();
+        tab_categories = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        txt_category_id = new javax.swing.JTextField();
+        txt_category_name = new javax.swing.JTextField();
+        btn_register_category = new javax.swing.JButton();
+        btn_update_category = new javax.swing.JButton();
+        btn_delete_category = new javax.swing.JButton();
+        jLabel43 = new javax.swing.JLabel();
+        txt_search_category = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        categories_table = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
 
@@ -375,8 +387,8 @@ public class SystemView extends javax.swing.JFrame {
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1010, 100));
 
-        tab_productos.setBackground(new java.awt.Color(152, 202, 63));
-        tab_productos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_products.setBackground(new java.awt.Color(152, 202, 63));
+        tab_products.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Productos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -513,14 +525,14 @@ public class SystemView extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        tab_productos.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 270));
+        tab_products.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 270));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Buscar:");
-        tab_productos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, 70, 30));
+        tab_products.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, 70, 30));
 
         txt_search_product.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tab_productos.add(txt_search_product, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 160, 35));
+        tab_products.add(txt_search_product, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 160, 35));
 
         product_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -540,12 +552,12 @@ public class SystemView extends javax.swing.JFrame {
             product_table.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        tab_productos.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
+        tab_products.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
 
-        jTabbedPane1.addTab("Productos", tab_productos);
+        jTabbedPane1.addTab("Productos", tab_products);
 
-        tab_compras.setBackground(new java.awt.Color(152, 202, 63));
-        tab_compras.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_purchases.setBackground(new java.awt.Color(152, 202, 63));
+        tab_purchases.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva compra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -689,7 +701,7 @@ public class SystemView extends javax.swing.JFrame {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
-        tab_compras.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 300));
+        tab_purchases.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 300));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -707,12 +719,12 @@ public class SystemView extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        tab_compras.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 350, 920, 120));
+        tab_purchases.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 350, 920, 120));
 
-        jTabbedPane1.addTab("Compras", tab_compras);
+        jTabbedPane1.addTab("Compras", tab_purchases);
 
-        tab_clientes.setBackground(new java.awt.Color(152, 202, 63));
-        tab_clientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_clients.setBackground(new java.awt.Color(152, 202, 63));
+        tab_clients.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -818,11 +830,11 @@ public class SystemView extends javax.swing.JFrame {
                 .addGap(56, 56, Short.MAX_VALUE))
         );
 
-        tab_clientes.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 270));
+        tab_clients.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 270));
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel23.setText("Buscar: ");
-        tab_clientes.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, -1, 30));
+        tab_clients.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, -1, 30));
 
         txt_search_customer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txt_search_customer.addActionListener(new java.awt.event.ActionListener() {
@@ -830,7 +842,7 @@ public class SystemView extends javax.swing.JFrame {
                 txt_search_customerActionPerformed(evt);
             }
         });
-        tab_clientes.add(txt_search_customer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 160, 35));
+        tab_clients.add(txt_search_customer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 160, 35));
 
         customers_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -856,12 +868,12 @@ public class SystemView extends javax.swing.JFrame {
             customers_table.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        tab_clientes.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
+        tab_clients.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
 
-        jTabbedPane1.addTab("Clientes", tab_clientes);
+        jTabbedPane1.addTab("Clientes", tab_clients);
 
-        tab_empleados.setBackground(new java.awt.Color(152, 202, 63));
-        tab_empleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_employees.setBackground(new java.awt.Color(152, 202, 63));
+        tab_employees.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Empleados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -1012,12 +1024,12 @@ public class SystemView extends javax.swing.JFrame {
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        tab_empleados.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 300));
+        tab_employees.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 300));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel32.setText("Buscar:");
-        tab_empleados.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 330, -1, 30));
-        tab_empleados.add(txt_search_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 160, 35));
+        tab_employees.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 330, -1, 30));
+        tab_employees.add(txt_search_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, 160, 35));
 
         employees_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1044,9 +1056,9 @@ public class SystemView extends javax.swing.JFrame {
             employees_table.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        tab_empleados.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 920, 120));
+        tab_employees.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 920, 120));
 
-        jTabbedPane1.addTab("Empleados", tab_empleados);
+        jTabbedPane1.addTab("Empleados", tab_employees);
 
         tab_proveedores.setBackground(new java.awt.Color(152, 202, 63));
         tab_proveedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1204,18 +1216,102 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Proveedores", tab_proveedores);
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
+        tab_categories.setBackground(new java.awt.Color(152, 202, 63));
+        tab_categories.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categorías", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel41.setText("Id:");
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel42.setText("Nombre: ");
+
+        txt_category_id.setEditable(false);
+        txt_category_id.setEnabled(false);
+
+        btn_register_category.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_register_category.setText("Registrar");
+
+        btn_update_category.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_update_category.setText("Modificar");
+
+        btn_delete_category.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_delete_category.setText("Eliminar");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_update_category, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btn_delete_category, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(txt_category_id, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_register_category, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(56, 56, 56))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_category_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_register_category, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_category_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_update_category, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_delete_category, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab6", jPanel9);
+        tab_categories.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 520, 270));
+
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel43.setText("Buscar:");
+        tab_categories.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, 35));
+        tab_categories.add(txt_search_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 290, 35));
+
+        categories_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(categories_table);
+
+        tab_categories.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 360, -1));
+
+        jTabbedPane1.addTab("Categorías", tab_categories);
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1356,28 +1452,32 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_cancel_customer;
     public javax.swing.JButton btn_cancel_employee;
     private javax.swing.JButton btn_cancel_product;
-    private javax.swing.JButton btn_cancel_supplier;
+    public javax.swing.JButton btn_cancel_supplier;
     public javax.swing.JButton btn_confirm_purchase;
+    public javax.swing.JButton btn_delete_category;
     public javax.swing.JButton btn_delete_customer;
     public javax.swing.JButton btn_delete_employee;
     private javax.swing.JButton btn_delete_product;
-    private javax.swing.JButton btn_delete_supplier;
+    public javax.swing.JButton btn_delete_supplier;
     private javax.swing.JButton btn_logout;
     public javax.swing.JButton btn_new_purchase;
     private javax.swing.JButton btn_photo;
+    public javax.swing.JButton btn_register_category;
     public javax.swing.JButton btn_register_customer;
     public javax.swing.JButton btn_register_employee;
     private javax.swing.JButton btn_register_product;
-    private javax.swing.JButton btn_register_supplier;
+    public javax.swing.JButton btn_register_supplier;
     public javax.swing.JButton btn_remove_purchase;
+    public javax.swing.JButton btn_update_category;
     public javax.swing.JButton btn_update_customer;
     public javax.swing.JButton btn_update_employee;
     private javax.swing.JButton btn_update_product;
-    private javax.swing.JButton btn_update_supplier;
+    public javax.swing.JButton btn_update_supplier;
+    public javax.swing.JTable categories_table;
     private javax.swing.JComboBox<Object> cmb_product_category;
     public javax.swing.JComboBox cmb_product_supplier;
     public javax.swing.JComboBox<String> cmb_rol;
-    private javax.swing.JComboBox<String> cmb_supplier_city;
+    public javax.swing.JComboBox<String> cmb_supplier_city;
     public javax.swing.JTable customers_table;
     public javax.swing.JTable employees_table;
     private javax.swing.JLabel jLabel1;
@@ -1415,6 +1515,9 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1438,7 +1541,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanel4;
     public javax.swing.JPanel jPanelCategories;
     public javax.swing.JPanel jPanelCustomers;
     public javax.swing.JPanel jPanelEmployees;
@@ -1452,16 +1555,20 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPane6;
+    public javax.swing.JTabbedPane jTabbedPane1;
     public javax.swing.JTable jTable1;
     public javax.swing.JTable product_table;
-    private javax.swing.JTable suppliers_table;
-    private javax.swing.JPanel tab_clientes;
-    private javax.swing.JPanel tab_compras;
-    private javax.swing.JPanel tab_empleados;
-    private javax.swing.JPanel tab_productos;
+    public javax.swing.JTable suppliers_table;
+    private javax.swing.JPanel tab_categories;
+    private javax.swing.JPanel tab_clients;
+    private javax.swing.JPanel tab_employees;
+    private javax.swing.JPanel tab_products;
     private javax.swing.JPanel tab_proveedores;
+    private javax.swing.JPanel tab_purchases;
     public javax.swing.JTextField text_purchase_product_code;
+    public javax.swing.JTextField txt_category_id;
+    public javax.swing.JTextField txt_category_name;
     public javax.swing.JTextField txt_customer_address;
     public javax.swing.JTextField txt_customer_email;
     public javax.swing.JTextField txt_customer_fullname;
@@ -1485,15 +1592,16 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JTextField txt_purchase_product_name;
     public javax.swing.JTextField txt_purchase_subtotal;
     public javax.swing.JTextField txt_purchase_total_to_pay;
+    public javax.swing.JTextField txt_search_category;
     public javax.swing.JTextField txt_search_customer;
     public javax.swing.JTextField txt_search_employee;
     public javax.swing.JTextField txt_search_product;
-    private javax.swing.JTextField txt_search_supplier;
-    private javax.swing.JTextField txt_supplier_address;
-    private javax.swing.JTextField txt_supplier_description;
-    private javax.swing.JTextField txt_supplier_email;
-    private javax.swing.JTextField txt_supplier_id;
-    private javax.swing.JTextField txt_supplier_name;
-    private javax.swing.JTextField txt_supplier_telephone;
+    public javax.swing.JTextField txt_search_supplier;
+    public javax.swing.JTextField txt_supplier_address;
+    public javax.swing.JTextField txt_supplier_description;
+    public javax.swing.JTextField txt_supplier_email;
+    public javax.swing.JTextField txt_supplier_id;
+    public javax.swing.JTextField txt_supplier_name;
+    public javax.swing.JTextField txt_supplier_telephone;
     // End of variables declaration//GEN-END:variables
 }
