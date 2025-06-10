@@ -134,7 +134,7 @@ public class SystemView extends javax.swing.JFrame {
         btn_confirm_sale = new javax.swing.JButton();
         btn_remove_sale = new javax.swing.JButton();
         btn_new_sale = new javax.swing.JButton();
-        jScrollPane8 = new javax.swing.JScrollPane();
+        scrollpane_sales_table = new javax.swing.JScrollPane();
         sales_table = new javax.swing.JTable();
         tab_customers = new javax.swing.JPanel();
         panel_customers = new javax.swing.JPanel();
@@ -180,7 +180,7 @@ public class SystemView extends javax.swing.JFrame {
         btn_cancel_employee = new javax.swing.JButton();
         label_search_employee = new javax.swing.JLabel();
         txt_search_employee = new javax.swing.JTextField();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        scrollpane_employees_table = new javax.swing.JScrollPane();
         employees_table = new javax.swing.JTable();
         tab_suppliers = new javax.swing.JPanel();
         panel_suppliers = new javax.swing.JPanel();
@@ -1028,9 +1028,9 @@ public class SystemView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane8.setViewportView(sales_table);
+        scrollpane_sales_table.setViewportView(sales_table);
 
-        tab_sales.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 300, 920, 150));
+        tab_sales.add(scrollpane_sales_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 300, 920, 150));
 
         jTabbedPane1.addTab("Ventas", tab_sales);
 
@@ -1358,7 +1358,7 @@ public class SystemView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(employees_table);
+        scrollpane_employees_table.setViewportView(employees_table);
         if (employees_table.getColumnModel().getColumnCount() > 0) {
             employees_table.getColumnModel().getColumn(0).setResizable(false);
             employees_table.getColumnModel().getColumn(1).setResizable(false);
@@ -1367,7 +1367,7 @@ public class SystemView extends javax.swing.JFrame {
             employees_table.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        tab_employees.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 920, 120));
+        tab_employees.add(scrollpane_employees_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 920, 120));
 
         jTabbedPane1.addTab("Empleados", tab_employees);
 
@@ -1631,7 +1631,7 @@ public class SystemView extends javax.swing.JFrame {
         title_all_sales.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title_all_sales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title_all_sales.setText("VENTAS REALIZADAS");
-        tab_reportes.add(title_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1010, -1));
+        tab_reportes.add(title_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 1010, -1));
 
         table_all_sales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1651,12 +1651,12 @@ public class SystemView extends javax.swing.JFrame {
         });
         scrollpane_table_all_sales.setViewportView(table_all_sales);
 
-        tab_reportes.add(scrollpane_table_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 80, 920, 150));
+        tab_reportes.add(scrollpane_table_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 70, 920, 150));
 
         title_all_purchases.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         title_all_purchases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title_all_purchases.setText("COMPRAS REALIZADAS");
-        tab_reportes.add(title_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 1010, -1));
+        tab_reportes.add(title_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 1010, -1));
 
         table_all_purchases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1676,7 +1676,7 @@ public class SystemView extends javax.swing.JFrame {
         });
         scrollpane_table_all_purchases.setViewportView(table_all_purchases);
 
-        tab_reportes.add(scrollpane_table_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, 920, 160));
+        tab_reportes.add(scrollpane_table_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 300, 920, 150));
 
         jTabbedPane1.addTab("Reportes", tab_reportes);
 
@@ -1977,8 +1977,6 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel jPanelSales;
     public javax.swing.JPanel jPanelSettings;
     public javax.swing.JPanel jPanelSuppliers;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane8;
     public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel label_address_profile;
     private javax.swing.JLabel label_category_id;
@@ -2051,8 +2049,10 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JTable sales_table;
     private javax.swing.JScrollPane scrollpane_categories_table;
     private javax.swing.JScrollPane scrollpane_customers_table;
+    private javax.swing.JScrollPane scrollpane_employees_table;
     private javax.swing.JScrollPane scrollpane_products_table;
     private javax.swing.JScrollPane scrollpane_purchases_table;
+    private javax.swing.JScrollPane scrollpane_sales_table;
     private javax.swing.JScrollPane scrollpane_suppliers_table;
     private javax.swing.JScrollPane scrollpane_table_all_purchases;
     private javax.swing.JScrollPane scrollpane_table_all_sales;
