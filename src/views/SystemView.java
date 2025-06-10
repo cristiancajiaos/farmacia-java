@@ -220,8 +220,11 @@ public class SystemView extends javax.swing.JFrame {
         scrollpane_categories_table = new javax.swing.JScrollPane();
         categories_table = new javax.swing.JTable();
         tab_reportes = new javax.swing.JPanel();
+        title_all_sales = new javax.swing.JLabel();
+        scrollpane_table_all_sales = new javax.swing.JScrollPane();
+        table_all_sales = new javax.swing.JTable();
         title_all_purchases = new javax.swing.JLabel();
-        scrollpane_all_purchases_table = new javax.swing.JScrollPane();
+        scrollpane_table_all_purchases = new javax.swing.JScrollPane();
         table_all_purchases = new javax.swing.JTable();
         tab_profile = new javax.swing.JPanel();
         panel_profile = new javax.swing.JPanel();
@@ -913,10 +916,10 @@ public class SystemView extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_salesLayout.createSequentialGroup()
                                 .addComponent(label_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txt_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(label_sale_total_to_pay)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label_sale_total_to_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(txt_sale_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_salesLayout.createSequentialGroup()
                                 .addComponent(label_sale_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1625,17 +1628,42 @@ public class SystemView extends javax.swing.JFrame {
         tab_reportes.setBackground(new java.awt.Color(152, 202, 63));
         tab_reportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        title_all_sales.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        title_all_sales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title_all_sales.setText("VENTAS REALIZADAS");
+        tab_reportes.add(title_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1010, -1));
+
+        table_all_sales.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Factura de venta", "Cliente", "Empleado", "Total", "Fecha de venta"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollpane_table_all_sales.setViewportView(table_all_sales);
+
+        tab_reportes.add(scrollpane_table_all_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 80, 920, 150));
+
         title_all_purchases.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        title_all_purchases.setForeground(new java.awt.Color(255, 255, 255));
+        title_all_purchases.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         title_all_purchases.setText("COMPRAS REALIZADAS");
-        tab_reportes.add(title_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+        tab_reportes.add(title_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 1010, -1));
 
         table_all_purchases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Factura", "Proveedor", "Total", "Fecha de compra"
+                "Factura de compra", "Proveedor", "Total", "Fecha de compra"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1646,9 +1674,9 @@ public class SystemView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        scrollpane_all_purchases_table.setViewportView(table_all_purchases);
+        scrollpane_table_all_purchases.setViewportView(table_all_purchases);
 
-        tab_reportes.add(scrollpane_all_purchases_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 87, 900, 410));
+        tab_reportes.add(scrollpane_table_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 310, 920, 160));
 
         jTabbedPane1.addTab("Reportes", tab_reportes);
 
@@ -2021,12 +2049,13 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JTable products_table;
     public javax.swing.JTable purchases_table;
     public javax.swing.JTable sales_table;
-    private javax.swing.JScrollPane scrollpane_all_purchases_table;
     private javax.swing.JScrollPane scrollpane_categories_table;
     private javax.swing.JScrollPane scrollpane_customers_table;
     private javax.swing.JScrollPane scrollpane_products_table;
     private javax.swing.JScrollPane scrollpane_purchases_table;
     private javax.swing.JScrollPane scrollpane_suppliers_table;
+    private javax.swing.JScrollPane scrollpane_table_all_purchases;
+    private javax.swing.JScrollPane scrollpane_table_all_sales;
     public javax.swing.JTable suppliers_table;
     private javax.swing.JPanel tab_categories;
     private javax.swing.JPanel tab_customers;
@@ -2038,8 +2067,10 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel tab_sales;
     private javax.swing.JPanel tab_suppliers;
     public javax.swing.JTable table_all_purchases;
+    public javax.swing.JTable table_all_sales;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title_all_purchases;
+    private javax.swing.JLabel title_all_sales;
     public javax.swing.JTextField txt_address_profile;
     public javax.swing.JTextField txt_category_id;
     public javax.swing.JTextField txt_category_name;
