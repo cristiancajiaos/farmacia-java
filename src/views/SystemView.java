@@ -152,6 +152,7 @@ public class SystemView extends javax.swing.JFrame {
         txt_search_employee = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
         employees_table = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
         tab_proveedores = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel33 = new javax.swing.JLabel();
@@ -189,11 +190,11 @@ public class SystemView extends javax.swing.JFrame {
         txt_search_category = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         categories_table = new javax.swing.JTable();
-        jPanel10 = new javax.swing.JPanel();
+        tab_reportes = new javax.swing.JPanel();
         jLabel44 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
         table_all_purchases = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
+        tab_perfil = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel45 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
@@ -1079,6 +1080,19 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Empleados", tab_employees);
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1010, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("tab9", jPanel6);
+
         tab_proveedores.setBackground(new java.awt.Color(152, 202, 63));
         tab_proveedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1183,11 +1197,12 @@ public class SystemView extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_supplier_city, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_supplier_address, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_supplier_address, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmb_supplier_city, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_supplier_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1332,13 +1347,13 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Categorías", tab_categories);
 
-        jPanel10.setBackground(new java.awt.Color(152, 202, 63));
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_reportes.setBackground(new java.awt.Color(152, 202, 63));
+        tab_reportes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(255, 255, 255));
         jLabel44.setText("Compras realizadas");
-        jPanel10.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+        tab_reportes.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
 
         table_all_purchases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1358,12 +1373,12 @@ public class SystemView extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(table_all_purchases);
 
-        jPanel10.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 87, 900, 410));
+        tab_reportes.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 87, 900, 410));
 
-        jTabbedPane1.addTab("Reportes", jPanel10);
+        jTabbedPane1.addTab("Reportes", tab_reportes);
 
-        jPanel11.setBackground(new java.awt.Color(152, 202, 63));
-        jPanel11.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        tab_perfil.setBackground(new java.awt.Color(152, 202, 63));
+        tab_perfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
@@ -1475,9 +1490,9 @@ public class SystemView extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jPanel11.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 390));
+        tab_perfil.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 390));
 
-        jTabbedPane1.addTab("Perfil", jPanel11);
+        jTabbedPane1.addTab("Perfil", tab_perfil);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 1010, 580));
 
@@ -1595,13 +1610,13 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_add_product_to_buy;
     public javax.swing.JButton btn_cancel_customer;
     public javax.swing.JButton btn_cancel_employee;
-    private javax.swing.JButton btn_cancel_product;
+    public javax.swing.JButton btn_cancel_product;
     public javax.swing.JButton btn_cancel_supplier;
     public javax.swing.JButton btn_confirm_purchase;
     public javax.swing.JButton btn_delete_category;
     public javax.swing.JButton btn_delete_customer;
     public javax.swing.JButton btn_delete_employee;
-    private javax.swing.JButton btn_delete_product;
+    public javax.swing.JButton btn_delete_product;
     public javax.swing.JButton btn_delete_supplier;
     private javax.swing.JButton btn_logout;
     public javax.swing.JButton btn_modify_data;
@@ -1610,16 +1625,16 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_register_category;
     public javax.swing.JButton btn_register_customer;
     public javax.swing.JButton btn_register_employee;
-    private javax.swing.JButton btn_register_product;
+    public javax.swing.JButton btn_register_product;
     public javax.swing.JButton btn_register_supplier;
     public javax.swing.JButton btn_remove_purchase;
     public javax.swing.JButton btn_update_category;
     public javax.swing.JButton btn_update_customer;
     public javax.swing.JButton btn_update_employee;
-    private javax.swing.JButton btn_update_product;
+    public javax.swing.JButton btn_update_product;
     public javax.swing.JButton btn_update_supplier;
     public javax.swing.JTable categories_table;
-    private javax.swing.JComboBox<Object> cmb_product_category;
+    public javax.swing.JComboBox<Object> cmb_product_category;
     public javax.swing.JComboBox cmb_product_supplier;
     public javax.swing.JComboBox<String> cmb_rol;
     public javax.swing.JComboBox<String> cmb_supplier_city;
@@ -1685,8 +1700,6 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JLabel jLabelSettings;
     public javax.swing.JLabel jLabelSuppliers;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     public javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -1696,6 +1709,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     public javax.swing.JPanel jPanelCategories;
     public javax.swing.JPanel jPanelCustomers;
     public javax.swing.JPanel jPanelEmployees;
@@ -1718,9 +1732,11 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel tab_categories;
     private javax.swing.JPanel tab_clients;
     private javax.swing.JPanel tab_employees;
+    private javax.swing.JPanel tab_perfil;
     private javax.swing.JPanel tab_products;
     private javax.swing.JPanel tab_proveedores;
     private javax.swing.JPanel tab_purchases;
+    private javax.swing.JPanel tab_reportes;
     public javax.swing.JTable table_all_purchases;
     public javax.swing.JTextField text_purchase_product_code;
     public javax.swing.JTextField txt_address_profile;
@@ -1744,11 +1760,11 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPasswordField txt_password_modify;
     public javax.swing.JPasswordField txt_password_modify_confirm;
     public javax.swing.JTextField txt_phone_profile;
-    private javax.swing.JTextField txt_product_code;
-    private javax.swing.JTextField txt_product_description;
-    private javax.swing.JTextField txt_product_id;
-    private javax.swing.JTextField txt_product_name;
-    private javax.swing.JTextField txt_product_unit_price;
+    public javax.swing.JTextField txt_product_code;
+    public javax.swing.JTextField txt_product_description;
+    public javax.swing.JTextField txt_product_id;
+    public javax.swing.JTextField txt_product_name;
+    public javax.swing.JTextField txt_product_unit_price;
     public javax.swing.JTextField txt_purchase_amount;
     public javax.swing.JTextField txt_purchase_id;
     public javax.swing.JTextField txt_purchase_price;
