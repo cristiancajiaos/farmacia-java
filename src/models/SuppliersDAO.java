@@ -2,6 +2,7 @@ package models;
 
 import java.sql.Timestamp;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class SuppliersDAO {
     // Instanciar la conexión
     ConnectionMySQL cn = new ConnectionMySQL();
     Connection conn;
-    java.sql.PreparedStatement pst;
+    PreparedStatement pst;
     ResultSet rs;
     
     // Registrar proveedor
