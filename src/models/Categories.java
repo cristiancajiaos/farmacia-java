@@ -1,6 +1,7 @@
 package models;
 
 public class Categories {
+
     private int id;
     private String name;
     private String created;
@@ -47,7 +48,5 @@ public class Categories {
     public void setUpdated(String updated) {
         this.updated = updated;
     }
-    
-    g
-    
+
 }
