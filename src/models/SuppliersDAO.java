@@ -21,7 +21,7 @@ public class SuppliersDAO {
     // Registrar proveedor
     public boolean registerSupplierQuery(Suppliers supplier) {
         String query = "INSERT INTO suppliers(name, description, address, "
-                + "telephone, email, city, created, updated)"
+                + "telephone, email, city, created, updated) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         
