@@ -97,7 +97,7 @@ public class EmployeesDAO {
     public List listEmployeesQuery(String value) {
         List<Employees> list_employees = new ArrayList();
         String query = "SELECT * FROM employees ORDER BY rol ASC";
-        String query_search_employee = "SELECT * FROM employees WHERE id LIKE '%" + value + "%";
+        String query_search_employee = "SELECT * FROM employees WHERE id LIKE '%" + value + "%'";
 
         try {
             conn = cn.getConnection();
