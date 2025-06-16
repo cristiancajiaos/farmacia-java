@@ -38,5 +38,30 @@ public class SalesDAO {
         }
     }
     
+    // Registrar detalle de la venta
+    public boolean registerSaleDetailQuery(int product_id, int sale_id, int sale_quantity, double sale_price, double sale_subtotal) {
+        String query = "INSERT INTO sales (product_id, sale_id, sale_quantity, "
+                     + "sale_price, sale_subtotal) VALUES (?, ?, ?, ?, ?)";
+        /* Timestamp no se requiere para registrar el detalle de la venta */
+        // Timestamp datetime = new Timestamp(new Date().getTime());
+        
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, product_id);
+            pst.setInt(2, sale_id);
+            pst.setInt(3, sale_quantity);
+            pst.setDouble(4, sale_price);
+            pst.setDouble(5, sale_subtotal);
+            pst.execute();
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al registrar el detalle de la venta: " + e.getMessage());
+            System.err.println("Hubo un error al registrar el detalle de la venta: " + e.getMessage());
+            return false;
+        }
+        
+    }
+    
     
 }
