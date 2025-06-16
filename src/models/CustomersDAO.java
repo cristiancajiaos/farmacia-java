@@ -38,7 +38,8 @@ public class CustomersDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar al cliente: " + e);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar al cliente: " + e.getMessage());
+            System.err.println("Ha ocurrido un error al registrar al cliente:" + e.getMessage());
             return false;
         }
     }
@@ -63,7 +64,8 @@ public class CustomersDAO {
                 list_customers.add(customer);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener la lista de clientes: :" + e.getMessage());
+            System.err.println("Ha ocurrido un error al obtener la lista de clientes:" + e.getMessage());
         }
         return list_customers;
     }
@@ -86,7 +88,8 @@ public class CustomersDAO {
             pst.execute();
             return true;
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al modificar los datos del cliente: " + e);
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar los datos del cliente:" + e.getMessage());
+            System.err.println("Ha ocurrido un error al modificar los datos del cliente:" + e.getMessage());
             return false;
         }
     }
@@ -99,8 +102,9 @@ public class CustomersDAO {
             pst = conn.prepareStatement(query);
             pst.execute();
             return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un cliente que tenga relación con otra tabla");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No puede eliminar un cliente que tenga relación con otra tabla: " + e.getMessage());
+            System.err.println("No puede eliminar un cliente que tenga relación con otra tabla: " + e.getMessage());
             return false;
         }
     }

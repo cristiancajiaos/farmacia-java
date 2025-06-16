@@ -39,7 +39,8 @@ public class SuppliersDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar el proveedor: " + e);
+            JOptionPane.showMessageDialog(null, "Hubo un error al registrar el proveedor: " + e.getMessage());
+            System.err.println("Hubo un error al registrar el proveedor: " + e.getMessage());
             return false;
         }
     }
@@ -67,7 +68,8 @@ public class SuppliersDAO {
             }
         }
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener la lista de proveedores: " + e.getMessage());
+            System.err.println("Hubo un error al obtener la lista de proveedores: " + e.getMessage());
         }
         return list_suppliers;
     }
@@ -93,7 +95,8 @@ public class SuppliersDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar los datos del proveedor: " + e);
+            JOptionPane.showMessageDialog(null, "Hubo un error al modificar los datos del proveedor: " + e.getMessage());
+            System.err.println("Hubo un error al modificar los datos del proveedor: " + e.getMessage());
             return false;
         }
     }
@@ -107,7 +110,8 @@ public class SuppliersDAO {
             pst.execute();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un proveedor que tenga relación con otra tabla");
+            JOptionPane.showMessageDialog(null, "No puede eliminar un proveedor que tenga relación con otra tabla: " + e);
+            System.err.println("No puede eliminar un proveedor que tenga relación con otra tabla: " + e);
             return false;
         }
     }

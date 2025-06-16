@@ -35,7 +35,8 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar la categoría:" + e);
+            JOptionPane.showMessageDialog(null, "Hubo un error al registrar la categoría: " + e.getMessage());
+            System.err.println("Hubo un error al registrar la categoría: " + e.getMessage());
             return false;
         }
     }
@@ -58,7 +59,8 @@ public class CategoriesDAO {
             }
         }
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            JOptionPane.showMessageDialog(null, "Hubo un error al obtener la lista de categorías: " + e.getMessage());
+            System.err.println("Hubo un error al obtener la lista de categorías: " + e.getMessage());
         } 
         return list_categories;
     }
@@ -77,7 +79,8 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch(SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar los datos de la categoría: " + e);
+            JOptionPane.showMessageDialog(null, "Hubo un error al modificar los datos de la categoría: " + e.getMessage());
+            System.err.println("Hubo un error al modificar los datos de la categoría: " + e.getMessage());
             return false;
         }
     }
@@ -91,7 +94,8 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar una categoría que tenga relación con otra tabla");
+            JOptionPane.showMessageDialog(null, "No puede eliminar una categoría que tenga relación con otra tabla: " + e.getMessage());
+            System.err.println("No puede eliminar una categoría que tenga relación con otra tabla: " + e.getMessage());
             return false;
         }
     }
