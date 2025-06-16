@@ -20,8 +20,8 @@ public class ProductsDAO {
     // Registrar producto
     public boolean registerProductQuery(Products product) {
         String query = "INSERT INTO products(code, name, description, "
-                + "unit_price, created, updated, category_id) "
-                + "VALUES(?, ?, ?, ?, ?, ?, ?)";
+                     + "unit_price, created, updated, category_id) "
+                     + "VALUES(?, ?, ?, ?, ?, ?, ?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
 
         try {
@@ -37,8 +37,10 @@ public class ProductsDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al registrar el producto: " + e.getMessage());
-            System.err.println("Hubo un error al registrar el producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error "
+                    + "al registrar el producto: " + e.getMessage());
+            System.err.println("Hubo un error al registrar el "
+                    + "producto: " + e.getMessage());
             return false;
         }
     }
@@ -47,13 +49,13 @@ public class ProductsDAO {
     public List listProductsQuery(String value) {
         List<Products> list_products = new ArrayList();
 
-        /* Selecciona todas las columnas de la tabla productos y la columna name 
-           de la tabla categorías donde el ID de la categoría coincida */
+        /* Selecciona todas las columnas de la tabla productos y la columna 
+           name de la tabla categorías donde el ID de la categoría coincida */
         String query = "SELECT pro.*, ca.name AS category_name "
                      + "FROM products pro, categories ca "
                      + "WHERE pro.category_id = ca.id";
-        /* Selecciona todas las columnas de la tabla productos y la columna name 
-           de la tabla categorías donde el ID de la categoría coincida, 
+        /* Selecciona todas las columnas de la tabla productos y la columna 
+           name de la tabla categorías donde el ID de la categoría coincida, 
            y que el nombre se asemeje al valor dado */
         String query_search_product = "SELECT pro.*, ca.name AS category_name "
                                     + "FROM products pro "
@@ -77,8 +79,11 @@ public class ProductsDAO {
                 list_products.add(product);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al obtener la lista de productos: " + e.getMessage());
-            System.err.println("Hubo un error al obtener la lista de productos: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al obtener la lista de "
+                    + "productos: " + e.getMessage());
+            System.err.println("Hubo un error al obtener la lista de "
+                    + "productos: " + e.getMessage());
         }
         return list_products;
     }
@@ -103,8 +108,11 @@ public class ProductsDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al modificar los datos del producto: " + e.getMessage());
-            System.err.println("Hubo un error al modificar los datos del producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al modificar los datos del "
+                    + "producto: " + e.getMessage());
+            System.err.println("Hubo un error al modificar los datos del "
+                    + "producto: " + e.getMessage());
             return false;
         }
 
@@ -119,8 +127,11 @@ public class ProductsDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un producto que tenga relación con otra tabla: " + e.getMessage());
-            System.err.println("No puede eliminar un producto que tenga relación con otra tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No puede "
+                    + "eliminar un producto que tenga relación "
+                    + "con otra tabla: " + e.getMessage());
+            System.err.println("No puede eliminar un producto que tenga "
+                    + "relación con otra tabla: " + e.getMessage());
             return false;
         }
         
@@ -150,8 +161,10 @@ public class ProductsDAO {
                 product.setCategory_name(rs.getString("product_name"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al buscar el producto: " + e.getMessage());
-            System.err.println("Hubo un error al buscar el producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al buscar el producto: " + e.getMessage());
+            System.err.println("Hubo un error al buscar el "
+                    + "producto: " + e.getMessage());
         }
         return product;
     }
@@ -173,8 +186,10 @@ public class ProductsDAO {
                 product.setName(rs.getString("name"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al buscar el producto: " + e.getMessage());
-            System.err.println("Hubo un error al buscar el producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error "
+                    + "al buscar el producto: " + e.getMessage());
+            System.err.println("Hubo un error al buscar el "
+                    + "producto: " + e.getMessage());
         }
         return product;
     }
@@ -194,8 +209,11 @@ public class ProductsDAO {
                 product.setProduct_quantity(rs.getInt("product_quantity"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al traer la cantidad de productos por id del producto: " + e.getMessage());
-            System.err.println("Hubo un error al traer la cantidad de productos por id del producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error "
+                    + "al traer la cantidad de productos por "
+                    + "id del producto: " + e.getMessage());
+            System.err.println("Hubo un error al traer la cantidad de "
+                    + "productos por id del producto: " + e.getMessage());
         }
         return product;
     }
@@ -213,8 +231,11 @@ public class ProductsDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al actualizar el stock del producto: " + e.getMessage());
-            System.err.println("Hubo un error al actualizar el stock del producto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al actualizar el stock del "
+                    + "producto: " + e.getMessage());
+            System.err.println("Hubo un error al actualizar el stock "
+                    + "del producto: " + e.getMessage());
             return false;
         }
     }

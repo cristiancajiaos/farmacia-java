@@ -38,8 +38,10 @@ public class CustomersDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar al cliente: " + e.getMessage());
-            System.err.println("Ha ocurrido un error al registrar al cliente:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un "
+                    + "error al registrar al cliente: " + e.getMessage());
+            System.err.println("Ha ocurrido un error al registrar al "
+                    + "cliente:" + e.getMessage());
             return false;
         }
     }
@@ -48,7 +50,8 @@ public class CustomersDAO {
     public List listCustomersQuery(String value) {
         List<Customers> list_customers = new ArrayList();
         String query = "SELECT * FROM customers";
-        String query_search_customer = "SELECT * FROM customers WHERE id LIKE '%" + value + "%'";
+        String query_search_customer = "SELECT * FROM customers "
+                                     + "WHERE id LIKE '%" + value + "%'";
         
         try {
             conn = cn.getConnection();
@@ -64,8 +67,11 @@ public class CustomersDAO {
                 list_customers.add(customer);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener la lista de clientes: :" + e.getMessage());
-            System.err.println("Ha ocurrido un error al obtener la lista de clientes:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido "
+                    + "un error al obtener la lista de "
+                    + "clientes: " + e.getMessage());
+            System.err.println("Ha ocurrido un error al obtener la lista de "
+                    + "clientes:" + e.getMessage());
         }
         return list_customers;
     }
@@ -73,7 +79,7 @@ public class CustomersDAO {
     // Modificar cliente
     public boolean updateCustomerQuery(Customers customer){
         String query = "UPDATE customers SET full_name = ?, address = ?, "  
-                + "telephone = ?, email = ?, updated = ? WHERE id = ?";
+                     + "telephone = ?, email = ?, updated = ? WHERE id = ?";
         Timestamp datetime = new Timestamp(new Date().getTime());
         
         try {
@@ -88,8 +94,11 @@ public class CustomersDAO {
             pst.execute();
             return true;
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar los datos del cliente:" + e.getMessage());
-            System.err.println("Ha ocurrido un error al modificar los datos del cliente:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido "
+                    + "un error al modificar los datos del "
+                    + "cliente:" + e.getMessage());
+            System.err.println("Ha ocurrido un error al modificar los datos "
+                    + "del cliente:" + e.getMessage());
             return false;
         }
     }
@@ -103,8 +112,11 @@ public class CustomersDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un cliente que tenga relación con otra tabla: " + e.getMessage());
-            System.err.println("No puede eliminar un cliente que tenga relación con otra tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No puede eliminar "
+                    + "un cliente que tenga relación con otra "
+                    + "tabla: " + e.getMessage());
+            System.err.println("No puede eliminar un cliente que tenga relación "
+                    + "con otra tabla: " + e.getMessage());
             return false;
         }
     }

@@ -58,8 +58,10 @@ public class EmployeesDAO {
             } else {
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener el empleado " + e.getMessage());
-            System.err.println("Ha ocurrido un error al obtener el empleado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un "
+                    + "error al obtener el empleado " + e.getMessage());
+            System.err.println("Ha ocurrido un error al obtener el "
+                    + "empleado: " + e.getMessage());
         }
         return employee;
     }
@@ -87,8 +89,10 @@ public class EmployeesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el empleado: " + e.getMessage());
-            System.err.print("Ha ocurrido un error al registrar el empleado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un "
+                    + "error al registrar el empleado: " + e.getMessage());
+            System.err.print("Ha ocurrido un error al registrar el "
+                    + "empleado: " + e.getMessage());
             return false;
         }
     }
@@ -97,7 +101,8 @@ public class EmployeesDAO {
     public List listEmployeesQuery(String value) {
         List<Employees> list_employees = new ArrayList();
         String query = "SELECT * FROM employees ORDER BY rol ASC";
-        String query_search_employee = "SELECT * FROM employees WHERE id LIKE '%" + value + "%'";
+        String query_search_employee = "SELECT * FROM employees WHERE id "
+                                     + "LIKE '%" + value + "%'";
 
         try {
             conn = cn.getConnection();
@@ -115,8 +120,11 @@ public class EmployeesDAO {
                 list_employees.add(employee);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al obtener la lista de empleados: " + e.getMessage());
-            System.err.println("Ha ocurrido un error al obtener la lista de empleados: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido "
+                    + "un error al obtener la lista de "
+                    + "empleados: " + e.getMessage());
+            System.err.println("Ha ocurrido un error al obtener la lista de "
+                    + "empleados: " + e.getMessage());
         }
         return list_employees;
     }
@@ -142,8 +150,11 @@ public class EmployeesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar los datos del empleado: " + e.getMessage());
-            System.err.println("Ha ocurrido un error al modificar los datos del empleado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un "
+                    + "error al modificar los datos del "
+                    + "empleado: " + e.getMessage());
+            System.err.println("Ha ocurrido un error al modificar los datos "
+                    + "del empleado: " + e.getMessage());
             return false;
         }
     }
@@ -157,15 +168,19 @@ public class EmployeesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar un empleado que tenga relación con otra tabla: " + e.getMessage());
-            System.err.print("No puede eliminar un empleado que tenga relación con otra tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No puede "
+                    + "eliminar un empleado que tenga relación "
+                    + "con otra tabla: " + e.getMessage());
+            System.err.print("No puede eliminar un empleado que tenga relación "
+                    + "con otra tabla: " + e.getMessage());
             return false;
         }
     }
 
     // Cambiar la contraseña
     public boolean updateEmployeePassword(Employees employee) {
-        String query = "UPDATE employees SET password = ? WHERE username = '" + username_user + "'";
+        String query = "UPDATE employees SET password = ? "
+                     + "WHERE username = '" + username_user + "'";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -173,8 +188,10 @@ public class EmployeesDAO {
             pst.executeUpdate();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido al error al modificar la contraseña:" + e.getMessage());
-            System.err.println("Ha ocurrido al error al modificar la contraseña:" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Ha ocurrido "
+                    + "un error al modificar la contraseña:" + e.getMessage());
+            System.err.println("Ha ocurrido un error al modificar "
+                    + "la contraseña:" + e.getMessage());
             return false;
         }
     }

@@ -23,7 +23,7 @@ public class CategoriesDAO {
     // Registrar catgorías
     public boolean registerCategoryQuery(Categories category) {
         String query = "INSERT INTO categories(name, created, updated)"
-                + "VALUES(?, ?, ?)";
+                     + "VALUES(?, ?, ?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
         
         try {
@@ -35,8 +35,10 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al registrar la categoría: " + e.getMessage());
-            System.err.println("Hubo un error al registrar la categoría: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al registrar la categoría: " + e.getMessage());
+            System.err.println("Hubo un error al registrar la "
+                    + "categoría: " + e.getMessage());
             return false;
         }
     }
@@ -45,7 +47,8 @@ public class CategoriesDAO {
     public List listCategoriesQuery(String value) {
         List<Categories> list_categories = new ArrayList();
         String query = "SELECT * FROM categories";
-        String query_search_category = "SELECT * FROM categories WHERE name LIKE '%" + value + "%'";
+        String query_search_category = "SELECT * FROM categories "
+                                     + "WHERE name LIKE '%" + value + "%'";
         
         try {
             conn = cn.getConnection();
@@ -59,15 +62,19 @@ public class CategoriesDAO {
             }
         }
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al obtener la lista de categorías: " + e.getMessage());
-            System.err.println("Hubo un error al obtener la lista de categorías: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un "
+                    + "error al obtener la lista de "
+                    + "categorías: " + e.getMessage());
+            System.err.println("Hubo un error al obtener la lista de "
+                    + "categorías: " + e.getMessage());
         } 
         return list_categories;
     }
     
     // Modificar categoría
     public boolean updateCategoryQuery(Categories category){
-        String query = "UPDATE categories SET name = ?, updated = ? WHERE id = ?";
+        String query = "UPDATE categories SET name = ?, updated = ? "
+                     + "WHERE id = ?";
         Timestamp datetime = new Timestamp(new Date().getTime());
         
         try {
@@ -79,8 +86,11 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch(SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al modificar los datos de la categoría: " + e.getMessage());
-            System.err.println("Hubo un error al modificar los datos de la categoría: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Hubo un error "
+                    + "al modificar los datos de la "
+                    + "categoría: " + e.getMessage());
+            System.err.println("Hubo un error al modificar los datos de la "
+                    + "categoría: " + e.getMessage());
             return false;
         }
     }
@@ -94,8 +104,11 @@ public class CategoriesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar una categoría que tenga relación con otra tabla: " + e.getMessage());
-            System.err.println("No puede eliminar una categoría que tenga relación con otra tabla: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No puede "
+                    + "eliminar una categoría que tenga relación "
+                    + "con otra tabla: " + e.getMessage());
+            System.err.println("No puede eliminar una categoría que tenga "
+                    + "relación con otra tabla: " + e.getMessage());
             return false;
         }
     }
