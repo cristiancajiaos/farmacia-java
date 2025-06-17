@@ -88,6 +88,7 @@ public class SalesDAO {
             JOptionPane.showMessageDialog(null, strError);
             System.err.println(strError);
         }
+        return id;
     }
 
 }
