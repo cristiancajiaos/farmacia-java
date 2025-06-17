@@ -58,7 +58,7 @@ public class SalesDAO {
             pst.setInt(1, product_id);
             /* En la página de la actividad, en este método, aparece el 
                parámetro sale_id como tipo double. 
-               Esto, el el contexto de la inserción en la tabla 
+               Esto, en el contexto de la inserción en la tabla 
                sale_details, es incorrecto, puesto que la columna del mismo
                nombre en esa tabla, es de tipo int, y es clave foránea (FK)
                que referencia a la columna id de la tabla sales, también de 
