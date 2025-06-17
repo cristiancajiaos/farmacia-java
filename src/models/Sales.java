@@ -13,7 +13,9 @@ public class Sales {
     public Sales() {
     }
 
-    public Sales(int id, String sale_date, double total_to_pay, int customer_id, String customer_name, int employee_id, String employee_name) {
+    public Sales(int id, String sale_date, double total_to_pay, 
+                 int customer_id, String customer_name, int employee_id, 
+                 String employee_name) {
         this.id = id;
         this.sale_date = sale_date;
         this.total_to_pay = total_to_pay;
