@@ -64,9 +64,9 @@ public class SalesDAO {
                que referencia a la columna id de la tabla sales, también de 
                tipo int, clave principal (PK) y autoincremental de dicha tabla. 
                Para efectos de esta actividad, en este método, se cambia el 
-               tipo sale_id de double a int, respetando la estructura 
-               solicitada de las tablas sale_details y sales en el diagrama E-R
-            */
+               tipo del parámetro sale_id de double a int, respetando 
+               la estructura solicitada de las tablas sale_details y sales 
+               en el diagrama E-R */
             pst.setInt(2, sale_id);
             pst.setInt(3, sale_quantity);
             pst.setDouble(4, sale_price);
@@ -74,10 +74,10 @@ public class SalesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error "
-                    + "al registrar el detalle de la venta: " + e.getMessage());
-            System.err.println("Hubo un error al registrar el detalle "
-                    + "de la venta: " + e.getMessage());
+            String strError = "Hubo un error al registrar el detalle de la "
+                    + "venta: " + e.getMessage();
+            JOptionPane.showMessageDialog(null, strError);
+            System.err.println(strError);
             return false;
         }
 
