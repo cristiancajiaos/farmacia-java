@@ -48,9 +48,8 @@ public class PurchasesDAO {
             double purchase_price, int purchase_amount, 
             double purchase_subtotal, int product_id) {
         String query = "INSERT INTO purchase_detail (purchase_id, purchase_price, "
-                     + "purchase_amount, purchase_subtotal, purchase_date, "
-                     + "product_id) VALUES (?, ?, ?, ?, ?, ?)";
-        Timestamp datetime = new Timestamp(new Date().getTime());
+                     + "purchase_amount, purchase_subtotal, product_id) "
+                     + "VALUES (?, ?, ?, ?, ?, ?)";
         
         try {
             conn = cn.getConnection();
@@ -59,8 +58,7 @@ public class PurchasesDAO {
             pst.setDouble(2, purchase_price);
             pst.setInt(3, purchase_amount);
             pst.setDouble(4, purchase_subtotal);
-            pst.setTimestamp(5, datetime);
-            pst.setInt(6, product_id);
+            pst.setInt(5, product_id);
             pst.execute();
             return true;
         } catch (SQLException e) {
@@ -72,7 +70,7 @@ public class PurchasesDAO {
     // Obtener ID de la compra 
     public int purchaseId() {
         int id = 0;
-        String query = "SELECT MAX(id) AS id from purchases";
+        String query = "SELECT MAX(id) AS id FROM purchases";
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
