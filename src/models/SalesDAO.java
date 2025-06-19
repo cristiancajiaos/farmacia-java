@@ -35,7 +35,7 @@ public class SalesDAO {
             pst.execute();
             return true;
         } catch (SQLException e) {
-            String strError = "Hubo un error al obtener el ID máximo de la "
+            String strError = "Hubo un error al registrar la "
                     + "venta: " + e.getMessage();
             JOptionPane.showMessageDialog(null, strError);
             System.err.println(strError);
@@ -48,9 +48,7 @@ public class SalesDAO {
             int sale_quantity, double sale_price, double sale_subtotal) {
         String query = "INSERT INTO sales (product_id, sale_id, sale_quantity, "
                      + "sale_price, sale_subtotal) VALUES (?, ?, ?, ?, ?)";
-        /* En la página de la actividad, en este método, se define el atributo
-           datetime. Para efectos de este desarrollo, al no usarse en el
-           método, se omite. */
+        /* Al no ocuparse el parámetro de timestamp, se omite */
 
         try {
             conn = cn.getConnection();
@@ -75,7 +73,7 @@ public class SalesDAO {
             return true;
         } catch (SQLException e) {
             String strError = "Hubo un error al registrar el detalle de la "
-                    + "venta: " + e.getMessage();
+                    + "venta: " + e.toString();
             JOptionPane.showMessageDialog(null, strError);
             System.err.println(strError);
             return false;
@@ -86,7 +84,7 @@ public class SalesDAO {
     // Obtener ID máximo de la venta
     public int saleId() {
         int id = 0;
-        String query = "SELECT MAX(id) AS id from sales";
+        String query = "SELECT MAX(id) AS id FROM sales";
         
         try {
             conn = cn.getConnection();
@@ -128,7 +126,7 @@ public class SalesDAO {
             }
         } catch (SQLException e) {
             String strError = "Hubo un error al obtener la lista de todas "
-                    + "las ventas realizadas" + e.getMessage();
+                    + "las ventas realizadas: " + e.toString();
             JOptionPane.showMessageDialog(null, strError);
             System.err.println(strError);
         }
