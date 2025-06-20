@@ -30,6 +30,8 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 
         // Botón de registrar empleado
         this.views.btn_register_employee.addActionListener(this);
+        // Botón de mdificar empleado
+        this.views.btn_update_employee.addActionListener(this);
         // Tabla de empleados
         this.views.employees_table.addMouseListener(this);
         // Campo de búsqueda de empleados
@@ -38,6 +40,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // TODO: Separar función de registrar empleados en método separado
         if (e.getSource() == views.btn_register_employee) {
             // Verificar si los campos no están vacíos
             if (views.txt_employee_id.getText().equals("")
@@ -55,19 +58,53 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
                 employee.setFull_name(views.txt_employee_fullname.getText().trim());
                 employee.setUsername(views.txt_employee_username.getText().trim());
                 employee.setAddress(views.txt_employee_address.getText().trim());
-                employee.setTelephone(views.txt_employee_address.getText().trim());
+                employee.setTelephone(views.txt_employee_telephone.getText().trim());
                 employee.setEmail(views.txt_employee_email.getText().trim());
                 employee.setPassword(String.valueOf(views.txt_employee_password.getPassword()));
                 employee.setRol(views.cmb_rol.getSelectedItem().toString());
+
                 if (employeeDao.registerEmployeeQuery(employee)) {
                     cleanTable();
+                    cleanFields();
+                    listAllEmployees();
                     JOptionPane.showMessageDialog(null, "Empleado registrado con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el empleado");
                 }
             }
-        }
+        } else if (e.getSource() == views.btn_update_employee) {
+            if (views.txt_employee_id.equals("")) {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla para continuar");
+            } else {
+                // Verificar si los campos están vacíos
+                if (views.txt_employee_id.getText().equals("")
+                        || views.txt_employee_fullname.getText().equals("")
+                        || views.cmb_rol.getSelectedItem().toString().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+                } else {
+                    // Realizar la edición
+                    employee.setId(Integer.parseInt(views.txt_employee_id.getText().trim()));
+                    employee.setFull_name(views.txt_employee_fullname.getText().trim());
+                    employee.setUsername(views.txt_employee_username.getText().trim());
+                    employee.setAddress(views.txt_employee_address.getText().trim());
+                    employee.setTelephone(views.txt_employee_telephone.getText().trim());
+                    employee.setEmail(views.txt_employee_email.getText().trim());
+                    employee.setPassword(String.valueOf(views.txt_employee_password.getPassword()));
+                    employee.setRol(views.cmb_rol.getSelectedItem().toString());
+                    if (employeeDao.updateEmployeeQuery(employee)) {
+                        cleanTable();
+                        cleanFields();
+                        listAllEmployees();
+                        views.btn_register_employee.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "Datos del empleado modificados exitosamente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el empleado");
+                    }
 
+                }
+            }
+
+        }
     }
 
     // Listar todos los empleados 
@@ -147,7 +184,20 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             listAllEmployees();
         }
     }
-    
+
+    // Limpiar campos 
+    public void cleanFields() {
+        views.txt_employee_id.setText("");
+        views.txt_employee_id.setEditable(true);
+        views.txt_employee_fullname.setText("");
+        views.txt_employee_username.setText("");
+        views.txt_employee_address.setText("");
+        views.txt_employee_telephone.setText("");
+        views.txt_employee_email.setText("");
+        views.txt_employee_password.setText("");
+        views.cmb_rol.setSelectedIndex(0);
+    }
+
     public void cleanTable() {
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
