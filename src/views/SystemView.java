@@ -31,7 +31,7 @@ public class SystemView extends javax.swing.JFrame {
         
         // Controlador de empleados
         EmployeesController employee_account = new EmployeesController(employee, employeesDao, this);
-        
+        employee_account.listAllEmployees();
     }
 
     /**
