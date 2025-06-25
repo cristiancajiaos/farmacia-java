@@ -37,6 +37,8 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
         this.views.btn_delete_employee.addActionListener(this);
         // Botón de cancelar
         this.views.btn_cancel_employee.addActionListener(this);
+        // Botón de cambiar contraseña en pestaña perfil
+        this.views.btn_modify_data.addActionListener(this);
         // Tabla de empleados
         this.views.employees_table.addMouseListener(this);
         // Campo de búsqueda de empleados
@@ -131,6 +133,26 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             views.btn_register_employee.setEnabled(true);
             views.txt_employee_password.setEnabled(true);
             views.txt_employee_id.setEnabled(true);
+        } else if (e.getSource() == views.btn_modify_data) {
+            // Recolectar información de los campos de texto password
+            String password = String.valueOf(views.txt_password_modify.getPassword());
+            String confirm_password = String.valueOf(views.txt_password_modify_confirm.getPassword());
+            // Verificar que los campos de texto de contraseña no están vacíos
+            if (!password.equals("") && !confirm_password.equals("")) {
+                 // Verificar que las contraseñas sean iguales
+                 if (password.equals(confirm_password)) {
+                     employee.setPassword(String.valueOf(views.txt_password_modify.getPassword()));
+                     if (employeeDao.updateEmployeePassword(employee)) {
+                         JOptionPane.showMessageDialog(null, "Contraseña modificada con éxito");
+                     } else {
+                         JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar la contraseña");
+                     }
+                 } else {
+                     JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
+                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+            }
         }
     }
 
