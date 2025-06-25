@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Employees;
 import models.EmployeesDAO;
+import static models.EmployeesDAO.id_user;
 import static models.EmployeesDAO.rol_user;
 import views.SystemView;
 
@@ -30,8 +31,12 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 
         // Botón de registrar empleado
         this.views.btn_register_employee.addActionListener(this);
-        // Botón de mdificar empleado
+        // Botón de modificar empleado
         this.views.btn_update_employee.addActionListener(this);
+        // Botón de eliminar empleado
+        this.views.btn_delete_employee.addActionListener(this);
+        // Botón de cancelar
+        this.views.btn_cancel_employee.addActionListener(this);
         // Tabla de empleados
         this.views.employees_table.addMouseListener(this);
         // Campo de búsqueda de empleados
@@ -103,7 +108,29 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
 
                 }
             }
-
+        } else if (e.getSource() == views.btn_delete_employee) {
+            int row = views.employees_table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Debes selecciona un empleado para eliminar");
+            } else if (views.employees_table.getValueAt(row, 0).equals(id_user)) {
+                JOptionPane.showMessageDialog(null, "No puede eliminar al usuario autenticado");
+            } else {
+                int id = Integer.parseInt(views.employees_table.getValueAt(row, 0).toString());
+                int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar a este empleado");
+                if (question == 0 && employeeDao.deleteEmployeeQuery(id) != false) {
+                    cleanTable();
+                    cleanFields();
+                    views.btn_register_employee.setEnabled(true);
+                    views.txt_employee_password.setEnabled(true);
+                    listAllEmployees();
+                    JOptionPane.showMessageDialog(null, "Empleado eliminado con éxito");
+                }
+            } 
+        } else if (e.getSource() == views.btn_cancel_employee) {
+            cleanFields();
+            views.btn_register_employee.setEnabled(true);
+            views.txt_employee_password.setEnabled(true);
+            views.txt_employee_id.setEnabled(true);
         }
     }
 
