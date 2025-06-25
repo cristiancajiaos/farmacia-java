@@ -8,6 +8,8 @@ import controllers.EmployeesController;
 import controllers.SettingsController;
 import models.Employees;
 import models.EmployeesDAO;
+import static models.EmployeesDAO.full_name_user;
+import static models.EmployeesDAO.rol_user;
 
 /**
  *
@@ -22,8 +24,9 @@ public class SystemView extends javax.swing.JFrame {
         initComponents();
         setSize(1208,680);
         setResizable(false);
-        setTitle("Panel de administración");
+        // setTitle("Panel de administración");
         setLocationRelativeTo(null);
+        titleInterface();
         
         // Controlador del settings
         SettingsController setting = new SettingsController(this);
@@ -32,6 +35,13 @@ public class SystemView extends javax.swing.JFrame {
         // Controlador de empleados
         EmployeesController employee_account = new EmployeesController(employee, employeesDao, this);
         employee_account.listAllEmployees();
+    }
+    
+    public String titleInterface() {
+        setTitle("Panel - " + rol_user);
+        label_name_employee.setText(full_name_user);
+        label_name_rol.setText(rol_user);
+        return rol_user.trim();
     }
 
     /**
@@ -66,6 +76,8 @@ public class SystemView extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         btn_photo = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
+        label_name_employee = new javax.swing.JLabel();
+        label_name_rol = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         tab_products = new javax.swing.JPanel();
         panel_products = new javax.swing.JPanel();
@@ -444,7 +456,15 @@ public class SystemView extends javax.swing.JFrame {
         });
         jPanel3.add(btn_logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 35, -1, 30));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1010, 100));
+        label_name_employee.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_name_employee.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(label_name_employee, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 160, -1));
+
+        label_name_rol.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_name_rol.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.add(label_name_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 160, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1010, 100));
 
         tab_products.setBackground(new java.awt.Color(152, 202, 63));
         tab_products.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1713,7 +1733,9 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel label_employee_telephone;
     private javax.swing.JLabel label_employee_username;
     private javax.swing.JLabel label_id_profile;
+    public javax.swing.JLabel label_name_employee;
     private javax.swing.JLabel label_name_profile;
+    public javax.swing.JLabel label_name_rol;
     private javax.swing.JLabel label_password_modify;
     private javax.swing.JLabel label_password_modify_confirm;
     private javax.swing.JLabel label_phone_profile;

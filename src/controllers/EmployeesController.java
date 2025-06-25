@@ -39,6 +39,8 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
         this.views.btn_cancel_employee.addActionListener(this);
         // Botón de cambiar contraseña en pestaña perfil
         this.views.btn_modify_data.addActionListener(this);
+        // Panel de empleados en menú lateral
+        this.views.jPanelEmployees.addMouseListener(this);
         // Tabla de empleados
         this.views.employees_table.addMouseListener(this);
         // Campo de búsqueda de empleados
@@ -193,6 +195,21 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             views.txt_employee_id.setEditable(false);
             views.txt_employee_password.setEnabled(false);
             views.btn_register_employee.setEnabled(false);
+        } else if (e.getSource() == views.jPanelEmployees) {
+            if (rol.equals("Administrador")) {
+                // Setear pestaña de Empleados
+                views.jTabbedPane1.setSelectedIndex(3);
+                // Limpiar tabla
+                cleanTable();
+                // Limpiar campos 
+                cleanFields();
+                // Listar empleados
+                listAllEmployees();
+            } else {
+                views.jTabbedPane1.setEnabledAt(3, false);
+                views.jLabelEmployees.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            }
         }
     }
 
