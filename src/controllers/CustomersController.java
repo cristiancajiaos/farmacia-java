@@ -27,6 +27,8 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
         this.views = views;
         // Botón de registrar cliente
         this.views.btn_register_customer.addActionListener(this);
+        // Botón de modificar cliente
+        this.views.btn_update_customer.addActionListener(this);
         // Tabla de clientes
         this.views.customers_table.addMouseListener(this);
         // Campo de búsqueda de clientes
@@ -50,11 +52,46 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
                 customer.setTelephone(views.txt_customer_telephone.getText().trim());
                 customer.setEmail(views.txt_customer_email.getText().trim());
                 if (customerDAO.registerCustomerQuery(customer)) {
-                    // Limpiar tabla 
+                    cleanTable();
+                    cleanFields();
                     listAllCustomers();
                     JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el cliente");
+                }
+            }
+        } else if (e.getSource() == views.btn_update_customer) {
+            if (views.txt_customer_id.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila para continuar");
+            } else {
+                if (views.txt_customer_id.getText().equals("")
+                    || views.txt_customer_fullname.getText().equals("")
+                    || views.txt_customer_address.getText().equals("")
+                    || views.txt_customer_telephone.getText().equals("")
+                    || views.txt_customer_email.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+                } else {
+                    customer.setId(Integer.parseInt(views.txt_customer_id.getText().trim()));
+                    customer.setFull_name(views.txt_customer_fullname.getText().trim());
+                    customer.setAddress(views.txt_customer_address.getText().trim());
+                    customer.setTelephone(views.txt_customer_telephone.getText().trim());
+                    customer.setEmail(views.txt_customer_email.getText().trim());
+                    System.out.println("Update customer");
+                    System.out.println(customer.getId());
+                    System.out.println(customer.getFull_name());
+                    System.out.println(customer.getAddress());
+                    System.out.println(customer.getTelephone());
+                    System.out.println(customer.getEmail());
+                    if (customerDAO.updateCustomerQuery(customer)) {
+                        cleanTable();
+                        cleanFields();
+                        listAllCustomers();
+                        views.btn_register_customer.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "Datos del cliente modificados con éxito");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al actualizar el cliente");
+                        
+                    }
                 }
             }
         }
@@ -80,7 +117,7 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == views.customers_table) {
             int row = views.customers_table.rowAtPoint(e.getPoint());
-            views.txt_customer_id.setText(views.employees_table.getValueAt(row, 0).toString());
+            views.txt_customer_id.setText(views.customers_table.getValueAt(row, 0).toString());
             views.txt_customer_fullname.setText(views.customers_table.getValueAt(row, 1).toString());
             views.txt_customer_address.setText(views.customers_table.getValueAt(row, 2).toString());
             views.txt_customer_telephone.setText(views.customers_table.getValueAt(row, 3).toString());
@@ -132,7 +169,16 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
         }
     }
     
-     public void cleanTable() {
+    public void cleanFields() {
+        views.txt_customer_id.setText("");
+        views.txt_customer_id.setEditable(true);
+        views.txt_customer_fullname.setText("");
+        views.txt_customer_address.setText("");
+        views.txt_customer_telephone.setText("");
+        views.txt_customer_email.setText("");
+    }
+    
+    public void cleanTable() {
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
             i = i - 1;

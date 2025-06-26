@@ -82,7 +82,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
                 }
             }
         } else if (e.getSource() == views.btn_update_employee) {
-            if (views.txt_employee_id.equals("")) {
+            if (views.txt_employee_id.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla para continuar");
             } else {
                 // Verificar si los campos están vacíos

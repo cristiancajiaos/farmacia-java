@@ -11,20 +11,20 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class CustomersDAO {
-    
+
     // Instanciar la conexión
     ConnectionMySQL cn = new ConnectionMySQL();
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
-    
+
     // Registrar cliente 
     public boolean registerCustomerQuery(Customers customer) {
         String query = "INSERT INTO customers(id, full_name, address, "
                 + "telephone, email, created, updated) "
                 + "VALUES(?, ?, ?, ?, ?, ?, ?)";
         Timestamp datetime = new Timestamp(new Date().getTime());
-        
+
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -45,14 +45,14 @@ public class CustomersDAO {
             return false;
         }
     }
-    
+
     // Listar clientes
     public List listCustomersQuery(String value) {
         List<Customers> list_customers = new ArrayList();
         String query = "SELECT * FROM customers";
         String query_search_customer = "SELECT * FROM customers "
-                                     + "WHERE id LIKE '%" + value + "%'";
-        
+                + "WHERE id LIKE '%" + value + "%'";
+
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(value.equalsIgnoreCase("") ? query : query_search_customer);
@@ -75,13 +75,20 @@ public class CustomersDAO {
         }
         return list_customers;
     }
-    
+
     // Modificar cliente
-    public boolean updateCustomerQuery(Customers customer){
-        String query = "UPDATE customers SET full_name = ?, address = ?, "  
-                     + "telephone = ?, email = ?, updated = ? WHERE id = ?";
+    public boolean updateCustomerQuery(Customers customer) {
+        String query = "UPDATE customers SET full_name = ?, address = ?, "
+                + "telephone = ?, email = ?, updated = ? WHERE id = ?";
         Timestamp datetime = new Timestamp(new Date().getTime());
-        
+
+        System.out.println("Update customer query");
+        System.out.println(customer.getId());
+        System.out.println(customer.getFull_name());
+        System.out.println(customer.getAddress());
+        System.out.println(customer.getTelephone());
+        System.out.println(customer.getEmail());
+
         try {
             conn = cn.getConnection();
             pst = conn.prepareStatement(query);
@@ -93,7 +100,7 @@ public class CustomersDAO {
             pst.setInt(6, customer.getId());
             pst.execute();
             return true;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido "
                     + "un error al modificar los datos del "
                     + "cliente:" + e.getMessage());
@@ -102,7 +109,7 @@ public class CustomersDAO {
             return false;
         }
     }
-    
+
     // Eliminar cliente
     public boolean deleteCustomerQuery(int id) {
         String query = "DELETE FROM customers WHERE id = " + id;
@@ -120,5 +127,5 @@ public class CustomersDAO {
             return false;
         }
     }
-    
+
 }
