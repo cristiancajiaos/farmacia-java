@@ -2,6 +2,8 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -11,7 +13,7 @@ import models.Customers;
 import models.CustomersDAO;
 import views.SystemView;
 
-public class CustomersController implements ActionListener, MouseListener {
+public class CustomersController implements ActionListener, MouseListener, KeyListener {
 
     private Customers customer;
     private CustomersDAO customerDAO;
@@ -27,7 +29,8 @@ public class CustomersController implements ActionListener, MouseListener {
         this.views.btn_register_customer.addActionListener(this);
         // Tabla de clientes
         this.views.customers_table.addMouseListener(this);
-
+        // Campo de búsqueda de clientes
+        this.views.txt_search_customer.addKeyListener(this);
     }
 
     @Override
@@ -47,6 +50,8 @@ public class CustomersController implements ActionListener, MouseListener {
                 customer.setTelephone(views.txt_customer_telephone.getText().trim());
                 customer.setEmail(views.txt_customer_email.getText().trim());
                 if (customerDAO.registerCustomerQuery(customer)) {
+                    // Limpiar tabla 
+                    listAllCustomers();
                     JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el cliente");
@@ -105,6 +110,33 @@ public class CustomersController implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() == views.txt_search_customer) {
+            // Limpiar tabla
+            cleanTable();
+            // Listar clientes
+            listAllCustomers();
+        }
+    }
+    
+     public void cleanTable() {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+            i = i - 1;
+        }
     }
 
 }
