@@ -4,8 +4,11 @@
  */
 package views;
 
+import controllers.CustomersController;
 import controllers.EmployeesController;
 import controllers.SettingsController;
+import models.Customers;
+import models.CustomersDAO;
 import models.Employees;
 import models.EmployeesDAO;
 import static models.EmployeesDAO.full_name_user;
@@ -17,8 +20,12 @@ import static models.EmployeesDAO.rol_user;
  */
 public class SystemView extends javax.swing.JFrame {
     
+    // Empleados
     Employees employee = new Employees();
     EmployeesDAO employeesDao = new EmployeesDAO();
+    // Clientes
+    Customers customer = new Customers();
+    CustomersDAO customersDao = new CustomersDAO();
 
     public SystemView() {
         initComponents();
@@ -35,6 +42,9 @@ public class SystemView extends javax.swing.JFrame {
         // Controlador de empleados
         EmployeesController employee_account = new EmployeesController(employee, employeesDao, this);
         employee_account.listAllEmployees();
+        
+        // Controlador de clientes
+        CustomersController customer_account = new CustomersController(customer, customersDao, this); 
     }
     
     public String titleInterface() {
