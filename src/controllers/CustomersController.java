@@ -2,7 +2,9 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import models.Customers;
 import models.CustomersDAO;
 import views.SystemView;
@@ -12,6 +14,8 @@ public class CustomersController implements ActionListener {
     private Customers customer;
     private CustomersDAO customerDAO;
     private SystemView views;
+    
+    DefaultTableModel model = new DefaultTableModel();
 
     public CustomersController(Customers customer, CustomersDAO customerDAO, SystemView views) {
         this.customer = customer;
@@ -46,6 +50,21 @@ public class CustomersController implements ActionListener {
             }
         }
 
+    }
+    
+    public void listAllCustomers() {
+        List<Customers> list = customerDAO.listCustomersQuery(views.txt_search_customer.getText());
+        model = (DefaultTableModel) views.customers_table.getModel();
+        Object[] row = new Object[5];
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getId();
+            row[1] = list.get(i).getFull_name();
+            row[2] = list.get(i).getTelephone();
+            row[3] = list.get(i).getAddress();
+            row[4] = list.get(i).getEmail();
+            model.addRow(row);
+        }
+        views.customers_table.setModel(model);
     }
 
 }
