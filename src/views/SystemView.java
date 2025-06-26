@@ -939,7 +939,7 @@ public class SystemView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Identificación", "Nombre", "Teléfono", "Dirección ", "Correo"
+                "Identificación", "Nombre", "Dirección", "Teléfono", "Correo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -952,10 +952,8 @@ public class SystemView extends javax.swing.JFrame {
         });
         scrollpane_customers_table.setViewportView(customers_table);
         if (customers_table.getColumnModel().getColumnCount() > 0) {
-            customers_table.getColumnModel().getColumn(0).setResizable(false);
-            customers_table.getColumnModel().getColumn(1).setResizable(false);
-            customers_table.getColumnModel().getColumn(2).setResizable(false);
             customers_table.getColumnModel().getColumn(3).setResizable(false);
+            customers_table.getColumnModel().getColumn(4).setResizable(false);
         }
 
         tab_customers.add(scrollpane_customers_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));

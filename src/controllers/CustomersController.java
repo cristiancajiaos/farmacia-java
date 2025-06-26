@@ -2,6 +2,8 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -9,7 +11,7 @@ import models.Customers;
 import models.CustomersDAO;
 import views.SystemView;
 
-public class CustomersController implements ActionListener {
+public class CustomersController implements ActionListener, MouseListener {
 
     private Customers customer;
     private CustomersDAO customerDAO;
@@ -23,6 +25,8 @@ public class CustomersController implements ActionListener {
         this.views = views;
         // Botón de registrar cliente
         this.views.btn_register_customer.addActionListener(this);
+        // Tabla de clientes
+        this.views.customers_table.addMouseListener(this);
 
     }
 
@@ -59,12 +63,48 @@ public class CustomersController implements ActionListener {
         for (int i = 0; i < list.size(); i++) {
             row[0] = list.get(i).getId();
             row[1] = list.get(i).getFull_name();
-            row[2] = list.get(i).getTelephone();
-            row[3] = list.get(i).getAddress();
+            row[2] = list.get(i).getAddress();
+            row[3] = list.get(i).getTelephone();
             row[4] = list.get(i).getEmail();
             model.addRow(row);
         }
         views.customers_table.setModel(model);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getSource() == views.customers_table) {
+            int row = views.customers_table.rowAtPoint(e.getPoint());
+            views.txt_customer_id.setText(views.employees_table.getValueAt(row, 0).toString());
+            views.txt_customer_fullname.setText(views.customers_table.getValueAt(row, 1).toString());
+            views.txt_customer_address.setText(views.customers_table.getValueAt(row, 2).toString());
+            views.txt_customer_telephone.setText(views.customers_table.getValueAt(row, 3).toString());
+            views.txt_customer_email.setText(views.customers_table.getValueAt(row, 4).toString());
+            // Deshabilitar botones
+            views.btn_register_customer.setEnabled(false);
+            views.txt_customer_id.setEditable(false);
+        }
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
     }
 
 }
