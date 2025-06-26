@@ -33,6 +33,8 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
         this.views.btn_delete_customer.addActionListener(this);
         // Botón de cancelar
         this.views.btn_cancel_customer.addActionListener(this);
+        // Panel de empleados en menú lateral
+        this.views.jPanelCustomers.addMouseListener(this);
         // Tabla de clientes
         this.views.customers_table.addMouseListener(this);
         // Campo de búsqueda de clientes
@@ -147,6 +149,11 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
             // Deshabilitar botones
             views.btn_register_customer.setEnabled(false);
             views.txt_customer_id.setEditable(false);
+        } else if (e.getSource() == views.jPanelCustomers) {
+            views.jTabbedPane1.setSelectedIndex(2);
+            cleanTable();
+            cleanFields();
+            listAllCustomers();
         }
         
     }
