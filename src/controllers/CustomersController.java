@@ -29,6 +29,10 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
         this.views.btn_register_customer.addActionListener(this);
         // Botón de modificar cliente
         this.views.btn_update_customer.addActionListener(this);
+        // Botón de eliminar cliente
+        this.views.btn_delete_customer.addActionListener(this);
+        // Botón de cancelar
+        this.views.btn_cancel_customer.addActionListener(this);
         // Tabla de clientes
         this.views.customers_table.addMouseListener(this);
         // Campo de búsqueda de clientes
@@ -94,8 +98,26 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
                     }
                 }
             }
+        } else if (e.getSource() == views.btn_delete_customer) {
+            int row = views.customers_table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar un cliente para eliminar");
+            } else {
+                int id = Integer.parseInt(views.customers_table.getValueAt(row, 0).toString());
+                int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar a este cliente?");
+                if (question == 0 && customerDAO.deleteCustomerQuery(id) != false) {
+                    cleanTable();
+                    cleanFields();
+                    views.btn_register_customer.setEnabled(true);
+                    listAllCustomers();
+                    JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito");
+                }
+            }
+        } else if (e.getSource() == views.btn_cancel_customer) {
+            views.btn_register_customer.setEnabled(true);
+            cleanFields();
+         
         }
-
     }
     
     public void listAllCustomers() {
