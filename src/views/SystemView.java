@@ -7,12 +7,15 @@ package views;
 import controllers.CustomersController;
 import controllers.EmployeesController;
 import controllers.SettingsController;
+import controllers.SuppliersController;
 import models.Customers;
 import models.CustomersDAO;
 import models.Employees;
 import models.EmployeesDAO;
 import static models.EmployeesDAO.full_name_user;
 import static models.EmployeesDAO.rol_user;
+import models.Suppliers;
+import models.SuppliersDAO;
 
 /**
  *
@@ -22,10 +25,13 @@ public class SystemView extends javax.swing.JFrame {
     
     // Empleados
     Employees employee = new Employees();
-    EmployeesDAO employeesDao = new EmployeesDAO();
+    EmployeesDAO employeesDAO = new EmployeesDAO();
     // Clientes
     Customers customer = new Customers();
-    CustomersDAO customersDao = new CustomersDAO();
+    CustomersDAO customersDAO = new CustomersDAO();
+    // Proveedores
+    Suppliers supplier = new Suppliers();
+    SuppliersDAO suppliersDAO = new SuppliersDAO();
 
     public SystemView() {
         initComponents();
@@ -40,12 +46,16 @@ public class SystemView extends javax.swing.JFrame {
         this.repaint();
         
         // Controlador de empleados
-        EmployeesController employee_account = new EmployeesController(employee, employeesDao, this);
+        EmployeesController employee_account = new EmployeesController(employee, employeesDAO, this);
         employee_account.listAllEmployees();
         
         // Controlador de clientes
-        CustomersController customer_account = new CustomersController(customer, customersDao, this); 
+        CustomersController customer_account = new CustomersController(customer, customersDAO, this); 
         customer_account.listAllCustomers();
+        
+        // Controlador de proveedores
+        SuppliersController supplier_account = new SuppliersController(supplier, suppliersDAO, this);
+        // supplier_account
     }
     
     public String titleInterface() {
