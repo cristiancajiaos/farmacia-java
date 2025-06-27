@@ -32,6 +32,10 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
         this.views.btn_register_supplier.addActionListener(this);
         // Botón de modificar proveedor
         this.views.btn_update_supplier.addActionListener(this);
+        // Botón de eliminar proveedor
+        this.views.btn_delete_supplier.addActionListener(this);
+        // Botón de cancelar proveedor
+        this.views.btn_cancel_supplier.addActionListener(this);
         // Tabla de proveedores
         this.views.suppliers_table.addMouseListener(this);
         // Campo de búsqueda de proveedores
@@ -85,14 +89,32 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
                     supplier.setCity(views.cmb_supplier_city.getSelectedItem().toString());
                     if (supplierDAO.updateSupplierQuery(supplier)) {
                         cleanTable();
-                        // limpiar campos 
+                        cleanFields();
                         listAllSuppliers();
+                        views.btn_register_supplier.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "Datos del proveedor modificados con éxito");
                     } else {
                         JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el proveedor");
                     }
                 }
             }
+        } else if (e.getSource() == views.btn_delete_supplier) {
+            int row = views.suppliers_table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Seleccione un proveedor para eliminar");
+            } else {
+                int id = Integer.parseInt(views.suppliers_table.getValueAt(row, 0).toString());
+                int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar a este proveedor?");
+                if (question == 0 && supplierDAO.deleteSupplierQuery(id)) {
+                    cleanTable();
+                    cleanFields();
+                    listAllSuppliers();
+                    JOptionPane.showMessageDialog(null, "Proveedor eliminado con éxito");
+                }
+            }
+        } else if (e.getSource() == views.btn_cancel_supplier) {
+            cleanFields();
+            views.btn_register_supplier.setEnabled(true);
         }
     }
 
