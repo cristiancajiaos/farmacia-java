@@ -30,6 +30,8 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 
         // Botón de registrar proveedor
         this.views.btn_register_supplier.addActionListener(this);
+        // Botón de modificar proveedor
+        this.views.btn_update_supplier.addActionListener(this);
         // Tabla de proveedores
         this.views.suppliers_table.addMouseListener(this);
         // Campo de búsqueda de proveedores
@@ -59,7 +61,36 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
                     listAllSuppliers();
                     JOptionPane.showMessageDialog(null, "Proveedor registrado con éxito");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ha habido un error al registrar el proveedor");
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el proveedor");
+                }
+            }
+        } else if (e.getSource() == views.btn_update_supplier) {
+            if (views.txt_supplier_id.equals("")) {
+                JOptionPane.showMessageDialog(null, "Selecciona un proveedor en la tabla para editarlo");
+            } else {
+                if (views.txt_supplier_name.getText().equals("")
+                        || views.txt_supplier_address.getText().equals("")
+                        || views.txt_supplier_telephone.getText().equals("")
+                        || views.txt_supplier_email.getText().equals("")
+                        || views.txt_supplier_description.getText().equals("")
+                        || views.cmb_supplier_city.getSelectedItem().toString().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+                } else {
+                    supplier.setId(Integer.parseInt(views.txt_supplier_id.getText()));
+                    supplier.setName(views.txt_supplier_name.getText().trim());
+                    supplier.setAddress(views.txt_supplier_address.getText().trim());
+                    supplier.setTelephone(views.txt_supplier_telephone.getText().trim());
+                    supplier.setEmail(views.txt_supplier_email.getText().trim());
+                    supplier.setDescription(views.txt_supplier_description.getText().trim());
+                    supplier.setCity(views.cmb_supplier_city.getSelectedItem().toString());
+                    if (supplierDAO.updateSupplierQuery(supplier)) {
+                        cleanTable();
+                        // limpiar campos 
+                        listAllSuppliers();
+                        JOptionPane.showMessageDialog(null, "Datos del proveedor modificados con éxito");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el proveedor");
+                    }
                 }
             }
         }
@@ -126,12 +157,12 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 
     @Override
     public void keyTyped(KeyEvent e) {
-        
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
+
     }
 
     @Override
@@ -142,14 +173,25 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
             // Listar todos los proveedores
             listAllSuppliers();
         }
-        
+
     }
-    
+
     public void cleanTable() {
         for (int i = 0; i < model.getRowCount(); i++) {
             model.removeRow(i);
             i = i - 1;
         }
+    }
+
+    public void cleanFields() {
+        views.txt_supplier_id.setText("");
+        views.txt_supplier_id.setEditable(true);
+        views.txt_supplier_name.setText("");
+        views.txt_supplier_description.setText("");
+        views.txt_supplier_address.setText("");
+        views.txt_supplier_telephone.setText("");
+        views.txt_supplier_email.setText("");
+        views.cmb_supplier_city.setSelectedIndex(0);
     }
 
 }
