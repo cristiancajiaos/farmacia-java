@@ -34,6 +34,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         this.views.btn_update_category.addActionListener(this);
         // Botón de eliminar categoría
         this.views.btn_delete_category.addActionListener(this);
+        // Botón de cancelar categoría
+        this.views.btn_cancel_category.addActionListener(this);
         // Tabla de categorías
         this.views.categories_table.addMouseListener(this);
         // Campo de búsqueda de categorías
@@ -95,6 +97,9 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar eliminar la categoría");
                 }
             }
+        } else if (e.getSource() == views.btn_cancel_category) {
+            cleanFields();
+            views.btn_register_category.setEnabled(true);
         }
 
     }
