@@ -495,7 +495,7 @@ public class SystemView extends javax.swing.JFrame {
         label_name_rol.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.add(label_name_rol, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 60, 160, -1));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 1010, 100));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1010, 100));
 
         tab_products.setBackground(new java.awt.Color(152, 202, 63));
         tab_products.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
