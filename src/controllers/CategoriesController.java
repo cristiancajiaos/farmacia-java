@@ -36,6 +36,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         this.views.btn_delete_category.addActionListener(this);
         // Botón de cancelar categoría
         this.views.btn_cancel_category.addActionListener(this);
+        // Panel de categorías en el menú lateral
+        this.views.jPanelCategories.addMouseListener(this);
         // Tabla de categorías
         this.views.categories_table.addMouseListener(this);
         // Campo de búsqueda de categorías
@@ -93,8 +95,6 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     views.btn_register_category.setEnabled(true);
                     listAllCategories();
                     JOptionPane.showMessageDialog(null, "La categoría se ha eliminado exitosamente");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar eliminar la categoría");
                 }
             }
         } else if (e.getSource() == views.btn_cancel_category) {
@@ -126,6 +126,17 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
             views.txt_category_id.setText(views.categories_table.getValueAt(row, 0).toString());
             views.txt_category_name.setText(views.categories_table.getValueAt(row, 1).toString());
             views.btn_register_category.setEnabled(false);
+        } else if (e.getSource() == views.jPanelCategories) {
+            if (rol.equals("Administrador")) {
+                views.jTabbedPane1.setSelectedIndex(5);
+                cleanTable();
+                cleanFields();
+                listAllCategories();
+            } else {
+                views.jTabbedPane1.setEnabledAt(5, false);
+                views.jLabelCategories.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            }
         }
     }
 
