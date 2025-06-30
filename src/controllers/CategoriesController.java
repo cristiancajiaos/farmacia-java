@@ -30,6 +30,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
 
         // Botón de registrar categoría
         this.views.btn_register_category.addActionListener(this);
+        // Botón de modificar categoría
+        this.views.btn_update_category.addActionListener(this);
         // Tabla de categorías
         this.views.categories_table.addMouseListener(this);
         // Campo de búsqueda de categorías
@@ -46,10 +48,32 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                 category.setName(views.txt_category_name.getText().trim());
                 if (categoryDAO.registerCategoryQuery(category)) {
                     cleanTable();
+                    cleanFields();
                     listAllCategories();
                     JOptionPane.showMessageDialog(null, "Categoría registrada con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la categoría");
+                }
+            }
+        } else if (e.getSource() == views.btn_update_category) {
+            if (views.txt_category_id.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla para continuar");
+            } else {
+                if (views.txt_category_id.getText().equals("") 
+                    || views.txt_category_name.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+                } else {
+                    category.setId(Integer.parseInt(views.txt_category_id.getText()));
+                    category.setName(views.txt_category_name.getText());
+                    if (categoryDAO.updateCategoryQuery(category)) {
+                        cleanTable();
+                        cleanFields();
+                        views.btn_register_category.setEnabled(true);
+                        listAllCategories();
+                        JOptionPane.showMessageDialog(null, "Los datos de la categoría se han modificado exitosamente");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Hubo un error al intentar modificar la categoría");
+                    }
                 }
             }
         }
@@ -126,6 +150,12 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
             model.removeRow(i);
             i = i - 1;
         }
+    }
+    
+    public void cleanFields() {
+        views.txt_category_id.setText("");
+        views.txt_category_id.setEditable(true);
+        views.txt_category_name.setText("");
     }
 
 }
