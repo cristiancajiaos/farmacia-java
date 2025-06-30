@@ -36,6 +36,8 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
         this.views.btn_delete_supplier.addActionListener(this);
         // Botón de cancelar proveedor
         this.views.btn_cancel_supplier.addActionListener(this);
+        // Panel de proveedores en menú lateral
+        this.views.jPanelSuppliers.addMouseListener(this);
         // Tabla de proveedores
         this.views.suppliers_table.addMouseListener(this);
         // Campo de búsqueda de proveedores
@@ -152,7 +154,21 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
             views.cmb_supplier_city.setSelectedItem(views.employees_table.getValueAt(row, 6).toString());
             views.btn_register_supplier.setEnabled(false);
             views.txt_supplier_id.setEditable(false);
-
+        } else if (e.getSource() == views.jPanelSuppliers) {
+            if (rol.equals("Administrador")) {
+                // Setear pestaña de proveedores
+                views.jTabbedPane1.setSelectedIndex(4);
+                // Limpiar tabla
+                cleanTable();
+                // Limpiar campos 
+                cleanFields();
+                // Lista proveedores
+                listAllSuppliers();
+            } else {
+                views.jTabbedPane1.setEnabledAt(4, false);
+                views.jLabelSuppliers.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            }
         }
 
     }
