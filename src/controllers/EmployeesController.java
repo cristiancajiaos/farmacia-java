@@ -174,6 +174,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
                 row[6] = list.get(i).getRol();
                 model.addRow(row);
             }
+            views.employees_table.setModel(model);
         } else {
         }
     }

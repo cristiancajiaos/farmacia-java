@@ -65,6 +65,7 @@ public class SystemView extends javax.swing.JFrame {
         
         // Controlador de categorías
         CategoriesController category_section = new CategoriesController(category, categoriesDAO, this);
+        category_section.listAllCategories();
     }
     
     public String titleInterface() {
