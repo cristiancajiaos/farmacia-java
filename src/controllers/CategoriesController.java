@@ -32,6 +32,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         this.views.btn_register_category.addActionListener(this);
         // Botón de modificar categoría
         this.views.btn_update_category.addActionListener(this);
+        // Botón de eliminar categoría
+        this.views.btn_delete_category.addActionListener(this);
         // Tabla de categorías
         this.views.categories_table.addMouseListener(this);
         // Campo de búsqueda de categorías
@@ -74,6 +76,23 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     } else {
                         JOptionPane.showMessageDialog(null, "Hubo un error al intentar modificar la categoría");
                     }
+                }
+            }
+        } else if (e.getSource() == views.btn_delete_category) {
+            int row = views.categories_table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(views, "seleccione una fila de la tabla para continuar");
+            } else{
+                int id = Integer.parseInt(views.categories_table.getValueAt(row, 0).toString());
+                int question = JOptionPane.showConfirmDialog(null, "¿En verdad desea eliminar esta categoría?");
+                if (question == 0 && categoryDAO.deleteCategoryQuery(id)) {
+                    cleanTable();
+                    cleanFields();
+                    views.btn_register_category.setEnabled(true);
+                    listAllCategories();
+                    JOptionPane.showMessageDialog(null, "La categoría se ha eliminado exitosamente");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ha ocurrido un error al intentar eliminar la categoría");
                 }
             }
         }
