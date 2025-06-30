@@ -2,6 +2,8 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
@@ -12,7 +14,7 @@ import models.CategoriesDAO;
 import static models.EmployeesDAO.rol_user;
 import views.SystemView;
 
-public class CategoriesController implements ActionListener, MouseListener {
+public class CategoriesController implements ActionListener, MouseListener, KeyListener {
 
     private Categories category;
     private CategoriesDAO categoryDAO;
@@ -30,6 +32,8 @@ public class CategoriesController implements ActionListener, MouseListener {
         this.views.btn_register_category.addActionListener(this);
         // Tabla de categorías
         this.views.categories_table.addMouseListener(this);
+        // Campo de búsqueda de categorías
+        this.views.txt_search_category.addKeyListener(this);
 
     }
 
@@ -41,6 +45,8 @@ public class CategoriesController implements ActionListener, MouseListener {
             } else {
                 category.setName(views.txt_category_name.getText().trim());
                 if (categoryDAO.registerCategoryQuery(category)) {
+                    cleanTable();
+                    listAllCategories();
                     JOptionPane.showMessageDialog(null, "Categoría registrada con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la categoría");
@@ -49,18 +55,20 @@ public class CategoriesController implements ActionListener, MouseListener {
         }
 
     }
-    
+
     // Listar todas las categorías
     public void listAllCategories() {
-        List<Categories> list = categoryDAO.listCategoriesQuery(views.txt_search_category.getText());
-        model = (DefaultTableModel) views.categories_table.getModel();
-        Object[] row = new Object[2];
-        for (int i = 0; i < list.size(); i++) {
-            row[0] = list.get(i).getId();
-            row[1] = list.get(i).getName();
-            model.addRow(row);
+        if (rol.equals("Administrador")) {
+            List<Categories> list = categoryDAO.listCategoriesQuery(views.txt_search_category.getText());
+            model = (DefaultTableModel) views.categories_table.getModel();
+            Object[] row = new Object[2];
+            for (int i = 0; i < list.size(); i++) {
+                row[0] = list.get(i).getId();
+                row[1] = list.get(i).getName();
+                model.addRow(row);
+            }
+            views.categories_table.setModel(model);
         }
-        views.categories_table.setModel(model);
     }
 
     @Override
@@ -75,22 +83,49 @@ public class CategoriesController implements ActionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() == views.txt_search_category) {
+            // Limpiar tabla
+            cleanTable();
+            // Listar todas las categorías 
+            listAllCategories();
+        }
+    }
+
+    public void cleanTable() {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+            i = i - 1;
+        }
     }
 
 }
