@@ -33,6 +33,10 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
         this.views.btn_register_product.addActionListener(this);
         // Botón de modificar producto
         this.views.btn_update_product.addActionListener(this);
+        // Botón de eliminar producto
+        this.views.btn_delete_product.addActionListener(this);
+        // Botón de cancelar
+        this.views.btn_cancel_product.addActionListener(this);
         // Tabla de productos
         this.views.products_table.addMouseListener(this);
         // Campo de búsqueda de productos
@@ -94,8 +98,25 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
                     }
                 }
             }
+        } else if (e.getSource() == views.btn_delete_product) {
+            int row = views.products_table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(null, "Seleccione un producto de la tabla");
+            } else {
+                int id = Integer.parseInt(views.products_table.getValueAt(row, 0).toString());
+                int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar este producto");
+                if (question == 0 && productDAO.deleteProductQuery(id)) {
+                    cleanTable();
+                    cleanFields();
+                    views.btn_register_product.setEnabled(true);
+                    listAllProducts();
+                    JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente");
+                } 
+            }
+        } else if (e.getSource() == views.btn_cancel_product) {
+            cleanFields();
+            views.btn_register_product.setEnabled(true);
         }
-        
     }
     
     // Listas productos 
@@ -114,7 +135,7 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
                 row[6] = list.get(i).getCategory_name();
                 model.addRow(row);
             }
-            views.categories_table.setModel(model);
+            views.products_table.setModel(model);
             
             if (rol.equals("Auxiliar")) {
                 views.btn_register_product.setEnabled(false);
