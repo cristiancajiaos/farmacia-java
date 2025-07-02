@@ -75,6 +75,7 @@ public class SystemView extends javax.swing.JFrame {
         
         // Controlador de productos
         ProductsController product_section = new ProductsController(product, productsDAO, this);
+        product_section.listAllProducts();
     }
     
     public String titleInterface() {
@@ -659,20 +660,10 @@ public class SystemView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Código", "Nombre", "Descripción", "Precio de venta", "Cantidad"
+                "Id", "Código", "Nombre", "Descripción", "Precio de venta", "Cantidad", "Categoría"
             }
         ));
         scrollpane_products_table.setViewportView(products_table);
-        if (products_table.getColumnModel().getColumnCount() > 0) {
-            products_table.getColumnModel().getColumn(0).setResizable(false);
-            products_table.getColumnModel().getColumn(0).setHeaderValue("Id");
-            products_table.getColumnModel().getColumn(1).setHeaderValue("Código");
-            products_table.getColumnModel().getColumn(2).setResizable(false);
-            products_table.getColumnModel().getColumn(2).setHeaderValue("Nombre");
-            products_table.getColumnModel().getColumn(3).setHeaderValue("Descripción");
-            products_table.getColumnModel().getColumn(4).setHeaderValue("Precio de venta");
-            products_table.getColumnModel().getColumn(5).setHeaderValue("Cantidad");
-        }
 
         tab_products.add(scrollpane_products_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
 
