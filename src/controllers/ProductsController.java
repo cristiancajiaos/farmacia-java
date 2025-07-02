@@ -37,6 +37,8 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
         this.views.btn_delete_product.addActionListener(this);
         // Botón de cancelar
         this.views.btn_cancel_product.addActionListener(this);
+        // Panel de productos en menú lateral
+        this.views.jPanelProducts.addMouseListener(this);
         // Tabla de productos
         this.views.products_table.addMouseListener(this);
         // Campo de búsqueda de productos
@@ -165,6 +167,11 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
             views.txt_product_unit_price.setText(""+product.getUnit_price());
             views.cmb_product_category.setSelectedItem(new DynamicComboBox(product.getCategory_id(), product.getCategory_name()));
             views.btn_register_product.setEnabled(false);
+        } else if (e.getSource() == views.jPanelProducts) {
+            views.jTabbedPane1.setSelectedIndex(0);
+            cleanTable();
+            cleanFields();
+            listAllProducts();
         }
     }
 
