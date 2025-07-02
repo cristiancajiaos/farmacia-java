@@ -62,6 +62,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     cleanTable();
                     cleanFields();
                     listAllCategories();
+                    clearCategories();
+                    getCategoryName();
                     JOptionPane.showMessageDialog(null, "Categoría registrada con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la categoría");
@@ -82,6 +84,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                         cleanFields();
                         views.btn_register_category.setEnabled(true);
                         listAllCategories();
+                        clearCategories();
+                        getCategoryName();
                         JOptionPane.showMessageDialog(null, "Los datos de la categoría se han modificado exitosamente");
                     } else {
                         JOptionPane.showMessageDialog(null, "Hubo un error al intentar modificar la categoría");
@@ -100,6 +104,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     cleanFields();
                     views.btn_register_category.setEnabled(true);
                     listAllCategories();
+                    clearCategories();
+                    getCategoryName();
                     JOptionPane.showMessageDialog(null, "La categoría se ha eliminado exitosamente");
                 }
             }
@@ -197,6 +203,10 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         views.txt_category_id.setText("");
         views.txt_category_id.setEditable(true);
         views.txt_category_name.setText("");
+    }
+    
+    public void clearCategories() {
+        views.cmb_product_category.removeAllItems();
     }
     
     // Método para mostrar el nombre de las categorías
