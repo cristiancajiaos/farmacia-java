@@ -44,6 +44,8 @@ public class PurchasesController implements KeyListener, ActionListener {
         this.views.btn_confirm_purchase.addActionListener(this);
         // Botón de eliminar compra
         this.views.btn_remove_purchase.addActionListener(this);
+        // Botón "Nuevo"
+        this.views.btn_new_purchase.addActionListener(this);
         // Campo de código de compra
         this.views.txt_purchase_product_code.addKeyListener(this);
         // Campo de precio de venta de compra
@@ -152,6 +154,9 @@ public class PurchasesController implements KeyListener, ActionListener {
             model.removeRow(views.purchases_table.getSelectedRow());
             calculatePurchase();
             views.txt_purchase_product_code.requestFocus();
+        } else if (e.getSource() == views.btn_new_purchase) {
+            cleanTableTemp();
+            cleanFieldsPurchase();
         }
     }
     
@@ -193,6 +198,12 @@ public class PurchasesController implements KeyListener, ActionListener {
                 
                 // Registrar detalles de la compra
                 purchaseDAO.registerPurchaseDetailQuery(purchase_id, purchase_price, purchase_amount, purchase_subtotal, product_id);
+                
+                // Traer la cantidad de productos
+                product = productDAO.searchId(product_id);
+                int amount = product.getProduct_quantity() + purchase_amount;
+                
+                productDAO.updateStockQuery(amount, product_id);
             }
             
             // Limpiar tabla temporal
