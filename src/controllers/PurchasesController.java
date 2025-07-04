@@ -17,6 +17,7 @@ import models.Products;
 import models.ProductsDAO;
 import models.Purchases;
 import models.PurchasesDAO;
+import views.Print;
 import views.SystemView;
 
 public class PurchasesController implements KeyListener, ActionListener, MouseListener {
@@ -271,9 +272,11 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
                 productDAO.updateStockQuery(amount, product_id);
             }
             
-            // Limpiar tabla temporal
-            JOptionPane.showMessageDialog(null, "Compra generada con éxito");
+            cleanTableTemp();
             cleanFieldsPurchase();
+            JOptionPane.showMessageDialog(null, "Compra generada con éxito");
+            Print print = new Print(purchase_id);
+            print.setVisible(true);
         }
     }
     

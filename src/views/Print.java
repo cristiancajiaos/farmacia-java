@@ -4,17 +4,62 @@
  */
 package views;
 
+import java.util.List;
+import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
+import models.Purchases;
+import models.PurchasesDAO;
+
 /**
  *
  * @author crist
  */
 public class Print extends javax.swing.JFrame {
 
+    Purchases purchase = new Purchases();
+    PurchasesDAO purchaseDAO = new PurchasesDAO();
+    DefaultTableModel model = new DefaultTableModel();
     /**
      * Creates new form Print
      */
-    public Print() {
+    public Print(int id) {
         initComponents();
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setTitle("Factura de compra");
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        txt_invoice.setText("" + id);
+        listAllPurchaseDetails(id);
+        calculatePurchase();
+    }
+    
+    public void listAllPurchaseDetails(int id) {
+        List<Purchases> list = purchaseDAO.listPurchaseDetailQuery(id);
+        model = (DefaultTableModel) purchase_details_table.getModel();
+        Object[] row = new Object[7];
+        for (int i = 0; i < list.size(); i++) {
+            row[0] = list.get(i).getProduct_name();
+            row[1] = list.get(i).getPurchase_amount();
+            row[2] = list.get(i).getPurchase_price();
+            row[3] = list.get(i).getPurchase_subtotal();
+            row[4] = list.get(i).getSupplier_name_product();
+            row[5] = list.get(i).getPurchaser();
+            row[6] = list.get(i).getCreated();
+            model.addRow(row);
+        }
+        purchase_details_table.setModel(model);
+    }
+    
+    // Calcular total a pagar
+    public void calculatePurchase() {
+        double total = 0.0;
+        int numRow = purchase_details_table.getRowCount();
+        
+        for (int i = 0; i < numRow; i++) {
+            // Se pasa el indice de la columna
+            total = total + Double.parseDouble(String.valueOf(purchase_details_table.getValueAt(i, 3)));
+        }
+        txt_total.setText("" + total);
     }
 
     /**
@@ -34,9 +79,9 @@ public class Print extends javax.swing.JFrame {
         txt_invoice = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        purchase_detail_table = new javax.swing.JTable();
+        purchase_details_table = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txt_total = new javax.swing.JTextField();
         btn_print_purchase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,7 +115,7 @@ public class Print extends javax.swing.JFrame {
         jLabel3.setText("DETALLES DE LA COMPRA");
         form_print.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
-        purchase_detail_table.setModel(new javax.swing.table.DefaultTableModel(
+        purchase_details_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -86,11 +131,11 @@ public class Print extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(purchase_detail_table);
-        if (purchase_detail_table.getColumnModel().getColumnCount() > 0) {
-            purchase_detail_table.getColumnModel().getColumn(0).setMinWidth(100);
-            purchase_detail_table.getColumnModel().getColumn(5).setMinWidth(110);
-            purchase_detail_table.getColumnModel().getColumn(6).setMinWidth(80);
+        jScrollPane1.setViewportView(purchase_details_table);
+        if (purchase_details_table.getColumnModel().getColumnCount() > 0) {
+            purchase_details_table.getColumnModel().getColumn(0).setMinWidth(100);
+            purchase_details_table.getColumnModel().getColumn(5).setMinWidth(110);
+            purchase_details_table.getColumnModel().getColumn(6).setMinWidth(80);
         }
 
         form_print.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 177, 620, 260));
@@ -98,7 +143,7 @@ public class Print extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Total:");
         form_print.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 470, -1, -1));
-        form_print.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 150, -1));
+        form_print.add(txt_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 150, -1));
 
         getContentPane().add(form_print, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 520));
 
@@ -113,35 +158,7 @@ public class Print extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Print.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Print.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Print.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Print.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Print().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -154,8 +171,8 @@ public class Print extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable purchase_detail_table;
+    private javax.swing.JTable purchase_details_table;
     private javax.swing.JTextField txt_invoice;
+    private javax.swing.JTextField txt_total;
     // End of variables declaration//GEN-END:variables
 }
