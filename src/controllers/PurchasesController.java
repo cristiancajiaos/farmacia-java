@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,7 +19,7 @@ import models.Purchases;
 import models.PurchasesDAO;
 import views.SystemView;
 
-public class PurchasesController implements KeyListener, ActionListener {
+public class PurchasesController implements KeyListener, ActionListener, MouseListener {
     
     private Purchases purchase;
     private PurchasesDAO purchaseDAO;
@@ -51,6 +53,51 @@ public class PurchasesController implements KeyListener, ActionListener {
         this.views.txt_purchase_product_code.addKeyListener(this);
         // Campo de precio de venta de compra
         this.views.txt_purchase_price.addKeyListener(this);
+        // Panel de compras en menú lateral
+        this.views.jPanelPurchases.addMouseListener(this);
+        // Panel de reportes en menú lateral
+        this.views.jPanelReports.addMouseListener(this);
+    }
+    
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (e.getSource() == views.jPanelPurchases) {
+            if (rol.equals("Administrador") ) {
+                views.jTabbedPane1.setSelectedIndex(1);
+                cleanTable();
+                cleanFieldsPurchase();
+                
+            } else {
+                views.jTabbedPane1.setEnabledAt(1, false);
+                views.jLabelSuppliers.setEnabled(false);
+                JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            }
+        } else if (e.getSource() == views.jPanelReports) {
+            views.jTabbedPane1.setSelectedIndex(6);
+            cleanTable();
+            listAllPurchases();
+        }
+        
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
     }
 
     @Override
@@ -234,6 +281,14 @@ public class PurchasesController implements KeyListener, ActionListener {
     public void cleanTableTemp() {
         for (int i = 0; i < temp.getRowCount(); i++) {
             temp.removeRow(i);
+            i = i - 1;
+        }
+    }
+    
+    // Limpiar tabla de compras
+    public void cleanTable() {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
             i = i - 1;
         }
     }
