@@ -47,9 +47,10 @@ public class PurchasesDAO {
     public boolean registerPurchaseDetailQuery(int purchase_id, 
             double purchase_price, int purchase_amount, 
             double purchase_subtotal, int product_id) {
-        String query = "INSERT INTO purchase_detail (purchase_id, purchase_price, "
-                     + "purchase_amount, purchase_subtotal, product_id) "
-                     + "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO purchase_details (purchase_id, purchase_price, "
+                     + "purchase_amount, purchase_subtotal, "
+                     + "product_id) VALUES (?, ?, ?, ?, ?)";
+        Timestamp datetime = new Timestamp(new Date().getTime());
         
         try {
             conn = cn.getConnection();
@@ -58,11 +59,12 @@ public class PurchasesDAO {
             pst.setDouble(2, purchase_price);
             pst.setInt(3, purchase_amount);
             pst.setDouble(4, purchase_subtotal);
+            // pst.setTimestamp(5, datetime);
             pst.setInt(5, product_id);
             pst.execute();
             return true;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Hubo un error al registrar el detalle de la compra");
+            JOptionPane.showMessageDialog(null, "Hubo un error al registrar el detalle de la compra: " + e);
             return false;
         }
     }
