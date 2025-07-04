@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.DynamicComboBox;
@@ -182,6 +183,23 @@ public class PurchasesController implements KeyListener, ActionListener {
             total = total + Double.parseDouble(String.valueOf(views.purchases_table.getValueAt(i, 4)));
         }
         views.txt_purchase_total_to_pay.setText("" + total);
+    }
+    
+    // Método para listar las compras realizadas
+    public void listAllPurchases() {
+        if (rol.equals("Administrador") || rol.equals("Auxiliar")) {
+            List<Purchases> list = purchaseDAO.listAllPurchasesQuery();
+            model = (DefaultTableModel) views.table_all_purchases.getModel();
+            Object[] row = new Object[4];
+            for (int i = 0; i < list.size(); i++) {
+                row[0] = list.get(i).getId();
+                row[1] = list.get(i).getSupplier_name_product();
+                row[2] = list.get(i).getTotal();
+                row[3] = list.get(i).getCreated();
+                model.addRow(row);
+            }
+            views.table_all_purchases.setModel(model);
+        }
     }
     
     private void insertPurchase() {
