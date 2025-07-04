@@ -4,6 +4,9 @@
  */
 package views;
 
+import java.awt.Graphics;
+import java.awt.PrintJob;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
@@ -149,10 +152,24 @@ public class Print extends javax.swing.JFrame {
 
         btn_print_purchase.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btn_print_purchase.setText("IMPRIMIR");
+        btn_print_purchase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_print_purchaseActionPerformed(evt);
+            }
+        });
         getContentPane().add(btn_print_purchase, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 540, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_print_purchaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print_purchaseActionPerformed
+        Toolkit tk = form_print.getToolkit();
+        PrintJob pj = tk.getPrintJob(this, null, null);
+        Graphics graphics = pj.getGraphics();
+        form_print.print(graphics);
+        graphics.dispose();
+        pj.end();
+    }//GEN-LAST:event_btn_print_purchaseActionPerformed
 
     /**
      * @param args the command line arguments
