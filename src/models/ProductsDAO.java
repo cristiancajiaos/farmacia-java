@@ -158,7 +158,7 @@ public class ProductsDAO {
                 product.setUnit_price(rs.getDouble("unit_price"));
                 // product.setProduct_quantity(rs.getInt("product_quantity"));
                 product.setCategory_id(rs.getInt("category_id"));
-                product.setCategory_name(rs.getString("product_name"));
+                product.setCategory_name(rs.getString("category_name"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Hubo un "
