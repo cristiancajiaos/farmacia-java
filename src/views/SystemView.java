@@ -874,17 +874,8 @@ public class SystemView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Compras", tab_purchases);
 
-        javax.swing.GroupLayout tab_salesLayout = new javax.swing.GroupLayout(tab_sales);
-        tab_sales.setLayout(tab_salesLayout);
-        tab_salesLayout.setHorizontalGroup(
-            tab_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1010, Short.MAX_VALUE)
-        );
-        tab_salesLayout.setVerticalGroup(
-            tab_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
-        );
-
+        tab_sales.setBackground(new java.awt.Color(152, 202, 63));
+        tab_sales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPane1.addTab("Ventas", tab_sales);
 
         tab_customers.setBackground(new java.awt.Color(152, 202, 63));
