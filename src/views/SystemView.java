@@ -178,6 +178,33 @@ public class SystemView extends javax.swing.JFrame {
         scrollpane_purchases_table = new javax.swing.JScrollPane();
         purchases_table = new javax.swing.JTable();
         tab_sales = new javax.swing.JPanel();
+        panel_sales = new javax.swing.JPanel();
+        label_sale_product_code = new javax.swing.JLabel();
+        txt_sale_product_code = new javax.swing.JTextField();
+        label_sale_product_id = new javax.swing.JLabel();
+        txt_sale_product_id = new javax.swing.JTextField();
+        label_sale_product_name = new javax.swing.JLabel();
+        txt_sale_product_name = new javax.swing.JTextField();
+        label_sale_quantity = new javax.swing.JLabel();
+        txt_sale_quantity = new javax.swing.JTextField();
+        label_sale_customer_id = new javax.swing.JLabel();
+        txt_sale_customer_id = new javax.swing.JTextField();
+        label_sale_total_to_pay = new javax.swing.JLabel();
+        txt_sale_total_to_pay = new javax.swing.JTextField();
+        label_sale_price = new javax.swing.JLabel();
+        txt_sale_price = new javax.swing.JTextField();
+        label_sale_subtotal = new javax.swing.JLabel();
+        txt_sale_subtotal = new javax.swing.JTextField();
+        label_sale_stock = new javax.swing.JLabel();
+        txt_sale_stock = new javax.swing.JTextField();
+        label_sale_customer_name = new javax.swing.JLabel();
+        txt_sale_customer_name = new javax.swing.JTextField();
+        btn_add_product_sale = new javax.swing.JButton();
+        btn_confirm_sale = new javax.swing.JButton();
+        btn_remove_sale = new javax.swing.JButton();
+        btn_new_sale = new javax.swing.JButton();
+        scrollpane_sales_table = new javax.swing.JScrollPane();
+        sales_table = new javax.swing.JTable();
         tab_customers = new javax.swing.JPanel();
         panel_customers = new javax.swing.JPanel();
         label_customer_id = new javax.swing.JLabel();
@@ -876,6 +903,207 @@ public class SystemView extends javax.swing.JFrame {
 
         tab_sales.setBackground(new java.awt.Color(152, 202, 63));
         tab_sales.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        panel_sales.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Nueva venta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        label_sale_product_code.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_product_code.setText("Código del producto:");
+
+        label_sale_product_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_product_id.setText("Nombre del producto:");
+
+        txt_sale_product_id.setEditable(false);
+        txt_sale_product_id.setEnabled(false);
+
+        label_sale_product_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_product_name.setText("Cantidad:");
+
+        txt_sale_product_name.setEditable(false);
+        txt_sale_product_name.setEnabled(false);
+
+        label_sale_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_quantity.setText("Cédula del cliente:");
+
+        txt_sale_quantity.setEditable(false);
+        txt_sale_quantity.setEnabled(false);
+
+        label_sale_customer_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_customer_id.setText("Total a pagar:");
+
+        txt_sale_customer_id.setEditable(false);
+        txt_sale_customer_id.setEnabled(false);
+
+        label_sale_total_to_pay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_total_to_pay.setText("Id: ");
+
+        txt_sale_total_to_pay.setEditable(false);
+        txt_sale_total_to_pay.setEnabled(false);
+
+        label_sale_price.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_price.setText("Precio:");
+
+        txt_sale_price.setEditable(false);
+        txt_sale_price.setEnabled(false);
+
+        label_sale_subtotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_subtotal.setText("Subtotal: ");
+
+        txt_sale_subtotal.setEditable(false);
+        txt_sale_subtotal.setEnabled(false);
+
+        label_sale_stock.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_stock.setText("Stock:");
+
+        txt_sale_stock.setEditable(false);
+        txt_sale_stock.setEnabled(false);
+
+        label_sale_customer_name.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        label_sale_customer_name.setText("Nombre del cliente:");
+
+        txt_sale_customer_name.setEditable(false);
+        txt_sale_customer_name.setEnabled(false);
+
+        btn_add_product_sale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_add_product_sale.setText("Agregar");
+
+        btn_confirm_sale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_confirm_sale.setText("Vender");
+        btn_confirm_sale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_confirm_saleActionPerformed(evt);
+            }
+        });
+
+        btn_remove_sale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_remove_sale.setText("Eliminar");
+        btn_remove_sale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_remove_saleActionPerformed(evt);
+            }
+        });
+
+        btn_new_sale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btn_new_sale.setText("Nuevo");
+
+        javax.swing.GroupLayout panel_salesLayout = new javax.swing.GroupLayout(panel_sales);
+        panel_sales.setLayout(panel_salesLayout);
+        panel_salesLayout.setHorizontalGroup(
+            panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_salesLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_product_name))
+                    .addGroup(panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label_sale_total_to_pay)
+                        .addGap(12, 12, 12)
+                        .addComponent(txt_sale_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_quantity))
+                    .addGroup(panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_customer_id))
+                    .addGroup(panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_total_to_pay)))
+                .addGap(18, 18, 18)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_sale_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_salesLayout.createSequentialGroup()
+                        .addComponent(label_sale_price, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_sale_price, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_salesLayout.createSequentialGroup()
+                        .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(label_sale_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label_sale_customer_name, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_sale_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_confirm_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_remove_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_add_product_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_new_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
+        panel_salesLayout.setVerticalGroup(
+            panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_salesLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_total_to_pay)
+                    .addComponent(txt_sale_product_code, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_price, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_price, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_add_product_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_sale_product_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_subtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_confirm_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_sale_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_product_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_remove_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_sale_total_to_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_new_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        tab_sales.add(panel_sales, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 270));
+
+        sales_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id producto", "Nombre", "Cantidad", "Precio de venta", "Subtotal", "Nombre del cliente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollpane_sales_table.setViewportView(sales_table);
+
+        tab_sales.add(scrollpane_sales_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 300, 920, 150));
+
         jTabbedPane1.addTab("Ventas", tab_sales);
 
         tab_customers.setBackground(new java.awt.Color(152, 202, 63));
@@ -1731,6 +1959,14 @@ public class SystemView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_logoutActionPerformed
 
+    private void btn_confirm_saleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_confirm_saleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_confirm_saleActionPerformed
+
+    private void btn_remove_saleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_remove_saleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_remove_saleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1767,6 +2003,7 @@ public class SystemView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btn_add_product_sale;
     public javax.swing.JButton btn_add_product_to_buy;
     public javax.swing.JButton btn_cancel_category;
     public javax.swing.JButton btn_cancel_customer;
@@ -1774,6 +2011,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_cancel_product;
     public javax.swing.JButton btn_cancel_supplier;
     public javax.swing.JButton btn_confirm_purchase;
+    public javax.swing.JButton btn_confirm_sale;
     public javax.swing.JButton btn_delete_category;
     public javax.swing.JButton btn_delete_customer;
     public javax.swing.JButton btn_delete_employee;
@@ -1782,6 +2020,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JButton btn_logout;
     public javax.swing.JButton btn_modify_data;
     public javax.swing.JButton btn_new_purchase;
+    public javax.swing.JButton btn_new_sale;
     private javax.swing.JButton btn_photo;
     public javax.swing.JButton btn_register_category;
     public javax.swing.JButton btn_register_customer;
@@ -1789,6 +2028,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JButton btn_register_product;
     public javax.swing.JButton btn_register_supplier;
     public javax.swing.JButton btn_remove_purchase;
+    public javax.swing.JButton btn_remove_sale;
     public javax.swing.JButton btn_update_category;
     public javax.swing.JButton btn_update_customer;
     public javax.swing.JButton btn_update_employee;
@@ -1862,6 +2102,16 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JLabel label_purchase_supplier;
     private javax.swing.JLabel label_purchase_total_to_pay;
     private javax.swing.JLabel label_rol;
+    private javax.swing.JLabel label_sale_customer_id;
+    private javax.swing.JLabel label_sale_customer_name;
+    private javax.swing.JLabel label_sale_price;
+    private javax.swing.JLabel label_sale_product_code;
+    private javax.swing.JLabel label_sale_product_id;
+    private javax.swing.JLabel label_sale_product_name;
+    private javax.swing.JLabel label_sale_quantity;
+    private javax.swing.JLabel label_sale_stock;
+    private javax.swing.JLabel label_sale_subtotal;
+    private javax.swing.JLabel label_sale_total_to_pay;
     private javax.swing.JLabel label_search_category;
     private javax.swing.JLabel label_search_customer;
     private javax.swing.JLabel label_search_employee;
@@ -1880,14 +2130,17 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel panel_products;
     private javax.swing.JPanel panel_profile;
     private javax.swing.JPanel panel_purchases;
+    public javax.swing.JPanel panel_sales;
     private javax.swing.JPanel panel_suppliers;
     public javax.swing.JTable products_table;
     public javax.swing.JTable purchases_table;
+    public javax.swing.JTable sales_table;
     private javax.swing.JScrollPane scrollpane_categories_table;
     private javax.swing.JScrollPane scrollpane_customers_table;
     private javax.swing.JScrollPane scrollpane_employees_table;
     private javax.swing.JScrollPane scrollpane_products_table;
     private javax.swing.JScrollPane scrollpane_purchases_table;
+    private javax.swing.JScrollPane scrollpane_sales_table;
     private javax.swing.JScrollPane scrollpane_suppliers_table;
     private javax.swing.JScrollPane scrollpane_table_all_purchases;
     private javax.swing.JScrollPane scrollpane_table_all_sales;
@@ -1939,6 +2192,16 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JTextField txt_purchase_product_name;
     public javax.swing.JTextField txt_purchase_subtotal;
     public javax.swing.JTextField txt_purchase_total_to_pay;
+    public javax.swing.JTextField txt_sale_customer_id;
+    public javax.swing.JTextField txt_sale_customer_name;
+    public javax.swing.JTextField txt_sale_price;
+    public javax.swing.JTextField txt_sale_product_code;
+    public javax.swing.JTextField txt_sale_product_id;
+    public javax.swing.JTextField txt_sale_product_name;
+    public javax.swing.JTextField txt_sale_quantity;
+    public javax.swing.JTextField txt_sale_stock;
+    public javax.swing.JTextField txt_sale_subtotal;
+    public javax.swing.JTextField txt_sale_total_to_pay;
     public javax.swing.JTextField txt_search_category;
     public javax.swing.JTextField txt_search_customer;
     public javax.swing.JTextField txt_search_employee;
