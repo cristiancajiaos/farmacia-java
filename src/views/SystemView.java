@@ -177,6 +177,7 @@ public class SystemView extends javax.swing.JFrame {
         btn_new_purchase = new javax.swing.JButton();
         scrollpane_purchases_table = new javax.swing.JScrollPane();
         purchases_table = new javax.swing.JTable();
+        tab_sales = new javax.swing.JPanel();
         tab_customers = new javax.swing.JPanel();
         panel_customers = new javax.swing.JPanel();
         label_customer_id = new javax.swing.JLabel();
@@ -869,6 +870,19 @@ public class SystemView extends javax.swing.JFrame {
         tab_purchases.add(scrollpane_purchases_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 350, 920, 120));
 
         jTabbedPane1.addTab("Compras", tab_purchases);
+
+        javax.swing.GroupLayout tab_salesLayout = new javax.swing.GroupLayout(tab_sales);
+        tab_sales.setLayout(tab_salesLayout);
+        tab_salesLayout.setHorizontalGroup(
+            tab_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1010, Short.MAX_VALUE)
+        );
+        tab_salesLayout.setVerticalGroup(
+            tab_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 549, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Ventas", tab_sales);
 
         tab_customers.setBackground(new java.awt.Color(152, 202, 63));
         tab_customers.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1865,6 +1879,7 @@ public class SystemView extends javax.swing.JFrame {
     private javax.swing.JPanel tab_profile;
     private javax.swing.JPanel tab_purchases;
     private javax.swing.JPanel tab_reportes;
+    private javax.swing.JPanel tab_sales;
     private javax.swing.JPanel tab_suppliers;
     public javax.swing.JTable table_all_purchases;
     private javax.swing.JLabel title;
