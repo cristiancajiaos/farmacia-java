@@ -108,6 +108,8 @@ public class SystemView extends javax.swing.JFrame {
         jLabelProducts = new javax.swing.JLabel();
         jPanelPurchases = new javax.swing.JPanel();
         jLabelPurchases = new javax.swing.JLabel();
+        jPanelSales = new javax.swing.JPanel();
+        jLabelSales = new javax.swing.JLabel();
         jPanelCustomers = new javax.swing.JPanel();
         jLabelCustomers = new javax.swing.JLabel();
         jPanelEmployees = new javax.swing.JPanel();
@@ -336,6 +338,29 @@ public class SystemView extends javax.swing.JFrame {
 
         jPanel1.add(jPanelPurchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 35));
 
+        jPanelSales.setBackground(new java.awt.Color(18, 45, 61));
+
+        jLabelSales.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelSales.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelSales.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabelSales.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/shopping.png"))); // NOI18N
+        jLabelSales.setText(" Ventas");
+
+        javax.swing.GroupLayout jPanelSalesLayout = new javax.swing.GroupLayout(jPanelSales);
+        jPanelSales.setLayout(jPanelSalesLayout);
+        jPanelSalesLayout.setHorizontalGroup(
+            jPanelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSalesLayout.createSequentialGroup()
+                .addGap(0, 15, Short.MAX_VALUE)
+                .addComponent(jLabelSales, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanelSalesLayout.setVerticalGroup(
+            jPanelSalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelSales, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanelSales, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 35));
+
         jPanelCustomers.setBackground(new java.awt.Color(18, 45, 61));
         jPanelCustomers.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -358,7 +383,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelCustomers, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 200, 35));
+        jPanel1.add(jPanelCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 35));
 
         jPanelEmployees.setBackground(new java.awt.Color(18, 45, 61));
 
@@ -381,7 +406,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelEmployees, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 200, 35));
+        jPanel1.add(jPanelEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 35));
 
         jPanelSuppliers.setBackground(new java.awt.Color(18, 45, 61));
 
@@ -404,7 +429,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelSuppliers, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelSuppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 200, 35));
+        jPanel1.add(jPanelSuppliers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 200, 35));
 
         jPanelCategories.setBackground(new java.awt.Color(18, 45, 61));
 
@@ -427,7 +452,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelCategories, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 200, 35));
+        jPanel1.add(jPanelCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 200, 35));
 
         jPanelReports.setBackground(new java.awt.Color(18, 45, 61));
 
@@ -450,7 +475,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelReports, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 200, 35));
+        jPanel1.add(jPanelReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 200, 35));
 
         jPanelSettings.setBackground(new java.awt.Color(18, 45, 61));
 
@@ -473,7 +498,7 @@ public class SystemView extends javax.swing.JFrame {
             .addComponent(jLabelSettings, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanelSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 200, 35));
+        jPanel1.add(jPanelSettings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 490, 200, 35));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 200, 580));
 
@@ -1750,6 +1775,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JLabel jLabelProducts;
     public javax.swing.JLabel jLabelPurchases;
     public javax.swing.JLabel jLabelReports;
+    public javax.swing.JLabel jLabelSales;
     public javax.swing.JLabel jLabelSettings;
     public javax.swing.JLabel jLabelSuppliers;
     private javax.swing.JPanel jPanel1;
@@ -1761,6 +1787,7 @@ public class SystemView extends javax.swing.JFrame {
     public javax.swing.JPanel jPanelProducts;
     public javax.swing.JPanel jPanelPurchases;
     public javax.swing.JPanel jPanelReports;
+    public javax.swing.JPanel jPanelSales;
     public javax.swing.JPanel jPanelSettings;
     public javax.swing.JPanel jPanelSuppliers;
     public javax.swing.JTabbedPane jTabbedPane1;

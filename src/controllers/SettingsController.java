@@ -18,6 +18,7 @@ public class SettingsController implements MouseListener {
         this.views = views;
         this.views.jPanelProducts.addMouseListener(this);
         this.views.jPanelPurchases.addMouseListener(this);
+        this.views.jPanelSales.addMouseListener(this);
         this.views.jPanelCustomers.addMouseListener(this);
         this.views.jPanelEmployees.addMouseListener(this);
         this.views.jPanelSuppliers.addMouseListener(this);
@@ -57,6 +58,8 @@ public class SettingsController implements MouseListener {
             this.views.jPanelProducts.setBackground(new Color(152, 202, 63));
         } else if (e.getSource() == this.views.jPanelPurchases) {
             this.views.jPanelPurchases.setBackground(new Color(152, 202, 63));
+        } else if (e.getSource() == this.views.jPanelSales){
+            this.views.jPanelSales.setBackground(new Color(152, 202, 63));
         } else if (e.getSource() == this.views.jPanelCustomers) {
             this.views.jPanelCustomers.setBackground(new Color(152, 202, 63));
         } else if (e.getSource() == this.views.jPanelEmployees) {
