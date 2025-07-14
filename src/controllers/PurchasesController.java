@@ -204,7 +204,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     }
 
     // Funciones invocadas dentro de función implementada actionPerformed
-    // Agregar producto a la compra
+    // Botón Agregar: Agregar producto a la compra
     public void addProductToPurchase() {
         DynamicComboBox supplier_cmb = (DynamicComboBox) views.cmb_purchase_supplier.getSelectedItem();
         int supplier_id = supplier_cmb.getId();
@@ -259,46 +259,57 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
         }
     }
 
-    // Ingresar compra 
+    // Botón Comprar: Ingresar compra 
     private void insertPurchase() {
-        double total = Double.parseDouble(views.txt_purchase_total_to_pay.getText());
-        int employee_id = id_user;
+        if (views.purchases_table.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay ninguna compra enlistada. Agregue una compra en la lista de compras para poder generar su ingreso.");
+        } else {
+            double total = Double.parseDouble(views.txt_purchase_total_to_pay.getText());
+            int employee_id = id_user;
 
-        if (purchaseDAO.registerPurchaseQuery(getIdSupplier, employee_id, total)) {
-            int purchase_id = purchaseDAO.purchaseId();
-            for (int i = 0; i < views.purchases_table.getRowCount(); i++) {
-                int product_id = Integer.parseInt(views.purchases_table.getValueAt(i, 0).toString());
-                int purchase_amount = Integer.parseInt(views.purchases_table.getValueAt(i, 2).toString());
-                double purchase_price = Double.parseDouble(views.purchases_table.getValueAt(i, 3).toString());
-                double purchase_subtotal = purchase_price * purchase_amount;
+            if (purchaseDAO.registerPurchaseQuery(getIdSupplier, employee_id, total)) {
+                int purchase_id = purchaseDAO.purchaseId();
+                for (int i = 0; i < views.purchases_table.getRowCount(); i++) {
+                    int product_id = Integer.parseInt(views.purchases_table.getValueAt(i, 0).toString());
+                    int purchase_amount = Integer.parseInt(views.purchases_table.getValueAt(i, 2).toString());
+                    double purchase_price = Double.parseDouble(views.purchases_table.getValueAt(i, 3).toString());
+                    double purchase_subtotal = purchase_price * purchase_amount;
 
-                // Registrar detalles de la compra
-                purchaseDAO.registerPurchaseDetailQuery(purchase_id, purchase_price, purchase_amount, purchase_subtotal, product_id);
+                    // Registrar detalles de la compra
+                    purchaseDAO.registerPurchaseDetailQuery(purchase_id, purchase_price, purchase_amount, purchase_subtotal, product_id);
 
-                // Traer la cantidad de productos
-                product = productDAO.searchId(product_id);
-                int amount = product.getProduct_quantity() + purchase_amount;
+                    // Traer la cantidad de productos
+                    product = productDAO.searchId(product_id);
+                    int amount = product.getProduct_quantity() + purchase_amount;
 
-                productDAO.updateStockQuery(amount, product_id);
+                    productDAO.updateStockQuery(amount, product_id);
+                }
+
+                cleanTableTemp();
+                cleanFieldsPurchase();
+                JOptionPane.showMessageDialog(null, "La compra ha sido generada con éxito");
+                Print print = new Print(purchase_id);
+                print.setVisible(true);
+                listAllPurchases();
             }
-
-            cleanTableTemp();
-            cleanFieldsPurchase();
-            JOptionPane.showMessageDialog(null, "Compra generada con éxito");
-            Print print = new Print(purchase_id);
-            print.setVisible(true);
         }
     }
 
-    // Eliminar producto actual en la compra
+    // Botón Eliminar: Eliminar producto actual en la compra
     public void removeProductInCurrentPurchase() {
         model = (DefaultTableModel) views.purchases_table.getModel();
-        model.removeRow(views.purchases_table.getSelectedRow());
-        calculatePurchase();
-        views.txt_purchase_product_code.requestFocus();
+        int row  = views.purchases_table.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "No hay ninguna compra seleccionada. Seleccione una compra en la tabla.");
+        } else {
+             model.removeRow(row);
+             JOptionPane.showMessageDialog(null, "El producto seleccionado ha sido eliminado de la compra actual.");
+             calculatePurchase();
+             views.txt_purchase_product_code.requestFocus();
+        }
     }
 
-    // Nueva compra
+    // Botón nuevo: Nueva compra
     public void newPurchase() {
         cleanTableTemp();
         cleanFieldsPurchase();
@@ -317,7 +328,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
             // Si no lo es, deshabilitar la pestaña de Compras y el panel de Compras en el menú lateral
             views.jTabbedPane1.setEnabledAt(1, false);
             views.jLabelSuppliers.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
         }
     }
 
@@ -332,7 +343,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     // Campo de código del producto + tecla ENTER: Ingresar automáticamente producto por su código
     public void setProductToPurchaseByCode() {
         if (views.txt_purchase_product_code.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Ingresa el código del producto a comprar");
+            JOptionPane.showMessageDialog(null, "Ingrese el código del producto a comprar");
         } else {
             int id = Integer.parseInt(views.txt_purchase_product_code.getText());
             product = productDAO.searchCode(id);

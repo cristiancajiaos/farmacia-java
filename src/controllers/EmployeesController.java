@@ -48,6 +48,8 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
         this.views.employees_table.addMouseListener(this);
         // Panel de Empleados en menú lateral
         this.views.jPanelEmployees.addMouseListener(this);
+        // Panel de Configuración/Perfil en menú lateral
+        this.views.jPanelSettings.addMouseListener(this);
 
         // Campo de búsqueda de Empleados
         this.views.txt_search_employee.addKeyListener(this);
@@ -76,6 +78,8 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             showEmployeeInfo(e);
         } else if (e.getSource() == views.jPanelEmployees) {
             goToEmployeesTab();
+        } else if (e.getSource() == views.jPanelSettings) {
+            goToSettingsTab();
         }
     }
 
@@ -188,7 +192,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
                 cleanTable();
                 cleanFields();
                 listAllEmployees();
-                JOptionPane.showMessageDialog(null, "Empleado registrado con éxito");
+                JOptionPane.showMessageDialog(null, "El empleado ha sido registrado con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el empleado");
             }
@@ -198,7 +202,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
     // Pestaña Empleados, botón Modificar: Actualizar el empleado seleccionado
     public void updateEmployee() {
         if (views.txt_employee_id.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla para continuar");
+            JOptionPane.showMessageDialog(null, "No hay ningún empleado seleccionado. Seleccione un empleado de la tabla para editarlo.");
         } else {
             // Verificar si los campos están vacíos
             if (views.txt_employee_id.getText().equals("")
@@ -220,7 +224,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
                     cleanFields();
                     listAllEmployees();
                     views.btn_register_employee.setEnabled(true);
-                    JOptionPane.showMessageDialog(null, "Datos del empleado modificados exitosamente");
+                    JOptionPane.showMessageDialog(null, "Los datos del empleado han sido modificados con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el empleado");
                 }
@@ -233,19 +237,19 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
     public void deleteEmployee() {
         int row = views.employees_table.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Debes selecciona un empleado para eliminar");
+            JOptionPane.showMessageDialog(null, "No hay ningún empleado seleccionado. Seleccione un empleado de la tabla.");
         } else if (views.employees_table.getValueAt(row, 0).equals(id_user)) {
-            JOptionPane.showMessageDialog(null, "No puede eliminar al usuario autenticado");
+            JOptionPane.showMessageDialog(null, "No puede eliminar al usuario que ya se encuentra autenticado");
         } else {
             int id = Integer.parseInt(views.employees_table.getValueAt(row, 0).toString());
-            int question = JOptionPane.showConfirmDialog(null, "¿En realidad quieres eliminar a este empleado");
+            int question = JOptionPane.showConfirmDialog(null, "¿Confirma que desea eliminar a este empleado?");
             if (question == 0 && employeeDao.deleteEmployeeQuery(id) != false) {
                 cleanTable();
                 cleanFields();
                 views.btn_register_employee.setEnabled(true);
                 views.txt_employee_password.setEnabled(true);
                 listAllEmployees();
-                JOptionPane.showMessageDialog(null, "Empleado eliminado con éxito");
+                JOptionPane.showMessageDialog(null, "El empleado ha sido eliminado con éxito");
             }
         }
     }
@@ -256,6 +260,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
         views.btn_register_employee.setEnabled(true);
         views.txt_employee_password.setEnabled(true);
         views.txt_employee_id.setEnabled(true);
+        views.employees_table.clearSelection();
     }
 
     // Pestaña Perfil, botón Modificar (Contraseña): Modificar contraseña del empleado
@@ -269,7 +274,7 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             if (password.equals(confirm_password)) {
                 employee.setPassword(String.valueOf(views.txt_password_modify.getPassword()));
                 if (employeeDao.updateEmployeePassword(employee)) {
-                    JOptionPane.showMessageDialog(null, "Contraseña modificada con éxito");
+                    JOptionPane.showMessageDialog(null, "La contraseña ha sido modificada con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar la contraseña");
                 }
@@ -315,8 +320,13 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
             // Si no lo es, deshabilitar la pestaña de Empleados y el panel de Empleados en el menú lateral
             views.jTabbedPane1.setEnabledAt(3, false);
             views.jLabelEmployees.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
         }
+    }
+    
+    // Panel de Configuración en menú lateral: Ir a la pestaña de Configuración
+    public void goToSettingsTab() {
+        views.jTabbedPane1.setSelectedIndex(7);
     }
 
     // Funciones invocadas dentro de función implementada keyReleased

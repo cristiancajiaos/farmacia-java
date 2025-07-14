@@ -163,7 +163,7 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
                 cleanTable();
                 cleanFields();
                 listAllCustomers();
-                JOptionPane.showMessageDialog(null, "Cliente registrado con éxito");
+                JOptionPane.showMessageDialog(null, "El cliente ha sido registrado con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el cliente");
             }
@@ -173,7 +173,7 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
     // Pestaña Clientes, botón Modificar: Modificar el cliente seleccionado 
     public void updateCustomer() {
         if (views.txt_customer_id.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila para continuar");
+            JOptionPane.showMessageDialog(null, "No hay ningún cliente seleccionado. Seleccione un cliente de la tabla.");
         } else {
             if (views.txt_customer_id.getText().equals("")
                     || views.txt_customer_fullname.getText().equals("")
@@ -187,18 +187,12 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
                 customer.setAddress(views.txt_customer_address.getText().trim());
                 customer.setTelephone(views.txt_customer_telephone.getText().trim());
                 customer.setEmail(views.txt_customer_email.getText().trim());
-                System.out.println("Update customer");
-                System.out.println(customer.getId());
-                System.out.println(customer.getFull_name());
-                System.out.println(customer.getAddress());
-                System.out.println(customer.getTelephone());
-                System.out.println(customer.getEmail());
                 if (customerDAO.updateCustomerQuery(customer)) {
                     cleanTable();
                     cleanFields();
                     listAllCustomers();
                     views.btn_register_customer.setEnabled(true);
-                    JOptionPane.showMessageDialog(null, "Datos del cliente modificados con éxito");
+                    JOptionPane.showMessageDialog(null, "Los datos del cliente han sido modificados con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al actualizar el cliente");
 
@@ -211,16 +205,16 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
     public void deleteCustomer() {
         int row = views.customers_table.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Debes seleccionar un cliente para eliminar");
+            JOptionPane.showMessageDialog(null, "No hay ningún cliente seleccionado. Seleccione un cliente de la tabla.");
         } else {
             int id = Integer.parseInt(views.customers_table.getValueAt(row, 0).toString());
-            int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar a este cliente?");
+            int question = JOptionPane.showConfirmDialog(null, "¿Confirma que desea eliminar a este cliente?");
             if (question == 0 && customerDAO.deleteCustomerQuery(id) != false) {
                 cleanTable();
                 cleanFields();
                 views.btn_register_customer.setEnabled(true);
                 listAllCustomers();
-                JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito");
+                JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado con éxito");
             }
         }
     }
@@ -228,6 +222,7 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
     // Pestaña Clientes, botón Cancelar: Cancelar operaciones sobre el cliente seleccionado
     public void cancelOperationsCustomer() {
         views.btn_register_customer.setEnabled(true);
+        views.customers_table.clearSelection();
         cleanFields();
     }
 

@@ -184,6 +184,7 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
             product.setCategory_id(category_id.getId());
             if (productDAO.registerProductQuery(product)) {
                 cleanTable();
+                cleanFields();
                 listAllProducts();
                 JOptionPane.showMessageDialog(null, "El producto se ha registrado con éxito");
             } else {
@@ -195,7 +196,7 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
     // Pestaña Productos, botón Modificar: Modificar producto
     public void updateProduct() {
         if (views.txt_product_id.equals("")) {
-            JOptionPane.showMessageDialog(null, "Selecciona un producto de la tabla");
+            JOptionPane.showMessageDialog(null, "No hay ningún producto de la tabla seleccionado. Seleccione un producto de la tabla.");
         } else {
             if (views.txt_product_code.getText().equals("")
                     || views.txt_product_name.getText().equals("")
@@ -216,9 +217,9 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
                 product.setId(Integer.parseInt(views.txt_product_id.getText()));
                 if (productDAO.updateProductQuery(product)) {
                     cleanTable();
-                    // Limpiar los campos
+                    cleanFields();
                     listAllProducts();
-                    JOptionPane.showMessageDialog(null, "Datos del producto modificados con éxito");
+                    JOptionPane.showMessageDialog(null, "Los datos del producto se han modificado con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha habido un error al modificar los datos del producto");
                 }
@@ -230,16 +231,16 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
     public void deleteProduct() {
         int row = views.products_table.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione un producto de la tabla");
+            JOptionPane.showMessageDialog(null, "No hay ningún producto de la tabla seleccionado. Seleccione un producto de la tabla.");
         } else {
             int id = Integer.parseInt(views.products_table.getValueAt(row, 0).toString());
-            int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar este producto");
+            int question = JOptionPane.showConfirmDialog(null, "¿Confirma que desea eliminar este producto");
             if (question == 0 && productDAO.deleteProductQuery(id)) {
                 cleanTable();
                 cleanFields();
                 views.btn_register_product.setEnabled(true);
                 listAllProducts();
-                JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "El producto ha sido eliminado con éxito");
             }
         }
     }
@@ -248,6 +249,7 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
     public void cancelOperationsProduct() {
         cleanFields();
         views.btn_register_product.setEnabled(true);
+        views.products_table.clearSelection();
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked

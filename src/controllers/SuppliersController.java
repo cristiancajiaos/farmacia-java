@@ -24,7 +24,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
 
     // Rol
     String rol = rol_user;
-    
+
     // Modelo para las tablas
     DefaultTableModel model = new DefaultTableModel();
 
@@ -189,8 +189,9 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
             supplier.setCity(views.cmb_supplier_city.getSelectedItem().toString());
             if (supplierDAO.registerSupplierQuery(supplier)) {
                 cleanTable();
+                cleanFields();
                 listAllSuppliers();
-                JOptionPane.showMessageDialog(null, "Proveedor registrado con éxito");
+                JOptionPane.showMessageDialog(null, "El proveedor ha sido registrado con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar el proveedor");
             }
@@ -200,7 +201,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
     // Pestaña Proveedores, botón Modificar: Modificar proveedor
     public void updateSupplier() {
         if (views.txt_supplier_id.equals("")) {
-            JOptionPane.showMessageDialog(null, "Selecciona un proveedor en la tabla para editarlo");
+            JOptionPane.showMessageDialog(null, "Seleccione un proveedor en la tabla para editarlo");
         } else {
             if (views.txt_supplier_name.getText().equals("")
                     || views.txt_supplier_address.getText().equals("")
@@ -222,7 +223,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
                     cleanFields();
                     listAllSuppliers();
                     views.btn_register_supplier.setEnabled(true);
-                    JOptionPane.showMessageDialog(null, "Datos del proveedor modificados con éxito");
+                    JOptionPane.showMessageDialog(null, "Los datos del proveedor modificados con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Ha ocurrido un error al modificar el proveedor");
                 }
@@ -234,10 +235,10 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
     public void deleteSupplier() {
         int row = views.suppliers_table.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(null, "Seleccione un proveedor para eliminar");
+            JOptionPane.showMessageDialog(null, "No hay ningún proveedor seleccionado. Seleccione un proveedor de la tabla.");
         } else {
             int id = Integer.parseInt(views.suppliers_table.getValueAt(row, 0).toString());
-            int question = JOptionPane.showConfirmDialog(null, "¿En realidad desea eliminar a este proveedor?");
+            int question = JOptionPane.showConfirmDialog(null, "¿Confirma que desea eliminar a este proveedor?");
             if (question == 0 && supplierDAO.deleteSupplierQuery(id)) {
                 cleanTable();
                 cleanFields();
@@ -251,6 +252,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
     public void cancelOperationsSupplier() {
         cleanFields();
         views.btn_register_supplier.setEnabled(true);
+        views.suppliers_table.clearSelection();
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
@@ -266,7 +268,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
         views.txt_supplier_address.setText(views.suppliers_table.getValueAt(row, 3).toString());
         views.txt_supplier_telephone.setText(views.suppliers_table.getValueAt(row, 4).toString());
         views.txt_supplier_email.setText(views.suppliers_table.getValueAt(row, 5).toString());
-        views.cmb_supplier_city.setSelectedItem(views.employees_table.getValueAt(row, 6).toString());
+        views.cmb_supplier_city.setSelectedItem(views.suppliers_table.getValueAt(row, 6).toString());
 
         // Deshabilitar campos y botones en la pestaña Proveedores
         views.btn_register_supplier.setEnabled(false);
@@ -286,7 +288,7 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
             // Si no lo es, deshabilitar la pestaña de Proveedores y el panel de Proveedores en el menú lateral
             views.jTabbedPane1.setEnabledAt(4, false);
             views.jLabelSuppliers.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
         }
     }
 

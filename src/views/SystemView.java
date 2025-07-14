@@ -35,18 +35,23 @@ public class SystemView extends javax.swing.JFrame {
     // Empleados
     Employees employee = new Employees();
     EmployeesDAO employeesDAO = new EmployeesDAO();
+    
     // Clientes
     Customers customer = new Customers();
     CustomersDAO customersDAO = new CustomersDAO();
+    
     // Proveedores
     Suppliers supplier = new Suppliers();
     SuppliersDAO suppliersDAO = new SuppliersDAO();
+    
     // Categorías
     Categories category = new Categories();
     CategoriesDAO categoriesDAO = new CategoriesDAO();
+    
     // Productos
     Products product = new Products();
     ProductsDAO productsDAO = new ProductsDAO();
+    
     // Compras
     Purchases purchase = new Purchases();
     PurchasesDAO purchaseDAO = new PurchasesDAO();
@@ -84,11 +89,12 @@ public class SystemView extends javax.swing.JFrame {
         product_section.listAllProducts();
         
         // Controlador de compras
-        PurchasesController purchase_section = new PurchasesController(purchase, purchaseDAO, this);        
+        PurchasesController purchase_section = new PurchasesController(purchase, purchaseDAO, this);   
+        purchase_section.listAllPurchases();
     }
     
-    public String titleInterface() {
-        setTitle("Panel - " + rol_user);
+    private String titleInterface() {
+        setTitle("Farmacia Vida Natural - Panel - " + rol_user);
         label_name_employee.setText(full_name_user);
         label_name_rol.setText(rol_user);
         return rol_user.trim();
@@ -671,8 +677,24 @@ public class SystemView extends javax.swing.JFrame {
             new String [] {
                 "Id", "Código", "Nombre", "Descripción", "Precio de venta", "Cantidad", "Categoría"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollpane_products_table.setViewportView(products_table);
+        if (products_table.getColumnModel().getColumnCount() > 0) {
+            products_table.getColumnModel().getColumn(0).setResizable(false);
+            products_table.getColumnModel().getColumn(1).setResizable(false);
+            products_table.getColumnModel().getColumn(2).setResizable(false);
+            products_table.getColumnModel().getColumn(3).setResizable(false);
+            products_table.getColumnModel().getColumn(4).setResizable(false);
+            products_table.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         tab_products.add(scrollpane_products_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 360, 920, 120));
 
@@ -718,7 +740,7 @@ public class SystemView extends javax.swing.JFrame {
         txt_purchase_subtotal.setEditable(false);
 
         label_purchase_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        label_purchase_id.setText("Id:");
+        label_purchase_id.setText("Id del producto:");
 
         txt_purchase_id.setEditable(false);
         txt_purchase_id.setEnabled(false);
@@ -824,6 +846,7 @@ public class SystemView extends javax.swing.JFrame {
         );
 
         tab_purchases.add(panel_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 300));
+        panel_purchases.getAccessibleContext().setAccessibleDescription("");
 
         purchases_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -832,13 +855,22 @@ public class SystemView extends javax.swing.JFrame {
             new String [] {
                 "Id", "Nombre del producto", "Cantidad", "Precio", "Subtotal", "Proveedor"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollpane_purchases_table.setViewportView(purchases_table);
         if (purchases_table.getColumnModel().getColumnCount() > 0) {
             purchases_table.getColumnModel().getColumn(0).setResizable(false);
             purchases_table.getColumnModel().getColumn(1).setResizable(false);
             purchases_table.getColumnModel().getColumn(2).setResizable(false);
             purchases_table.getColumnModel().getColumn(3).setResizable(false);
+            purchases_table.getColumnModel().getColumn(5).setResizable(false);
         }
 
         tab_purchases.add(scrollpane_purchases_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 350, 920, 120));
@@ -984,6 +1016,9 @@ public class SystemView extends javax.swing.JFrame {
         });
         scrollpane_customers_table.setViewportView(customers_table);
         if (customers_table.getColumnModel().getColumnCount() > 0) {
+            customers_table.getColumnModel().getColumn(0).setResizable(false);
+            customers_table.getColumnModel().getColumn(1).setResizable(false);
+            customers_table.getColumnModel().getColumn(2).setResizable(false);
             customers_table.getColumnModel().getColumn(3).setResizable(false);
             customers_table.getColumnModel().getColumn(4).setResizable(false);
         }
@@ -1174,6 +1209,8 @@ public class SystemView extends javax.swing.JFrame {
             employees_table.getColumnModel().getColumn(2).setResizable(false);
             employees_table.getColumnModel().getColumn(3).setResizable(false);
             employees_table.getColumnModel().getColumn(4).setResizable(false);
+            employees_table.getColumnModel().getColumn(5).setResizable(false);
+            employees_table.getColumnModel().getColumn(6).setResizable(false);
         }
 
         tab_employees.add(scrollpane_employees_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 380, 920, 120));
@@ -1330,8 +1367,25 @@ public class SystemView extends javax.swing.JFrame {
             new String [] {
                 "Id", "Nombre", "Descripción", "Dirección", "Teléfono", "Correo", "Ciudad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         scrollpane_suppliers_table.setViewportView(suppliers_table);
+        if (suppliers_table.getColumnModel().getColumnCount() > 0) {
+            suppliers_table.getColumnModel().getColumn(0).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(1).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(2).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(3).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(4).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(5).setResizable(false);
+            suppliers_table.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         tab_suppliers.add(scrollpane_suppliers_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 370, 920, 120));
 
@@ -1427,7 +1481,7 @@ public class SystemView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1435,6 +1489,10 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
         scrollpane_categories_table.setViewportView(categories_table);
+        if (categories_table.getColumnModel().getColumnCount() > 0) {
+            categories_table.getColumnModel().getColumn(0).setResizable(false);
+            categories_table.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         tab_categories.add(scrollpane_categories_table, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 360, -1));
 
@@ -1457,7 +1515,7 @@ public class SystemView extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1465,6 +1523,12 @@ public class SystemView extends javax.swing.JFrame {
             }
         });
         scrollpane_table_all_purchases.setViewportView(table_all_purchases);
+        if (table_all_purchases.getColumnModel().getColumnCount() > 0) {
+            table_all_purchases.getColumnModel().getColumn(0).setResizable(false);
+            table_all_purchases.getColumnModel().getColumn(1).setResizable(false);
+            table_all_purchases.getColumnModel().getColumn(2).setResizable(false);
+            table_all_purchases.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         tab_reportes.add(scrollpane_table_all_purchases, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 70, 920, 150));
 
@@ -1585,7 +1649,7 @@ public class SystemView extends javax.swing.JFrame {
 
         tab_profile.add(panel_profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 20, 920, 390));
 
-        jTabbedPane1.addTab("Perfil", tab_profile);
+        jTabbedPane1.addTab("Configuración", tab_profile);
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 1010, 580));
 

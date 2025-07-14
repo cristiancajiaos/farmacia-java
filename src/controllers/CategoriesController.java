@@ -179,7 +179,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                 listAllCategories();
                 clearCategories();
                 getCategoryName();
-                JOptionPane.showMessageDialog(null, "Categoría registrada con éxito");
+                JOptionPane.showMessageDialog(null, "La categoría ha sido registrada con éxito");
             } else {
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error al registrar la categoría");
             }
@@ -189,7 +189,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
     // Pestaña Categorías, botón Modificar: Modificar categoría
     public void updateCategory() {
         if (views.txt_category_id.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Selecciona una fila de la tabla para continuar");
+            JOptionPane.showMessageDialog(null, "No hay ninguna categoría seleccionada. Seleccione una categoría de la tabla.");
         } else {
             if (views.txt_category_id.getText().equals("")
                     || views.txt_category_name.getText().equals("")) {
@@ -204,7 +204,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                     listAllCategories();
                     clearCategories();
                     getCategoryName();
-                    JOptionPane.showMessageDialog(null, "Los datos de la categoría se han modificado exitosamente");
+                    JOptionPane.showMessageDialog(null, "Los datos de la categoría se han modificado con éxito");
                 } else {
                     JOptionPane.showMessageDialog(null, "Hubo un error al intentar modificar la categoría");
                 }
@@ -216,10 +216,10 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
     public void deleteCategory() {
         int row = views.categories_table.getSelectedRow();
         if (row == -1) {
-            JOptionPane.showMessageDialog(views, "seleccione una fila de la tabla para continuar");
+            JOptionPane.showMessageDialog(views, "No hay ninguna categoría seleccionada. Seleccione una categoría de la tabla.");
         } else {
             int id = Integer.parseInt(views.categories_table.getValueAt(row, 0).toString());
-            int question = JOptionPane.showConfirmDialog(null, "¿En verdad desea eliminar esta categoría?");
+            int question = JOptionPane.showConfirmDialog(null, "¿Confirma que desea eliminar esta categoría?");
             if (question == 0 && categoryDAO.deleteCategoryQuery(id)) {
                 cleanTable();
                 cleanFields();
@@ -227,7 +227,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
                 listAllCategories();
                 clearCategories();
                 getCategoryName();
-                JOptionPane.showMessageDialog(null, "La categoría se ha eliminado exitosamente");
+                JOptionPane.showMessageDialog(null, "La categoría se ha eliminado con éxito");
             }
         }
     }
@@ -236,6 +236,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
     public void cancelOperationsCategory() {
         cleanFields();
         views.btn_register_category.setEnabled(true);
+        views.categories_table.clearSelection();
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
@@ -265,7 +266,7 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
             // Si no lo es, deshabilitar la pestaña de Categorías y el panel de Categorías en el menú lateral
             views.jTabbedPane1.setEnabledAt(5, false);
             views.jLabelCategories.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tienes permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
         }
     }
 
