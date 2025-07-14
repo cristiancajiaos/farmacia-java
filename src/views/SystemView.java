@@ -9,6 +9,7 @@ import controllers.CustomersController;
 import controllers.EmployeesController;
 import controllers.ProductsController;
 import controllers.PurchasesController;
+import controllers.SalesController;
 import controllers.SettingsController;
 import controllers.SuppliersController;
 import models.Categories;
@@ -23,6 +24,8 @@ import models.Products;
 import models.ProductsDAO;
 import models.Purchases;
 import models.PurchasesDAO;
+import models.Sales;
+import models.SalesDAO;
 import models.Suppliers;
 import models.SuppliersDAO;
 
@@ -55,6 +58,10 @@ public class SystemView extends javax.swing.JFrame {
     // Compras
     Purchases purchase = new Purchases();
     PurchasesDAO purchaseDAO = new PurchasesDAO();
+    
+    // Ventas
+    Sales sale = new Sales();
+    SalesDAO saleDAO = new SalesDAO();
 
     public SystemView() {
         initComponents();
@@ -91,6 +98,10 @@ public class SystemView extends javax.swing.JFrame {
         // Controlador de compras
         PurchasesController purchase_section = new PurchasesController(purchase, purchaseDAO, this);   
         purchase_section.listAllPurchases();
+        
+        // Controlador de ventas
+        SalesController sales_section = new SalesController(sale, saleDAO, this);
+        sales_section.listAllSales();
     }
     
     private String titleInterface() {
@@ -1016,6 +1027,11 @@ public class SystemView extends javax.swing.JFrame {
 
         btn_new_sale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_new_sale.setText("Nuevo");
+        btn_new_sale.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_new_saleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel_salesLayout = new javax.swing.GroupLayout(panel_sales);
         panel_sales.setLayout(panel_salesLayout);
@@ -1103,14 +1119,14 @@ public class SystemView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_sale_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_sale_quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_new_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_salesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_sale_total_to_pay, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_new_sale, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_sale_customer_name, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(label_sale_customer_id, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
@@ -2030,6 +2046,10 @@ public class SystemView extends javax.swing.JFrame {
     private void btn_remove_saleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_remove_saleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_remove_saleActionPerformed
+
+    private void btn_new_saleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_new_saleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_new_saleActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1552,14 +1552,14 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txt_sale_customer_id" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="label_sale_quantity" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="label_sale_customer_name" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="txt_sale_customer_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="btn_new_sale" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txt_sale_total_to_pay" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                               <Component id="label_sale_customer_id" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="btn_new_sale" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="label_sale_customer_name" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                              <Component id="txt_sale_customer_name" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="28" max="32767" attributes="0"/>
                       </Group>
@@ -1779,6 +1779,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Nuevo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_new_saleActionPerformed"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
                   </AuxValues>
