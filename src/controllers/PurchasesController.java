@@ -25,9 +25,14 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     private Purchases purchase;
     private PurchasesDAO purchaseDAO;
     private SystemView views;
+    
+    // Instanciado del modelo productos
+    Products product = new Products();
+    ProductsDAO productDAO = new ProductsDAO();
 
     private int getIdSupplier = 0;
 
+    // Item
     private int item = 0;
 
     // Rol
@@ -37,21 +42,17 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel temp = new DefaultTableModel();
 
-    // Instanciado del modelo productos
-    Products product = new Products();
-    ProductsDAO productDAO = new ProductsDAO();
-
     public PurchasesController(Purchases purchase, PurchasesDAO purchaseDAO, SystemView views) {
         this.purchase = purchase;
         this.purchaseDAO = purchaseDAO;
         this.views = views;
 
         // Pestaña de Compras
-        // Botón Agregar (Producto)
+        // Botón Agregar (Producto a la compra)
         this.views.btn_add_product_to_buy.addActionListener(this);
         // Botón Comprar
         this.views.btn_confirm_purchase.addActionListener(this);
-        // Botón Eliminar (Compra)
+        // Botón Eliminar (Producto en la compra)
         this.views.btn_remove_purchase.addActionListener(this);
         // Botón Nuevo (Nueva Compra)
         this.views.btn_new_purchase.addActionListener(this);
