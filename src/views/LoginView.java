@@ -23,9 +23,13 @@ public class LoginView extends javax.swing.JFrame {
         LoginController employee_login = new LoginController(employee, employee_dao, this);
         setSize(930, 415);
         setResizable(false);
-        setTitle("Ingresar al sistema");
+        titleInterface();
         setLocationRelativeTo(null);
         this.repaint();
+    }
+    
+    private void titleInterface() {
+        setTitle("Farmacia Vida Natural - Ingresar al sistema");
     }
 
     /**
@@ -38,10 +42,11 @@ public class LoginView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        title_one = new javax.swing.JLabel();
+        title_two = new javax.swing.JLabel();
+        lbl_username = new javax.swing.JLabel();
         txt_username = new javax.swing.JTextField();
+        lbl_password = new javax.swing.JLabel();
         text_password = new javax.swing.JPasswordField();
         btn_enter = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -53,23 +58,29 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 147, 143));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Iniciar sesión");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, -1, -1));
+        title_one.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        title_one.setForeground(new java.awt.Color(255, 255, 255));
+        title_one.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title_one.setText("FARMACIA VIDA NATURAL");
+        jPanel1.add(title_one, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 490, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Usuario:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 67, -1));
+        title_two.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        title_two.setForeground(new java.awt.Color(255, 255, 255));
+        title_two.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        title_two.setText("INICIAR SESIÓN");
+        jPanel1.add(title_two, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 490, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Contraseña:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
-        jPanel1.add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 210, 35));
-        jPanel1.add(text_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 210, 35));
+        lbl_username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_username.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_username.setText("Usuario:");
+        jPanel1.add(lbl_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 150, 40));
+        jPanel1.add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 250, 35));
+
+        lbl_password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lbl_password.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_password.setText("Contraseña:");
+        jPanel1.add(lbl_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 150, 40));
+        jPanel1.add(text_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 250, 35));
 
         btn_enter.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btn_enter.setText("Ingresar");
@@ -79,9 +90,9 @@ public class LoginView extends javax.swing.JFrame {
                 btn_enterActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 210, 35));
+        jPanel1.add(btn_enter, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 400, 35));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 490, 420));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 0, 500, 410));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -135,12 +146,13 @@ public class LoginView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Wallpaper;
     public javax.swing.JButton btn_enter;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl_password;
+    private javax.swing.JLabel lbl_username;
     public javax.swing.JPasswordField text_password;
+    private javax.swing.JLabel title_one;
+    private javax.swing.JLabel title_two;
     public javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }
