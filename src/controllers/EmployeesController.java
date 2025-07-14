@@ -312,21 +312,21 @@ public class EmployeesController implements ActionListener, MouseListener, KeyLi
         // Si el rol es administrador
         if (rol.equals("Administrador")) {
             // Setear pestaña de Empleados
-            views.jTabbedPane1.setSelectedIndex(3);
+            views.jTabbedPane1.setSelectedIndex(4);
             cleanTable();
             cleanFields();
             listAllEmployees();
         } else {
             // Si no lo es, deshabilitar la pestaña de Empleados y el panel de Empleados en el menú lateral
-            views.jTabbedPane1.setEnabledAt(3, false);
+            views.jTabbedPane1.setEnabledAt(4, false);
             views.jLabelEmployees.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
         }
     }
     
     // Panel de Configuración en menú lateral: Ir a la pestaña de Configuración
     public void goToSettingsTab() {
-        views.jTabbedPane1.setSelectedIndex(7);
+        views.jTabbedPane1.setSelectedIndex(8);
     }
 
     // Funciones invocadas dentro de función implementada keyReleased

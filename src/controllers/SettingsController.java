@@ -87,6 +87,8 @@ public class SettingsController implements MouseListener {
             this.views.jPanelProducts.setBackground(new Color(18, 45, 61));
         } else if (e.getSource() == this.views.jPanelPurchases) {
             this.views.jPanelPurchases.setBackground(new Color(18, 45, 61));
+        } else if (e.getSource() == this.views.jPanelSales) {
+            this.views.jPanelSales.setBackground(new Color(18, 45, 61));
         } else if (e.getSource() == this.views.jPanelCustomers) {
             this.views.jPanelCustomers.setBackground(new Color(18, 45, 61));
         } else if (e.getSource() == this.views.jPanelEmployees) {

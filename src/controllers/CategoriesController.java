@@ -258,15 +258,15 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         // Si el rol es administrador
         if (rol.equals("Administrador")) {
             // Setear pestaña de Categorías
-            views.jTabbedPane1.setSelectedIndex(5);
+            views.jTabbedPane1.setSelectedIndex(6);
             cleanTable();
             cleanFields();
             listAllCategories();
         } else {
             // Si no lo es, deshabilitar la pestaña de Categorías y el panel de Categorías en el menú lateral
-            views.jTabbedPane1.setEnabledAt(5, false);
+            views.jTabbedPane1.setEnabledAt(6, false);
             views.jLabelCategories.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
         }
     }
 

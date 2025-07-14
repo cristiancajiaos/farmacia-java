@@ -327,14 +327,14 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
         } else {
             // Si no lo es, deshabilitar la pestaña de Compras y el panel de Compras en el menú lateral
             views.jTabbedPane1.setEnabledAt(1, false);
-            views.jLabelSuppliers.setEnabled(false);
+            views.jLabelPurchases.setEnabled(false);
             JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
         }
     }
 
     // Panel de Reportes en menú lateral: Ir a la pestaña de Reportes
     public void goToReportsTab() {
-        views.jTabbedPane1.setSelectedIndex(6);
+        views.jTabbedPane1.setSelectedIndex(7);
         cleanTable();
         listAllPurchases();
     }

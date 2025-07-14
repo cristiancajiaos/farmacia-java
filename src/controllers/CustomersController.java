@@ -246,7 +246,7 @@ public class CustomersController implements ActionListener, MouseListener, KeyLi
 
     // Ir a la pestaña de Clientes al presionar el panel de Clientes en el menú lateral
     public void goToCustomersTab() {
-        views.jTabbedPane1.setSelectedIndex(2);
+        views.jTabbedPane1.setSelectedIndex(3);
         cleanTable();
         cleanFields();
         listAllCustomers();

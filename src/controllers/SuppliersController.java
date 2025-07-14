@@ -280,15 +280,15 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
         // Si el rol es administrador
         if (rol.equals("Administrador")) {
             // Setear pestaña de Proveedores
-            views.jTabbedPane1.setSelectedIndex(4);
+            views.jTabbedPane1.setSelectedIndex(5);
             cleanTable();
             cleanFields();
             listAllSuppliers();
         } else {
             // Si no lo es, deshabilitar la pestaña de Proveedores y el panel de Proveedores en el menú lateral
-            views.jTabbedPane1.setEnabledAt(4, false);
+            views.jTabbedPane1.setEnabledAt(5, false);
             views.jLabelSuppliers.setEnabled(false);
-            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta vista");
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
         }
     }
 
