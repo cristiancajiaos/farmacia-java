@@ -194,6 +194,38 @@ public class ProductsDAO {
         return product;
     }
     
+    // Buscar producto y cantidad por código
+    /* Nota: Este método se creó para optimizar la búsqueda de productos 
+             por código.
+             En lugar de usar dos métodos ya existentes que gatillan dos
+             consultas, se optó por crear uno solo
+    */
+    public Products searchProductQuantityCode(int code) {
+        String query = "SELECT pro.* FROM products pro WHERE pro.code = ?";
+        Products product = new Products();
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, code);
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                product.setId((rs.getInt("id")));
+                product.setCode(rs.getInt("code"));
+                product.setName(rs.getString("name"));
+                product.setDescription(rs.getString("name"));
+                product.setUnit_price(rs.getDouble("unit_price"));
+                product.setProduct_quantity(rs.getInt("product_quantity"));
+                product.setCategory_id(rs.getInt("category_id"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error "
+                    + "al buscar el producto" + e.getMessage());
+            System.err.println("Hubo un error al buscar el producto: " + e.getMessage());
+        }
+        return product;
+    }
+    
     // Traer la cantidad de productos por id
     public Products searchId(int id) {
         String query = "SELECT pro.product_quantity "

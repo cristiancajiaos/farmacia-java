@@ -61,11 +61,14 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         this.views.txt_sale_customer_id.addKeyListener(this);
     }
 
-    /* Nota: Para facilitar la lectura de las funcionalidades por botón o input,
-             estas se han separado en sus propias funciones.
-             Al mostrar las funciones implementadas se muestran las 
-             invocaciones, mientras que más abajo se muestran sus
-             correspondientes implementaciones */
+    /* Nota: Para simplificar la legibilidad de los métodos, se optó por,
+             en lugar de dejar el código en los métodos implementados,
+             crear un método individual para cada funcionalidad. 
+             Esto es, un método independiente para cada campo, botón, y tabla. 
+             Esto no es exclusivo de esta clase. 
+             En todos los controladores del sistema, se optó 
+             por este tipo de separación para botones, campos, y tablas. */
+    
     // Función actionPerformed de ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -121,15 +124,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
     @Override
     public void keyPressed(KeyEvent e) {
-        /* Nota: Para simplificar la legibilidad de los métodos, se optó por,
-                 en lugar de dejar el código en el método keyPressed,
-                 crear un método individual para cada funcionalidad
-                 de campo. Esto es, un método independiente para el campo
-                 de código del producto, y un método independiente 
-                 para el campo de ID del cliente. Esto no es exclusivo
-                 de esta clase. En todos los controladores del sistema, se optó 
-                 por este tipo de separación para botones, campos, y tablas. 
-        */
         if (e.getSource() == views.txt_sale_product_code) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 // Setear producto por el código ingresado
@@ -202,41 +196,39 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
     // Funciones invocadas dentro de función implementada keyReleased
     // Campo de código del producto + tecla ENTER: Ingresar automáticamente producto por su código
-    /* Nota: El código que se solicitó ingresar, involucra invocar
-             el método searchCode de ProductsDAO que solo obtiene el nombre y el ID del 
-             producto, pero no la cantidad de producto ni el precio por unidad.
-             Para mitigar esto, además se usa el método searchProduct, también de 
-             ProductsDAO, que a partir del ID, sí obtiene la cantidad de producto 
-             y el precio por unidad, y que se solicita introducir en sus
-             respectivos campos.
-             Además, se usa código adicional para hacer más legibles
-             los textos de los campos. */
     public void setProductToSaleByCode() {
         if (views.txt_sale_product_code.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese del código del producto a vender");
         } else {
+            /* Nota: El código que se solicitó ingresar, involucra invocar
+             el método searchCode de ProductsDAO que solo obtiene el nombre y 
+             el ID del producto, pero no la cantidad de producto ni el precio 
+             por unidad.
+             Para mitigar esto, y para evitar realizar dos consultas a la DB, 
+             en la clase ProductsDAO se creó un método nuevo para obtener el id 
+             del producto, el nombre del producto, el precio, y la cantidad de 
+             producto, todos los cuales se solicita introducir en sus
+             respectivos campos.
+             Además, se usa código adicional fuera del solicitado 
+             para hacer más legibles los textos de los campos. */
             int code = Integer.parseInt(views.txt_sale_product_code.getText());
-            // A partir del código del producto se obtiene su ID y nombre
             Products productSearch = new Products();
-            // Y a partir del ID se obtienen los campos restantes
-            productSearch = productDAO.searchCode(code);
+            // A partir del código se obtienen los campos restantes
+            productSearch = productDAO.searchProductQuantityCode(code);
             if (productSearch.getName() != null) {
-                int productSearchId = productSearch.getId();
-                product = productDAO.searchProduct(productSearchId);
-                views.txt_sale_product_id.setText("" + product.getId());
+                views.txt_sale_product_id.setText("" + productSearch.getId());
                 views.txt_sale_product_id.setEnabled(true);
-                views.txt_sale_price.setText("" + product.getUnit_price());
+                views.txt_sale_price.setText("" + productSearch.getUnit_price());
                 views.txt_sale_price.setEnabled(true);
-                views.txt_sale_product_name.setText(product.getName());
+                views.txt_sale_product_name.setText(productSearch.getName());
                 views.txt_sale_product_name.setEnabled(true);
-                views.txt_sale_quantity.setText("" + product.getProduct_quantity());
+                views.txt_sale_quantity.setText("" + productSearch.getProduct_quantity());
                 // Se habilita campo de ID de cliente
                 views.txt_sale_customer_id.setEnabled(true);
                 views.txt_sale_customer_id.setEditable(true);
                 // Se habilita y pone foco en campo de ID de cliente
                 views.txt_sale_quantity.setEditable(true);
                 views.txt_sale_quantity.requestFocus();
-                
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
                 cleanFieldsSales();
@@ -249,6 +241,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         if (views.txt_sale_customer_id.getText().equals("")) {
             Customers customer = new Customers();
             CustomersDAO customerDAO = new CustomersDAO();
+            
         } else {
             JOptionPane.showMessageDialog(null, "El cliente no existe");
             views.txt_sale_customer_id.setText("");
