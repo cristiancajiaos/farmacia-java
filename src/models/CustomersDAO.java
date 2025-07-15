@@ -75,6 +75,33 @@ public class CustomersDAO {
         }
         return list_customers;
     }
+    
+    // Buscar cliente por ID
+    public Customers searchCustomerName (int id) {
+        /* Nota: Este método se creó para complementar la funcionalidad
+           del controlador de ventas, buscando cliente por ID,
+           y obteniendo tanto la ID como el nombre */
+        String query = "SELECT cus.id, cus.full_name FROM customers cus "
+                + "WHERE id = ?";
+        Customers customer = new Customers();
+        try {
+            conn = cn.getConnection();
+            pst = conn.prepareStatement(query);
+            pst.setInt(1, id);
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                customer.setId(rs.getInt("id"));
+                customer.setFull_name(rs.getString("full_name"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al "
+                    + "buscar el cliente: " + e.getMessage());
+            System.err.println("Hubo un error al buscar el "
+                    + "cliente: " + e.getMessage());
+        }
+        return customer;
+    }
 
     // Modificar cliente
     public boolean updateCustomerQuery(Customers customer) {

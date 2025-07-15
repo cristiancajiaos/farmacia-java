@@ -26,6 +26,10 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     // Instanciado del modelo Productos
     Products product = new Products();
     ProductsDAO productDAO = new ProductsDAO();
+    
+    // Instanciado del modelo Customers
+    Customers customer = new Customers();
+    CustomersDAO customerDAO = new CustomersDAO();
 
     // Item
     private int item = 0;
@@ -185,8 +189,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     public void goToSalesTab() {
         if (rol.equals("Administrador")) {
             views.jTabbedPane1.setSelectedIndex(2);
-            // Limpiar tabla
-            // Limpiar campos de venta
+            // TODO: Limpiar tabla
+            this.cleanFieldsSales();
         } else {
             views.jTabbedPane1.setEnabledAt(2, false);
             views.jLabelSales.setEnabled(false);
@@ -216,6 +220,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             // A partir del código se obtienen los campos restantes
             productSearch = productDAO.searchProductQuantityCode(code);
             if (productSearch.getName() != null) {
+                // Se llenan los campos de ID de producto, precio, y nombre de producto 
                 views.txt_sale_product_id.setText("" + productSearch.getId());
                 views.txt_sale_product_id.setEnabled(true);
                 views.txt_sale_price.setText("" + productSearch.getUnit_price());
@@ -237,14 +242,29 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         }
     }
     
+    // Campo de ID del cliente + tecla ENTER: Ingresar nombre del cliente por el ID
     public void setCustomerById() {
+        /* Nota: Para este método, se creó en el customerDAO 
+               el método para obtener nombre del cliente a partir del ID */
         if (views.txt_sale_customer_id.getText().equals("")) {
-            Customers customer = new Customers();
-            CustomersDAO customerDAO = new CustomersDAO();
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "El cliente no existe");
+            JOptionPane.showMessageDialog(null, "Ingrese el código del cliente asociado a la venta");
             views.txt_sale_customer_id.setText("");
+        } else {   
+            int customerId = Integer.parseInt(views.txt_sale_customer_id.getText());
+            Customers customerSearch = customerDAO.searchCustomerName(customerId);
+            if (customerSearch.getFull_name() != null) {
+                /* Si se obtiener nombre de cliente,
+                   se llenan los campos de ID y nombre de cliente */
+                views.txt_sale_customer_id.setText("" + customerSearch.getId());
+                views.txt_sale_customer_name.setText(customerSearch.getFull_name());
+                views.txt_sale_customer_name.setEnabled(true);
+            } else {
+                /* De lo contrario, se vacía el campo de ID del cliente,
+                   y se avisa que el cliente no existe */
+                JOptionPane.showMessageDialog(null, "El cliente no existe");
+                views.txt_sale_customer_id.setText("");
+                views.txt_sale_customer_id.requestFocus();
+            }
         }
     }
 
