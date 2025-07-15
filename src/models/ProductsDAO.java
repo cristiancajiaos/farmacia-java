@@ -156,7 +156,7 @@ public class ProductsDAO {
                 product.setName(rs.getString("name"));
                 product.setDescription(rs.getString("description"));
                 product.setUnit_price(rs.getDouble("unit_price"));
-                // product.setProduct_quantity(rs.getInt("product_quantity"));
+                product.setProduct_quantity(rs.getInt("product_quantity"));
                 product.setCategory_id(rs.getInt("category_id"));
                 product.setCategory_name(rs.getString("category_name"));
             }

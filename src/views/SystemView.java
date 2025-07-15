@@ -851,7 +851,7 @@ public class SystemView extends javax.swing.JFrame {
                     .addComponent(txt_purchase_product_code, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                     .addComponent(txt_purchase_amount, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                     .addComponent(cmb_purchase_supplier, 0, 165, Short.MAX_VALUE)
-                    .addComponent(txt_purchase_product_name))
+                    .addComponent(txt_purchase_product_name, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                 .addGap(18, 23, Short.MAX_VALUE)
                 .addGroup(panel_purchasesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label_purchase_id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -962,19 +962,18 @@ public class SystemView extends javax.swing.JFrame {
         label_sale_product_name.setText("Cantidad:");
 
         txt_sale_product_name.setEditable(false);
-        txt_sale_product_name.setEnabled(false);
 
         label_sale_quantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_sale_quantity.setText("Cédula del cliente:");
 
         txt_sale_quantity.setEditable(false);
-        txt_sale_quantity.setEnabled(false);
+        txt_sale_quantity.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         label_sale_customer_id.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_sale_customer_id.setText("Total a pagar:");
 
         txt_sale_customer_id.setEditable(false);
-        txt_sale_customer_id.setEnabled(false);
+        txt_sale_customer_id.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         label_sale_total_to_pay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         label_sale_total_to_pay.setText("Id: ");
