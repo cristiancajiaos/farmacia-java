@@ -99,8 +99,12 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == views.jPanelSales) {
+            // Ir a la pestaña de Ventas
             goToSalesTab();
         }
+        
+        /* Nota: La función de MouseListener sobre el panel de reportes en el
+           menú lateral fue implementada en el controlador PurchasesController */
     }
 
     @Override
@@ -147,15 +151,36 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() == views.txt_sale_quantity) {
-            setSubtotal();
+            // Setear subtotal de la venta
+            setSubtotalSale();
         }
     }
 
     // Funciones generales
     public void listAllSales() {
     }
+    
+    // Limpiar algunos de los campos de texto en la pestaña de Ventas
+    public void cleanSomeFieldsSales() {
+        // Limpieza de campos
+        views.txt_sale_product_code.setText("");
+        views.txt_sale_product_id.setText("");
+        views.txt_sale_price.setText("");
+        views.txt_sale_product_name.setText("");
+        views.txt_sale_subtotal.setText("");
+        views.txt_sale_quantity.setText("");
+        views.txt_sale_stock.setText("");
+        
+        // Seteo de características de campos
+        views.txt_sale_quantity.setEnabled(false);
+        views.txt_sale_quantity.setEditable(false);
+        views.txt_sale_subtotal.setEnabled(false);
+        views.txt_sale_product_code.requestFocus();
+    }
 
-    public void cleanFieldsSales() {
+    // Limpiar todos los campos de texto en la pestaña de Ventas
+    public void cleanAllFieldsSales() {
+        // Limpieza de campos
         views.txt_sale_product_code.setText("");
         views.txt_sale_product_id.setText("");
         views.txt_sale_price.setText("");
@@ -166,6 +191,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_customer_id.setText("");
         views.txt_sale_customer_name.setText("");
         views.txt_sale_total_to_pay.setText("");
+        
+        // Seteo de características de campos
         views.txt_sale_customer_id.setEnabled(false);
         views.txt_sale_customer_id.setEditable(false);
         views.txt_sale_quantity.setEnabled(false);
@@ -174,6 +201,23 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_product_code.requestFocus();
     }
     
+    // Limpiar tabla temporal
+    public void cleanTableTemp() {
+        for (int i = 0; i < temp.getRowCount(); i++) {
+            temp.removeRow(i);
+            i = i - 1;
+        }
+    }
+
+    // Limpiar tabla de pestaña Ventas
+    public void cleanTable() {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);
+            i = i - 1;
+        }
+    }
+    
+    // Calcular total de la venta 
     public void calculateSale() {
         double total = 0.0;
         int numRow = views.sales_table.getRowCount();
@@ -254,7 +298,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
             views.sales_table.setModel(temp);
             // Se limpian los campos para un nuevo ingreso
-            cleanFieldsSales();
+            cleanAllFieldsSales();
             // Se calcula el total a pagar de la venta
             calculateSale();
         }
@@ -273,7 +317,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     // Botón Nuevo: Nueva venta
     public void newSale() {
         // TODO: Limpiar tabla temporal
-        cleanFieldsSales();
+        cleanAllFieldsSales();
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
@@ -282,7 +326,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         if (rol.equals("Administrador")) {
             views.jTabbedPane1.setSelectedIndex(2);
             // TODO: Limpiar tabla
-            this.cleanFieldsSales();
+            this.cleanAllFieldsSales();
         } else {
             views.jTabbedPane1.setEnabledAt(2, false);
             views.jLabelSales.setEnabled(false);
@@ -330,7 +374,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                 views.txt_sale_quantity.requestFocus();
             } else {
                 JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
-                cleanFieldsSales();
+                cleanAllFieldsSales();
                 views.txt_sale_product_code.requestFocus();
             }
         }
@@ -363,7 +407,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Campo de cantidad de producto + Tecla soltada: Calcular subtotal
-    public void setSubtotal() {
+    public void setSubtotalSale() {
         /* Nota: Se usa código adicional fuera del solicitado 
                  para hacer más legibles los textos de los campos. */
         int quantity;

@@ -324,9 +324,15 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
 
     // Panel de Reportes en menú lateral: Ir a la pestaña de Reportes
     public void goToReportsTab() {
-        views.jTabbedPane1.setSelectedIndex(7);
-        cleanTable();
-        listAllPurchases();
+        if (rol.equals("Administrador")) {
+            views.jTabbedPane1.setSelectedIndex(7);
+            cleanTable();
+            listAllPurchases();
+        } else {
+            views.jTabbedPane1.setEnabledAt(7, false);
+            views.jLabelReports.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "No tiene permisos de administrador para acceder a esta pestaña");
+        }
     }
 
     // Funciones invocadas dentro de función implementada keyReleased
