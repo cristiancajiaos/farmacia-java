@@ -63,12 +63,15 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         this.views.txt_sale_product_code.addKeyListener(this);
         // Campo de cédula/ID del cliente
         this.views.txt_sale_customer_id.addKeyListener(this);
+        // Campo de cantidad del producto
+        this.views.txt_sale_quantity.addKeyListener(this);
     }
 
-    /* Nota: Para simplificar la legibilidad de los métodos, se optó por,
+    /* Nota: Para simplificar la legibilidad del controlador, se optó por,
              en lugar de dejar el código en los métodos implementados,
              crear un método individual para cada funcionalidad. 
-             Esto es, un método independiente para cada campo, botón, y tabla. 
+             Esto es, un método independiente para cada acción de click, 
+             mouse, y tecla en cada campo, botón, y tabla. 
              Esto no es exclusivo de esta clase. 
              En todos los controladores del sistema, se optó 
              por este tipo de separación para botones, campos, y tablas. */
@@ -143,7 +146,9 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if (e.getSource() == views.txt_sale_quantity) {
+            setSubtotal();
+        }
     }
 
     // Funciones generales
@@ -161,6 +166,11 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_customer_id.setText("");
         views.txt_sale_customer_name.setText("");
         views.txt_sale_total_to_pay.setText("");
+        views.txt_sale_customer_id.setEnabled(false);
+        views.txt_sale_customer_id.setEditable(false);
+        views.txt_sale_quantity.setEnabled(false);
+        views.txt_sale_quantity.setEditable(false);
+        views.txt_sale_subtotal.setEnabled(false);
     }
 
     // Funciones invocadas dentro de función implementada actionPerformed
@@ -181,7 +191,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
     // Botón Nuevo: Nueva venta
     public void newSale() {
-        JOptionPane.showMessageDialog(null, "views.btn_new_sale presionado");
+        // TODO: Limpiar tabla temporal
+        cleanFieldsSales();
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
@@ -231,7 +242,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                 // Se habilita campo de ID de cliente
                 views.txt_sale_customer_id.setEnabled(true);
                 views.txt_sale_customer_id.setEditable(true);
-                // Se habilita y pone foco en campo de ID de cliente
+                // Se habilita y pone foco en campo de cantidad de producto
+                views.txt_sale_quantity.setEnabled(true);
                 views.txt_sale_quantity.setEditable(true);
                 views.txt_sale_quantity.requestFocus();
             } else {
@@ -265,6 +277,21 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                 views.txt_sale_customer_id.setText("");
                 views.txt_sale_customer_id.requestFocus();
             }
+        }
+    }
+    
+    // Campo de cantidad de producto + Tecla soltada: Calcular subtotal
+    public void setSubtotal() {
+        int quantity;
+        double price = Double.parseDouble(views.txt_sale_price.getText());
+        if (views.txt_sale_quantity.getText().equals("")) {
+            quantity = 1;
+            views.txt_sale_price.setText("" + price);
+        } else {
+            quantity = Integer.parseInt(views.txt_sale_quantity.getText());
+            price = Double.parseDouble(views.txt_sale_price.getText());
+            views.txt_sale_subtotal.setEnabled(true);
+            views.txt_sale_subtotal.setText("" + (quantity * price));
         }
     }
 
