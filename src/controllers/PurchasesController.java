@@ -25,7 +25,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     private Purchases purchase;
     private PurchasesDAO purchaseDAO;
     private SystemView views;
-    
+
     // Instanciado del modelo productos
     Products product = new Products();
     ProductsDAO productDAO = new ProductsDAO();
@@ -131,19 +131,8 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() == views.txt_purchase_price) {
-            int quantity;
-            Double price = 0.0;
-
-            if (views.txt_purchase_amount.getText().equals("")) {
-                quantity = 1;
-                views.txt_purchase_price.setText("" + price);
-            } else {
-                quantity = Integer.parseInt(views.txt_purchase_amount.getText());
-                price = Double.parseDouble(views.txt_purchase_price.getText());
-                views.txt_purchase_subtotal.setText("" + (quantity * price));
-            }
+            setSubtotalPurchase();
         }
-
     }
 
     // Funciones generales
@@ -299,14 +288,14 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     // Botón Eliminar: Eliminar producto actual en la compra
     public void removeProductInCurrentPurchase() {
         model = (DefaultTableModel) views.purchases_table.getModel();
-        int row  = views.purchases_table.getSelectedRow();
+        int row = views.purchases_table.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(null, "No hay ninguna compra seleccionada. Seleccione una compra en la tabla.");
         } else {
-             model.removeRow(row);
-             JOptionPane.showMessageDialog(null, "El producto seleccionado ha sido eliminado de la compra actual.");
-             calculatePurchase();
-             views.txt_purchase_product_code.requestFocus();
+            model.removeRow(row);
+            JOptionPane.showMessageDialog(null, "El producto seleccionado ha sido eliminado de la compra actual.");
+            calculatePurchase();
+            views.txt_purchase_product_code.requestFocus();
         }
     }
 
@@ -351,6 +340,21 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
             views.txt_purchase_product_name.setText(product.getName());
             views.txt_purchase_id.setText("" + product.getId());
             views.txt_purchase_amount.requestFocus();
+        }
+    }
+
+    // Campo de cantidad de producto + Tecla soltada: Calcular subtotal
+    public void setSubtotalPurchase() {
+        int quantity;
+        Double price = 0.0;
+
+        if (views.txt_purchase_amount.getText().equals("")) {
+            quantity = 1;
+            views.txt_purchase_price.setText("" + price);
+        } else {
+            quantity = Integer.parseInt(views.txt_purchase_amount.getText());
+            price = Double.parseDouble(views.txt_purchase_price.getText());
+            views.txt_purchase_subtotal.setText("" + (quantity * price));
         }
     }
 
