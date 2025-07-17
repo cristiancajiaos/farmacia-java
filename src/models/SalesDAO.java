@@ -46,7 +46,7 @@ public class SalesDAO {
     // Registrar detalle de la venta
     public boolean registerSaleDetailQuery(int product_id, int sale_id,
             int sale_quantity, double sale_price, double sale_subtotal) {
-        String query = "INSERT INTO sales (product_id, sale_id, sale_quantity, "
+        String query = "INSERT INTO sale_details (product_id, sale_id, sale_quantity, "
                      + "sale_price, sale_subtotal) VALUES (?, ?, ?, ?, ?)";
         /* Al no ocuparse el parámetro de timestamp, se omite */
 
