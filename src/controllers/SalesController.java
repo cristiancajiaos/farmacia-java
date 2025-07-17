@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Customers;
@@ -163,11 +164,30 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones generales
+    
+    // Listar las ventas realizadas
     public void listAllSales() {
+        if (rol.equals("Administrador")) {
+            List<Sales> list = saleDAO.listAllSalesQuery();
+            model = (DefaultTableModel) views.table_all_sales.getModel();
+            Object[] row = new Object[5];
+            for (int i = 0; i < list.size() ; i++) {
+                row[0] = list.get(i).getId();
+                row[1] = list.get(i).getCustomer_name();
+                row[2] = list.get(i).getEmployee_name();
+                row[3] = list.get(i).getTotal_to_pay();
+                row[4] = list.get(i).getSale_date();
+                model.addRow(row);
+            }
+            views.table_all_sales.setModel(model); 
+        }
     }
     
+    // Resetear la venta
     public void resetSale() {
+        // Variable item se resetea a cero
         item = 0;
+        // ID del cliente actual se resetea
         current_customer_id = 0;
     }
 
