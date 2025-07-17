@@ -162,6 +162,8 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
         views.txt_purchase_price.setText("");
         views.txt_purchase_subtotal.setText("");
         views.txt_purchase_id.setText("");
+        views.txt_purchase_id.setEnabled(true);
+        views.txt_purchase_id.setEditable(false);
         views.txt_purchase_total_to_pay.setText("");
         views.cmb_purchase_supplier.setSelectedItem(0);
     }
@@ -346,6 +348,8 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
             product = productDAO.searchCode(id);
             views.txt_purchase_product_name.setText(product.getName());
             views.txt_purchase_id.setText("" + product.getId());
+            views.txt_purchase_id.setEnabled(true);
+            views.txt_purchase_id.setEditable(false);
             views.txt_purchase_amount.requestFocus();
         }
     }

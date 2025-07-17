@@ -154,6 +154,8 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
         views.txt_product_unit_price.setText("");
         views.txt_product_description.setText("");
         views.txt_product_id.setText("");
+        views.txt_product_id.setEnabled(true);
+        views.txt_product_id.setEditable(false);
         views.cmb_product_category.setSelectedIndex(0);
         views.btn_register_product.setEnabled(true);
     }
@@ -267,6 +269,9 @@ public class ProductsController implements ActionListener, MouseListener, KeyLis
         views.txt_product_unit_price.setText("" + product.getUnit_price());
         views.cmb_product_category.setSelectedItem(new DynamicComboBox(product.getCategory_id(), product.getCategory_name()));
 
+        views.txt_product_id.setEnabled(true);
+        views.txt_product_id.setEditable(false);
+        
         // Deshabilitar botones en la pestaña Productos 
         views.btn_register_product.setEnabled(false);
     }

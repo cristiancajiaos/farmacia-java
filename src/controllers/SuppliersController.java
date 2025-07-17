@@ -142,7 +142,8 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
     // Limpiar campos de texto en la pestaña Proveedores
     public void cleanFields() {
         views.txt_supplier_id.setText("");
-        views.txt_supplier_id.setEditable(true);
+        views.txt_supplier_id.setEnabled(true);
+        views.txt_supplier_id.setEditable(false);
         views.txt_supplier_name.setText("");
         views.txt_supplier_description.setText("");
         views.txt_supplier_address.setText("");
@@ -270,6 +271,9 @@ public class SuppliersController implements ActionListener, MouseListener, KeyLi
         views.txt_supplier_email.setText(views.suppliers_table.getValueAt(row, 5).toString());
         views.cmb_supplier_city.setSelectedItem(views.suppliers_table.getValueAt(row, 6).toString());
 
+        views.txt_supplier_id.setEnabled(true);
+        views.txt_supplier_id.setEditable(false);
+        
         // Deshabilitar campos y botones en la pestaña Proveedores
         views.btn_register_supplier.setEnabled(false);
         views.txt_supplier_id.setEditable(false);

@@ -139,7 +139,8 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
     // Limpiar campos de texto en la pestaña Categorías
     public void cleanFields() {
         views.txt_category_id.setText("");
-        views.txt_category_id.setEditable(true);
+        views.txt_category_id.setEnabled(true);
+        views.txt_category_id.setEditable(false);
         views.txt_category_name.setText("");
     }
 
@@ -248,6 +249,9 @@ public class CategoriesController implements ActionListener, MouseListener, KeyL
         // Llenar los campos de la pestaña Categorías en base a la fila seleccionada
         views.txt_category_id.setText(views.categories_table.getValueAt(row, 0).toString());
         views.txt_category_name.setText(views.categories_table.getValueAt(row, 1).toString());
+        
+        views.txt_category_id.setEnabled(true);
+        views.txt_category_id.setEditable(false);
 
         // Deshabilitar botones en la pestaña Categorías 
         views.btn_register_category.setEnabled(false);
