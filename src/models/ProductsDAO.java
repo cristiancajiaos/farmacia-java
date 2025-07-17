@@ -197,9 +197,10 @@ public class ProductsDAO {
     // Buscar producto y cantidad por código
     public Products searchProductQuantityCode(int code) {
         /* Nota: Este método se creó para optimizar la búsqueda de productos 
-             por código.
-             En lugar de usar dos métodos ya existentes que gatillan dos
-             consultas, se optó por crear uno solo */
+                 por código.
+                 En lugar de usar dos métodos ya existentes que gatillan dos
+                 consultas, se optó por crear un método que realiza una
+                 sola consulta. */
         String query = "SELECT pro.* FROM products pro WHERE pro.code = ?";
         Products product = new Products();
         try {

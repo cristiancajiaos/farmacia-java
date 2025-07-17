@@ -30,6 +30,7 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     Products product = new Products();
     ProductsDAO productDAO = new ProductsDAO();
 
+    // ID del Proveedor 
     private int getIdSupplier = 0;
 
     // Item

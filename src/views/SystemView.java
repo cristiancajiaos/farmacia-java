@@ -67,7 +67,6 @@ public class SystemView extends javax.swing.JFrame {
         initComponents();
         setSize(1208,680);
         setResizable(false);
-        // setTitle("Panel de administración");
         setLocationRelativeTo(null);
         titleInterface();
         
