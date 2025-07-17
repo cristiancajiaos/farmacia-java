@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.Customers;
 import models.CustomersDAO;
+import static models.EmployeesDAO.id_user;
 import static models.EmployeesDAO.rol_user;
 import models.Products;
 import models.ProductsDAO;
@@ -32,12 +33,15 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     Customers customer = new Customers();
     CustomersDAO customerDAO = new CustomersDAO();
 
+    // Id del Cliente
+    private int current_customer_id = 0;
+    
     // Item
     private int item = 0;
 
     // Rol
     String rol = rol_user;
-
+    
     // Modelo para las tablas
     DefaultTableModel model = new DefaultTableModel();
     DefaultTableModel temp = new DefaultTableModel();
@@ -47,10 +51,10 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         this.saleDAO = saleDAO;
         this.views = views;
 
-        // Pestaña de ventas
+        // Pestaña de Ventas
         // Botón Agregar (Producto a la venta)
         this.views.btn_add_product_sale.addActionListener(this);
-        // Botón Vender
+        // Botón Vender (Registrar la venta)
         this.views.btn_confirm_sale.addActionListener(this);
         // Botón Eliminar (Producto de la venta)
         this.views.btn_remove_sale.addActionListener(this);
@@ -92,7 +96,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             // Iniciar una nueva venta
             newSale();
         }
-
     }
 
     // Funciones de MouseListener
@@ -102,9 +105,12 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             // Ir a la pestaña de Ventas
             goToSalesTab();
         }
-        
+
         /* Nota: La función de MouseListener sobre el panel de reportes en el
-           menú lateral fue implementada en el controlador PurchasesController */
+                 menú lateral fue implementada en el controlador 
+                 PurchasesController. Esto es para evitar que dicha función
+                 para dicho elemento se invoque dos veces bajo dos controladores 
+                 distintos. */
     }
 
     @Override
@@ -160,6 +166,11 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     public void listAllSales() {
     }
     
+    public void resetSale() {
+        item = 0;
+        current_customer_id = 0;
+    }
+
     // Limpiar algunos de los campos de texto en la pestaña de Ventas
     public void cleanSomeFieldsSales() {
         // Limpieza de campos
@@ -170,7 +181,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_subtotal.setText("");
         views.txt_sale_quantity.setText("");
         views.txt_sale_stock.setText("");
-        
+
         // Seteo de características de campos
         views.txt_sale_quantity.setEnabled(false);
         views.txt_sale_quantity.setEditable(false);
@@ -191,7 +202,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_customer_id.setText("");
         views.txt_sale_customer_name.setText("");
         views.txt_sale_total_to_pay.setText("");
-        
+
         // Seteo de características de campos
         views.txt_sale_customer_id.setEnabled(false);
         views.txt_sale_customer_id.setEditable(false);
@@ -200,7 +211,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_subtotal.setEnabled(false);
         views.txt_sale_product_code.requestFocus();
     }
-    
+
     // Limpiar tabla temporal
     public void cleanTableTemp() {
         for (int i = 0; i < temp.getRowCount(); i++) {
@@ -216,16 +227,16 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             i = i - 1;
         }
     }
-    
+
     // Calcular total de la venta 
     public void calculateSale() {
         double total = 0.0;
         int numRow = views.sales_table.getRowCount();
-        
+
         for (int i = 0; i < numRow; i++) {
             total += Double.parseDouble(String.valueOf(views.sales_table.getValueAt(i, 4)));
         }
-        
+
         views.txt_sale_total_to_pay.setEnabled(true);
         views.txt_sale_total_to_pay.setText("" + total);
     }
@@ -233,90 +244,181 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     // Funciones invocadas dentro de función implementada actionPerformed
     // Botón Agregar: Agregar producto a la venta
     public void addProductToSale() {
-        // Se obtienen los parámetros para llenar los registros de la tabla
-        int product_id, amount;
+        int product_id, amount, customer_id;
         String product_name, customer_full_name;
         double unit_price, subtotal;
         
+        customer_id = Integer.parseInt(views.txt_sale_customer_id.getText());
+        
+        // Antes de proceder, hay una serie de condiciones que se deben cumplir 
+
+        /* Se chequea si está ingresado el código del producto */
         if (views.txt_sale_product_code.getText().equals("")) {
-            /* Se chequea si está ingresado el código del producto */
-            JOptionPane.showMessageDialog(null, "Debe ingresar el código del producto");
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Debe ingresar el código del producto"
+            );
             return;
-        } else if (views.txt_sale_quantity.getText().equals("")) {
-            /* Se chequea si hay ingresada cantidad de producto */
-            JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad de producto para cursar la venta");
-            return;
-        } else if (Integer.parseInt(views.txt_sale_quantity.getText()) == 0) {
-            /* Se chequea si la cantidad de producto es superior a 0 para la venta */
-            JOptionPane.showMessageDialog(null, "Debe ingresar una cantidad de producto mayor a 0 para cursar la venta");
-            return;
-        } else if (Integer.parseInt(views.txt_sale_quantity.getText()) > Integer.parseInt(views.txt_sale_stock.getText())) {
-            /* Se chequea si el stock es mayor o igual a la cantidad de producto para la venta */
-            JOptionPane.showMessageDialog(null, "La cantidad de producto ingresada debe ser menor o igual al stock disponible");
-            return;
-        } else if (views.txt_sale_customer_id.getText().equals("") || views.txt_sale_customer_name.getText().equals("")) {
-            /* Se chequea si hay un usuario al cual se le cursa la venta, para ambos campos de ID y nombre */
-            JOptionPane.showMessageDialog(null, "Debe ingresar un usuario al cual se cursa la venta");
-            return;
-        } else {
-            /* Se chequea si el producto no estaba previamente registrado en la lista de productos para la venta */
-            for (int i = 0; i < views.sales_table.getRowCount(); i++) {
-                if (views.sales_table.getValueAt(i, 1).equals(views.txt_sale_product_name.getText())) {
-                    JOptionPane.showMessageDialog(null, "El producto ya está registrado en la tabla de ventas");
-                    return;
-                }
-            }
-
-            // Si se cumplen las anteriores condiciones, se procede a registrar la venta 
-            product_id = Integer.parseInt(views.txt_sale_product_id.getText());
-            product_name = views.txt_sale_product_name.getText();
-            amount = Integer.parseInt(views.txt_sale_quantity.getText());
-            unit_price = Double.parseDouble(views.txt_sale_price.getText());
-            subtotal = amount * unit_price;
-            customer_full_name = views.txt_sale_customer_name.getText();
-            
-            item++;
-            
-            // Se crear la lista y la fila 
-            temp = (DefaultTableModel) views.sales_table.getModel();
-            ArrayList list = new ArrayList();
-            list.add(product_id);
-            list.add(product_name);
-            list.add(amount);
-            list.add(unit_price);
-            list.add(subtotal);
-            list.add(customer_full_name);
-
-            Object[] obj = new Object[6];
-            obj[0] = list.get(0);
-            obj[1] = list.get(1);
-            obj[2] = list.get(2);
-            obj[3] = list.get(3);
-            obj[4] = list.get(4);
-            obj[5] = list.get(5);
-            temp.addRow(obj);
-
-            views.sales_table.setModel(temp);
-            // Se limpian los campos para un nuevo ingreso
-            cleanAllFieldsSales();
-            // Se calcula el total a pagar de la venta
-            calculateSale();
         }
+
+        /* Se chequea si hay ingresada cantidad de producto a vender */
+        if (views.txt_sale_quantity.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Debe ingresar una cantidad de producto para cursar la venta"
+            );
+            return;
+        }
+
+        /* Se chequea si la cantidad de producto a vender es superior a 0 */
+        if (Integer.parseInt(views.txt_sale_quantity.getText()) == 0) {          
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Debe ingresar una cantidad de producto mayor a 0 para cursar la venta.");
+            return;
+        }
+
+        /* Se chequea si el stock es menor o igual a la cantidad de 
+           producto para la venta */
+        if (Integer.parseInt(views.txt_sale_quantity.getText()) > Integer.parseInt(views.txt_sale_stock.getText())) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Stock no disponible para la cantidad ingresada.\nLa cantidad de producto ingresada debe ser menor o igual al stock disponible."
+            );
+            return;
+        }
+
+        /* Se chequea si hay un usuario al cual se le cursa la venta, 
+           para ambos campos de ID y nombre */
+        if (views.txt_sale_customer_id.getText().equals("") 
+            || views.txt_sale_customer_name.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Debe ingresar un usuario al cual se cursa la venta"
+            );
+            return;
+        }
+
+        /* Se chequea si el producto no estaba previamente 
+           registrado en la lista de productos para la venta */
+        for (int i = 0; i < views.sales_table.getRowCount(); i++) {
+            if (views.sales_table.getValueAt(i, 1).equals(views.txt_sale_product_name.getText())) {
+                JOptionPane.showMessageDialog(
+                        null, 
+                        "El producto ya está registrado en la tabla de ventas"
+                );
+                return;
+            }
+        }
+        
+        /* Se define el cliente actual, y se chequea 
+           si hay solo un cliente para la venta */
+        if (current_customer_id == 0) {
+            current_customer_id = customer_id;
+        } else if (current_customer_id != customer_id) {
+            JOptionPane.showMessageDialog(null, "No se puede realizar una misma venta a varios clientes");
+            return;
+        }
+
+        /* Si se cumplen todas las anteriores condiciones, 
+           se procede a registrar la venta */
+        
+        // Se obtienen los parámetros para llenar los registros de la tabla
+        product_id = Integer.parseInt(views.txt_sale_product_id.getText());
+        product_name = views.txt_sale_product_name.getText();
+        amount = Integer.parseInt(views.txt_sale_quantity.getText());
+        unit_price = Double.parseDouble(views.txt_sale_price.getText());
+        subtotal = amount * unit_price;
+        customer_full_name = views.txt_sale_customer_name.getText();
+        
+        item++;
+
+        // Se crean la lista y la fila 
+        temp = (DefaultTableModel) views.sales_table.getModel();
+        ArrayList list = new ArrayList();
+        list.add(product_id);
+        list.add(product_name);
+        list.add(amount);
+        list.add(unit_price);
+        list.add(subtotal);
+        list.add(customer_full_name);
+
+        Object[] obj = new Object[6];
+        obj[0] = list.get(0);
+        obj[1] = list.get(1);
+        obj[2] = list.get(2);
+        obj[3] = list.get(3);
+        obj[4] = list.get(4);
+        obj[5] = list.get(5);
+        temp.addRow(obj);
+
+        views.sales_table.setModel(temp);
+        // Se limpian los campos para un nuevo ingreso
+        cleanAllFieldsSales();
+        // Se calcula el total a pagar de la venta
+        calculateSale();
     }
 
     // Botón Vender: Ingresar venta
     public void insertSale() {
-        JOptionPane.showMessageDialog(null, "views.btn_confirm_sale presionado");
+        /* Primero se chequea si al menos hay un producto en la lista de 
+           ventas */
+        if (views.sales_table.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "No hay ninguna venta enlistada.\nAgregue una venta en la lista de ventas para poder generar su ingreso."
+            );
+            return;
+        }
+        
+        // Si esto se cumple, se registra la venta
+        int customer_id = current_customer_id;
+        int employee_id = id_user;
+        double total = Double.parseDouble(views.txt_sale_total_to_pay.getText());
+        
+        if (saleDAO.registerSaleQuery(customer_id, employee_id, total)) {
+            /* Si se registra exitosamente la venta, se procede a registrar 
+               el detalle de la venta para cada producto */
+            Products current_product = new Products();
+            int sale_id = saleDAO.saleId();
+            for (int i = 0; i < views.sales_table.getRowCount(); i++) {
+                int product_id = Integer.parseInt(views.sales_table.getValueAt(i, 0).toString());
+                int sale_quantity = Integer.parseInt(views.sales_table.getValueAt(i, 2).toString());
+                double sale_price = Double.parseDouble(views.sales_table.getValueAt(i, 3).toString());
+                double sale_subtotal = Double.parseDouble(views.sales_table.getValueAt(i, 4).toString());
+                
+                saleDAO.registerSaleDetailQuery(product_id, sale_id, sale_quantity, sale_price, sale_subtotal);
+                
+                // Luego se actualiza el stock para cada producto de la venta
+                current_product = productDAO.searchId(product_id);
+                int product_amount = current_product.getProduct_quantity() - sale_quantity;
+                
+                productDAO.updateStockQuery(product_amount, product_id);  
+            }
+            
+            // Se resetean item y cliente actual
+            resetSale();
+            // Se limpia la tabla temporal 
+            cleanTableTemp();
+            // Se limpian todos los campos del formulario de venta
+            cleanAllFieldsSales();
+            JOptionPane.showMessageDialog(null, "La venta ha sido generada con éxito");
+            // TODO: Imprimir detalle de la venta
+            listAllSales();
+        }
     }
 
     // Botón Eliminar: Eliminar producto actual en la venta
     public void removeProductInCurrentSale() {
-        JOptionPane.showMessageDialog(null, "views.btn_remove_sale presionado");
+        JOptionPane.showMessageDialog(
+                null, 
+                "views.btn_remove_sale presionado"
+        );
     }
 
     // Botón Nuevo: Nueva venta
     public void newSale() {
-        // TODO: Limpiar tabla temporal
+        cleanTableTemp();
         cleanAllFieldsSales();
     }
 
@@ -344,7 +446,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                      el método searchCode de ProductsDAO que solo obtiene el nombre y 
                      el ID del producto, pero no la cantidad de producto ni el precio 
                      por unidad.
-                     Para mitigar esto, y para evitar realizar dos consultas a la DB, 
+                     Para mitigar esto, y para reducir dos consultas de DB a una sola, 
                      en la clase ProductsDAO se creó un método nuevo para obtener el id 
                      del producto, el nombre del producto, el precio, y la cantidad de 
                      producto, todos los cuales se solicita introducir en sus
@@ -390,6 +492,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         } else {
             int customerId = Integer.parseInt(views.txt_sale_customer_id.getText());
             Customers customerSearch = customerDAO.searchCustomerName(customerId);
+            
             if (customerSearch.getFull_name() != null) {
                 /* Si se obtiener nombre de cliente,
                    se llenan los campos de ID y nombre de cliente */
