@@ -244,11 +244,9 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     // Funciones invocadas dentro de función implementada actionPerformed
     // Botón Agregar: Agregar producto a la venta
     public void addProductToSale() {
-        int product_id, amount, customer_id;
+        int product_id, amount;
         String product_name, customer_full_name;
         double unit_price, subtotal;
-        
-        customer_id = Integer.parseInt(views.txt_sale_customer_id.getText());
         
         // Antes de proceder, hay una serie de condiciones que se deben cumplir 
 
@@ -314,9 +312,12 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         /* Se define el cliente actual, y se chequea 
            si hay solo un cliente para la venta */
         if (current_customer_id == 0) {
-            current_customer_id = customer_id;
-        } else if (current_customer_id != customer_id) {
+            current_customer_id = Integer.parseInt(views.txt_sale_customer_id.getText());
+        } else if (current_customer_id != Integer.parseInt(views.txt_sale_customer_id.getText())) {
             JOptionPane.showMessageDialog(null, "No se puede realizar una misma venta a varios clientes");
+            views.txt_sale_customer_id.setText("");
+            views.txt_sale_customer_name.setText("");
+            views.txt_sale_customer_id.requestFocus();
             return;
         }
 
@@ -410,10 +411,26 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
     // Botón Eliminar: Eliminar producto actual en la venta
     public void removeProductInCurrentSale() {
-        JOptionPane.showMessageDialog(
-                null, 
-                "views.btn_remove_sale presionado"
-        );
+        model = (DefaultTableModel) views.sales_table.getModel();
+        int row = views.sales_table.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "No hay ningún producto seleccionado de la venta actual.\nSeleccione un producto de la venta actual en la tabla."
+            );
+        } else {
+            model.removeRow(row);
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "El producto seleccionado ha sido eliminado de la venta actual"
+            );
+            calculateSale();
+            
+            item--;
+            if (model.getRowCount() == 0) {
+                current_customer_id = 0;
+            }
+        }
     }
 
     // Botón Nuevo: Nueva venta
