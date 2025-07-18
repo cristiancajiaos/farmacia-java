@@ -172,10 +172,10 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     public void calculatePurchase() {
         double total = 0.0;
         int numRow = views.purchases_table.getRowCount();
-
+                
+        // Para cada fila en la tabla, se suma el valor de la columna subtotal
         for (int i = 0; i < numRow; i++) {
-            // Se pasa el indice de la columna
-            total = total + Double.parseDouble(String.valueOf(views.purchases_table.getValueAt(i, 4)));
+            total += Double.parseDouble(String.valueOf(views.purchases_table.getValueAt(i, 4)));
         }
         views.txt_purchase_total_to_pay.setText("" + total);
     }
@@ -201,55 +201,106 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     public void addProductToPurchase() {
         DynamicComboBox supplier_cmb = (DynamicComboBox) views.cmb_purchase_supplier.getSelectedItem();
         int supplier_id = supplier_cmb.getId();
+        temp = (DefaultTableModel) views.purchases_table.getModel();
 
-        if (getIdSupplier == 0) {
-            getIdSupplier = supplier_id;
-        } else {
-            if (getIdSupplier != supplier_id) {
-                JOptionPane.showMessageDialog(null, "No puede realizar una misma compra a varios proveedores");
-            } else {
-                int amount = Integer.parseInt(views.txt_purchase_amount.getText());
-                String product_name = views.txt_purchase_product_name.getText();
-                double price = Double.parseDouble(views.txt_purchase_price.getText());
-                int purchase_id = Integer.parseInt(views.txt_purchase_id.getText());
-                String supplier_name = views.cmb_purchase_supplier.getSelectedItem().toString();
+        // Antes de proceder, hay una serie de condiciones que se deben cumplir 
+        
+        /* Se chequea si está ingresado el código del producto */
+        if (views.txt_purchase_product_code.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debe ingresar el código del producto"
+            );
+            return;
+        }
 
-                if (amount > 0) {
-                    temp = (DefaultTableModel) views.purchases_table.getModel();
-                    for (int i = 0; i < views.purchases_table.getRowCount(); i++) {
-                        if (views.purchases_table.getValueAt(i, 1).equals(views.txt_purchase_product_name.getText())) {
-                            JOptionPane.showMessageDialog(null, "El producto ya está registrado en la tabla de compras");
-                            return;
-                        }
-                    }
+        /* Se chequea si hay ingresada cantidad de producto a comprar */
+        if (views.txt_purchase_amount.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debe ingresar una cantidad de producto"
+            );
+            return;
+        }
 
-                    ArrayList list = new ArrayList();
-                    item = 1;
-                    list.add(item);
-                    list.add(purchase_id);
-                    list.add(product_name);
-                    list.add(amount);
-                    list.add(price);
-                    list.add(amount * price);
-                    list.add(supplier_name);
+        /* Se chequea si la cantidad de producto a comprar es superior a 0 */
+        if (Integer.parseInt(views.txt_purchase_amount.getText()) <= 0) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debe ingresar una cantidad de producto mayor a 0");
+            return;
+        }
+        
+        /* Se chequea si hay ingresado precio de producto */
+        if (views.txt_purchase_price.getText().equals("")) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debe ingresar un precio de compra");
+            return;
+        }
 
-                    Object[] obj = new Object[6];
-                    obj[0] = list.get(1);
-                    obj[1] = list.get(2);
-                    obj[2] = list.get(3);
-                    obj[3] = list.get(4);
-                    obj[4] = list.get(5);
-                    obj[5] = list.get(6);
-                    temp.addRow(obj);
+        /* Se chequea si el precio ingresado del producto es mayor a 0 */
+        if (Integer.parseInt(views.txt_purchase_price.getText()) <= 0) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debe ingresar un precio de compra mayor a 0");
+            return;
+        }
 
-                    views.purchases_table.setModel(temp);
-                    cleanFieldsPurchase();
-                    views.cmb_purchase_supplier.setEditable(false);
-                    views.txt_purchase_product_code.requestFocus();
-                    calculatePurchase();
-                }
+        /* Se chequea si el producto ingresado no está en la tabla de compras */
+        for (int i = 0; i < views.purchases_table.getRowCount(); i++) {
+            if (views.purchases_table.getValueAt(i, 1).equals(views.txt_purchase_product_name.getText())) {
+                JOptionPane.showMessageDialog(null, "El producto ya está registrado en la tabla de compras");
+                return;
             }
         }
+
+        /* Se define el proveedor actual para la compra, y se chequea si hay 
+           solo un proveedor para ella */
+        if (getIdSupplier == 0) {
+            getIdSupplier = supplier_id;
+        } else if (getIdSupplier != supplier_id) {
+            JOptionPane.showMessageDialog(null, "No puede realizar una misma compra a varios proveedores");
+            return;
+        }
+
+        /* Si se cumplen todas las anteriores condiciones, 
+           se procede a registrar la compra */
+        int amount = Integer.parseInt(views.txt_purchase_amount.getText());
+        String product_name = views.txt_purchase_product_name.getText();
+        double price = Double.parseDouble(views.txt_purchase_price.getText());
+        int purchase_id = Integer.parseInt(views.txt_purchase_id.getText());
+        String supplier_name = views.cmb_purchase_supplier.getSelectedItem().toString();
+        double subtotal = amount * price;
+
+        ArrayList list = new ArrayList();
+        item = 1;
+        list.add(purchase_id);
+        list.add(product_name);
+        list.add(amount);
+        list.add(price);
+        list.add(subtotal);
+        list.add(supplier_name);
+
+        Object[] obj = new Object[6];
+        obj[0] = list.get(0);
+        obj[1] = list.get(1);
+        obj[2] = list.get(2);
+        obj[3] = list.get(3);
+        obj[4] = list.get(4);
+        obj[5] = list.get(5);
+        temp.addRow(obj);
+
+        views.purchases_table.setModel(temp);
+        
+        // Se limpian los campos para un nuevo ingreso
+        cleanFieldsPurchase();
+        
+        views.cmb_purchase_supplier.setEditable(false);
+        views.txt_purchase_product_code.requestFocus();
+        
+        // Se calcula el total a pagar de la venta
+        calculatePurchase();
     }
 
     // Botón Comprar: Ingresar compra 
@@ -346,6 +397,12 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
         } else {
             int id = Integer.parseInt(views.txt_purchase_product_code.getText());
             product = productDAO.searchCode(id);
+            
+            if (product.getName() == null) {
+                JOptionPane.showMessageDialog(null, "No se encuentra el producto correspondiente al código ingresado");
+                return; 
+            }
+            
             views.txt_purchase_product_name.setText(product.getName());
             views.txt_purchase_id.setText("" + product.getId());
             views.txt_purchase_id.setEnabled(true);

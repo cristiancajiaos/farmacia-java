@@ -936,6 +936,7 @@ public class SystemView extends javax.swing.JFrame {
             purchases_table.getColumnModel().getColumn(1).setResizable(false);
             purchases_table.getColumnModel().getColumn(2).setResizable(false);
             purchases_table.getColumnModel().getColumn(3).setResizable(false);
+            purchases_table.getColumnModel().getColumn(4).setResizable(false);
             purchases_table.getColumnModel().getColumn(5).setResizable(false);
         }
 
