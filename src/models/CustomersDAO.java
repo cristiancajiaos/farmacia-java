@@ -77,7 +77,7 @@ public class CustomersDAO {
     }
     
     // Buscar cliente por ID
-    public Customers searchCustomerName (int id) {
+    public Customers searchCustomerName(int id) {
         /* Nota: Este método se creó para complementar la funcionalidad
            del controlador de ventas, buscando cliente por ID,
            y obteniendo tanto la ID como el nombre */

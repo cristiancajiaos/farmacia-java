@@ -253,7 +253,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Calcular total de la venta 
-    public void calculateSale() {
+    public void calculateSales() {
         double total = 0.0;
         int numRow = views.sales_table.getRowCount();
 
@@ -383,7 +383,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         // Se limpian los campos para un nuevo ingreso
         cleanAllFieldsSales();
         // Se calcula el total a pagar de la venta
-        calculateSale();
+        calculateSales();
     }
 
     // Botón Vender: Ingresar venta
@@ -451,7 +451,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                     null,
                     "El producto seleccionado ha sido eliminado de la venta actual"
             );
-            calculateSale();
+            calculateSales();
 
             item--;
             if (model.getRowCount() == 0) {

@@ -199,6 +199,12 @@ public class PurchasesController implements KeyListener, ActionListener, MouseLi
     // Funciones invocadas dentro de función implementada actionPerformed
     // Botón Agregar: Agregar producto a la compra
     public void addProductToPurchase() {
+        /* Nota: En el curso, al implementar el agregar un producto a la compra
+                 se tenía que presionar dos veces el botón de "Agregar" para que
+                 el efecto se agregue un producto a la compra
+                 Para efectos de la actividad 3, se corrige esa observación, y
+                 se implementa una forma más ordenada de validar los campos 
+                 en la pestaña de la compra */
         DynamicComboBox supplier_cmb = (DynamicComboBox) views.cmb_purchase_supplier.getSelectedItem();
         int supplier_id = supplier_cmb.getId();
         temp = (DefaultTableModel) views.purchases_table.getModel();
