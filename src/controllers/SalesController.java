@@ -253,6 +253,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         double total = 0.0;
         int numRow = views.sales_table.getRowCount();
 
+        // Para cada fila en la tabla, se suma el valor de la columna subtotal
         for (int i = 0; i < numRow; i++) {
             total += Double.parseDouble(String.valueOf(views.sales_table.getValueAt(i, 4)));
         }
@@ -283,16 +284,16 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         if (views.txt_sale_quantity.getText().equals("")) {
             JOptionPane.showMessageDialog(
                     null, 
-                    "Debe ingresar una cantidad de producto para cursar la venta"
+                    "Debe ingresar una cantidad de producto"
             );
             return;
         }
 
         /* Se chequea si la cantidad de producto a vender es superior a 0 */
-        if (Integer.parseInt(views.txt_sale_quantity.getText()) == 0) {          
+        if (Integer.parseInt(views.txt_sale_quantity.getText()) <= 0) {          
             JOptionPane.showMessageDialog(
                     null, 
-                    "Debe ingresar una cantidad de producto mayor a 0 para cursar la venta.");
+                    "Debe ingresar una cantidad de producto mayor a 0");
             return;
         }
 
@@ -329,8 +330,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             }
         }
         
-        /* Se define el cliente actual, y se chequea 
-           si hay solo un cliente para la venta */
+        /* Se define el cliente actual para la venta, y se chequea 
+           si hay solo un cliente para ella */
         if (current_customer_id == 0) {
             current_customer_id = Integer.parseInt(views.txt_sale_customer_id.getText());
         } else if (current_customer_id != Integer.parseInt(views.txt_sale_customer_id.getText())) {
@@ -537,10 +538,11 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                 views.txt_sale_customer_name.setText(customerSearch.getFull_name());
                 views.txt_sale_customer_name.setEnabled(true);
             } else {
-                /* De lo contrario, se vacía el campo de ID del cliente,
+                /* De lo contrario, se vacía los campos de ID y nombre del cliente,
                    y se avisa que el cliente no existe */
                 JOptionPane.showMessageDialog(null, "El cliente no existe");
                 views.txt_sale_customer_id.setText("");
+                views.txt_sale_customer_name.setText("");
                 views.txt_sale_customer_id.requestFocus();
             }
         }
