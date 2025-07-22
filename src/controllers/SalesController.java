@@ -81,9 +81,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
              Esto no es exclusivo de esta clase. 
              En todos los controladores del sistema, se optó 
              por este tipo de separación para botones, campos, y tablas. */
-    
     // Función actionPerformed de ActionListener
-    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == views.btn_add_product_sale) {
@@ -102,7 +100,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones de MouseListener
-    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == views.jPanelSales) {
@@ -138,7 +135,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones de KeyListener
-    
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -168,7 +164,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones generales
-    
     // Listar las ventas realizadas
     public void listAllSales() {
         if (rol.equals("Administrador")) {
@@ -267,7 +262,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones invocadas dentro de función implementada actionPerformed
-    
     // Botón Agregar: Agregar producto a la venta
     public void addProductToSale() {
         int product_id, amount;
@@ -349,7 +343,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
         /* Si se cumplen todas las anteriores condiciones, 
            se procede a registrar la venta */
-        
         // Se obtienen los parámetros para llenar los registros de la tabla
         product_id = Integer.parseInt(views.txt_sale_product_id.getText());
         product_name = views.txt_sale_product_name.getText();
@@ -363,6 +356,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         // Se crean la lista y la fila 
         temp = (DefaultTableModel) views.sales_table.getModel();
         ArrayList list = new ArrayList();
+        list.add(item);
         list.add(product_id);
         list.add(product_name);
         list.add(amount);
@@ -371,12 +365,12 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         list.add(customer_full_name);
 
         Object[] obj = new Object[6];
-        obj[0] = list.get(0);
-        obj[1] = list.get(1);
-        obj[2] = list.get(2);
-        obj[3] = list.get(3);
-        obj[4] = list.get(4);
-        obj[5] = list.get(5);
+        obj[0] = list.get(1);
+        obj[1] = list.get(2);
+        obj[2] = list.get(3);
+        obj[3] = list.get(4);
+        obj[4] = list.get(5);
+        obj[5] = list.get(6);
         temp.addRow(obj);
 
         views.sales_table.setModel(temp);
@@ -467,14 +461,12 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
-    
     // Panel de Ventas en menú lateral: Ir a la pestaña de Ventas
     public void goToSalesTab() {
         views.jTabbedPane1.setSelectedIndex(2);
     }
 
     // Funciones invocadas dentro de función implementada keyReleased
-    
     /* Campo de código del producto + tecla ENTER: 
        Ingresar automáticamente producto por su código */
     public void setProductToSaleByCode() {
@@ -494,31 +486,45 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                      para hacer más legibles los textos de los campos. */
             int code = Integer.parseInt(views.txt_sale_product_code.getText());
             Products productSearch = new Products();
+            
             // A partir del código se obtienen los campos restantes
             productSearch = productDAO.searchProductQuantityCode(code);
-            if (productSearch.getName() != null) {
-                /* Se llenan los campos de ID de producto, precio, nombre de 
-                   producto, y stock del producto */
-                views.txt_sale_product_id.setText("" + productSearch.getId());
-                views.txt_sale_product_id.setEnabled(true);
-                views.txt_sale_price.setText("" + productSearch.getUnit_price());
-                views.txt_sale_price.setEnabled(true);
-                views.txt_sale_product_name.setText(productSearch.getName());
-                views.txt_sale_product_name.setEnabled(true);
-                views.txt_sale_stock.setText("" + productSearch.getProduct_quantity());
-                views.txt_sale_stock.setEnabled(true);
-                // Se habilita campo de ID de cliente
-                views.txt_sale_customer_id.setEnabled(true);
-                views.txt_sale_customer_id.setEditable(true);
-                // Se habilita y pone foco en campo de cantidad de producto
-                views.txt_sale_quantity.setEnabled(true);
-                views.txt_sale_quantity.setEditable(true);
-                views.txt_sale_quantity.requestFocus();
-            } else {
+
+            // Se chequea si se ha obtenido producto con ese código 
+            if (productSearch.getName() == null) {
                 JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
                 cleanAllFieldsSales();
                 views.txt_sale_product_code.requestFocus();
+                return;
             }
+            
+            /* Se chequea si el producto tiene stock, 
+               o sea, cantidad superior a 0 */
+            if (productSearch.getProduct_quantity() == 0) {
+                JOptionPane.showMessageDialog(null, "Este producto no tiene stock para la venta.\nPara agregar este producto, se debe asegurar de que tenga un stock superior a 0.");
+                cleanAllFieldsSales();
+                views.txt_sale_product_code.requestFocus();
+                return;
+            }
+
+            /* Si se cumpen las dos condiciones anteriores, se llenan los 
+               campos de ID de producto, precio, nombre de producto, 
+               y stock del producto */
+            views.txt_sale_product_id.setText("" + productSearch.getId());
+            views.txt_sale_product_id.setEnabled(true);
+            views.txt_sale_price.setText("" + productSearch.getUnit_price());
+            views.txt_sale_price.setEnabled(true);
+            views.txt_sale_product_name.setText(productSearch.getName());
+            views.txt_sale_product_name.setEnabled(true);
+            views.txt_sale_stock.setText("" + productSearch.getProduct_quantity());
+            views.txt_sale_stock.setEnabled(true);
+            // Se habilita campo de ID de cliente
+            views.txt_sale_customer_id.setEnabled(true);
+            views.txt_sale_customer_id.setEditable(true);
+            // Se habilita y pone foco en campo de cantidad de producto
+            views.txt_sale_quantity.setEnabled(true);
+            views.txt_sale_quantity.setEditable(true);
+            views.txt_sale_quantity.requestFocus();
         }
     }
 
