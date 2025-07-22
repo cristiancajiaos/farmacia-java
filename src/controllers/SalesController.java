@@ -448,14 +448,17 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             calculateSales();
 
             item--;
+            
+            /* Si la cantidad de filas es 0, se resetea la venta */
             if (model.getRowCount() == 0) {
-                current_customer_id = 0;
+                resetSale();
             }
         }
     }
 
     // Botón Nuevo: Nueva venta
     public void newSale() {
+        resetSale();
         cleanTableTemp();
         cleanAllFieldsSales();
     }
@@ -493,7 +496,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             // Se chequea si se ha obtenido producto con ese código 
             if (productSearch.getName() == null) {
                 JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
-                cleanAllFieldsSales();
+                cleanSomeFieldsSales();
                 views.txt_sale_product_code.requestFocus();
                 return;
             }
@@ -502,7 +505,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
                o sea, cantidad superior a 0 */
             if (productSearch.getProduct_quantity() == 0) {
                 JOptionPane.showMessageDialog(null, "Este producto no tiene stock para la venta.\nPara agregar este producto, se debe asegurar de que tenga un stock superior a 0.");
-                cleanAllFieldsSales();
+                cleanSomeFieldsSales();
                 views.txt_sale_product_code.requestFocus();
                 return;
             }
