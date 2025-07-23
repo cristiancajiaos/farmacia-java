@@ -81,6 +81,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
              Esto no es exclusivo de esta clase. 
              En todos los controladores del sistema, se optó 
              por este tipo de separación para botones, campos, y tablas. */
+    
     // Función actionPerformed de ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -100,6 +101,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones de MouseListener
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getSource() == views.jPanelSales) {
@@ -135,6 +137,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones de KeyListener
+    
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -268,7 +271,6 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         String productName = product.getName();
         for (int i = 0; i < views.sales_table.getRowCount(); i++) {
             if (views.sales_table.getValueAt(i, 1).equals(productName)) {
-                
                 return true;
             }
         }
@@ -276,6 +278,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones invocadas dentro de función implementada actionPerformed
+    
     // Botón Agregar: Agregar producto a la venta
     public void addProductToSale() {
         int product_id, amount;
