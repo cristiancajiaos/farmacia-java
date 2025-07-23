@@ -167,6 +167,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones generales
+    
     // Listar las ventas realizadas
     public void listAllSales() {
         if (rol.equals("Administrador")) {
