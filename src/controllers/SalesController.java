@@ -145,7 +145,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         if (e.getSource() == views.txt_sale_product_code) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 // Setear producto por el código ingresado
-                setProductToSaleByCode();
+                setProductByCode();
             }
         } else if (e.getSource() == views.txt_sale_customer_id) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -190,7 +190,8 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         current_customer_id = 0;
     }
 
-    // Limpiar algunos de los campos de texto en la pestaña de Ventas
+    /* Limpiar todos los campos de texto en la pestaña de Ventas excepto: 
+       ID Cliente, Nombre Cliente, Total a pagar */
     public void cleanSomeFieldsSales() {
         // Limpieza de campos
         views.txt_sale_product_code.setText("");
@@ -208,7 +209,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_product_code.requestFocus();
     }
 
-    // Limpiar todos los campos de texto en la pestaña de Ventas
+    /* Limpiar todos los campos de texto en la pestaña de Ventas */
     public void cleanAllFieldsSales() {
         // Limpieza de campos
         views.txt_sale_product_code.setText("");
@@ -261,6 +262,19 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         views.txt_sale_total_to_pay.setText("" + total);
     }
 
+    /* Chequeo de si el producto actual ingresado
+       está en la tabla de prouctos en la venta actual */
+    public boolean checkIfProductIsInCurrentSale() {
+        String productName = product.getName();
+        for (int i = 0; i < views.sales_table.getRowCount(); i++) {
+            if (views.sales_table.getValueAt(i, 1).equals(productName)) {
+                
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Funciones invocadas dentro de función implementada actionPerformed
     // Botón Agregar: Agregar producto a la venta
     public void addProductToSale() {
@@ -274,7 +288,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
         if (views.txt_sale_product_code.getText().equals("")) {
             JOptionPane.showMessageDialog(
                     null,
-                    "Debe ingresar el código del producto"
+                    "Debe ingresar el código del producto a vender"
             );
             return;
         }
@@ -319,14 +333,11 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
 
         /* Se chequea si el producto no estaba previamente 
            registrado en la lista de productos para la venta */
-        for (int i = 0; i < views.sales_table.getRowCount(); i++) {
-            if (views.sales_table.getValueAt(i, 1).equals(views.txt_sale_product_name.getText())) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "El producto ya está registrado en la tabla de ventas"
-                );
-                return;
-            }
+        if (checkIfProductIsInCurrentSale()) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "El producto ya está registrado en la tabla de ventas");
+            return;
         }
 
         /* Se define el cliente actual para la venta, y se chequea 
@@ -448,7 +459,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             calculateSales();
 
             item--;
-            
+
             /* Si la cantidad de filas es 0, se resetea la venta */
             if (model.getRowCount() == 0) {
                 resetSale();
@@ -464,71 +475,90 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
     }
 
     // Funciones invocadas dentro de función implementada mouseClicked
+    
     // Panel de Ventas en menú lateral: Ir a la pestaña de Ventas
     public void goToSalesTab() {
         views.jTabbedPane1.setSelectedIndex(2);
     }
 
     // Funciones invocadas dentro de función implementada keyReleased
+    
     /* Campo de código del producto + tecla ENTER: 
        Ingresar automáticamente producto por su código */
-    public void setProductToSaleByCode() {
+    public void setProductByCode() {
+        /* Nota: El código que se solicitó ingresar, involucra invocar
+                 el método searchCode de ProductsDAO que solo obtiene el nombre y 
+                 el ID del producto, pero no la cantidad de producto ni el precio 
+                 por unidad.
+                 Para mitigar esto, y para reducir dos consultas de DB a una sola, 
+                 en la clase ProductsDAO se creó un método nuevo para obtener el id 
+                 del producto, el nombre del producto, el precio, y la cantidad de 
+                 producto, todos los cuales se solicita introducir en sus
+                 respectivos campos.
+                 Además, se usa código adicional fuera del solicitado 
+                 para hacer más legibles los textos de los campos. */
+        
+        /* Antes de proceder, se chequea si se introdujo el código 
+           en el campo correspondiente */
         if (views.txt_sale_product_code.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Ingrese el código del producto a vender");
-        } else {
-            /* Nota: El código que se solicitó ingresar, involucra invocar
-                     el método searchCode de ProductsDAO que solo obtiene el nombre y 
-                     el ID del producto, pero no la cantidad de producto ni el precio 
-                     por unidad.
-                     Para mitigar esto, y para reducir dos consultas de DB a una sola, 
-                     en la clase ProductsDAO se creó un método nuevo para obtener el id 
-                     del producto, el nombre del producto, el precio, y la cantidad de 
-                     producto, todos los cuales se solicita introducir en sus
-                     respectivos campos.
-                     Además, se usa código adicional fuera del solicitado 
-                     para hacer más legibles los textos de los campos. */
-            int code = Integer.parseInt(views.txt_sale_product_code.getText());
-            Products productSearch = new Products();
-            
-            // A partir del código se obtienen los campos restantes
-            productSearch = productDAO.searchProductQuantityCode(code);
-
-            // Se chequea si se ha obtenido producto con ese código 
-            if (productSearch.getName() == null) {
-                JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
-                cleanSomeFieldsSales();
-                views.txt_sale_product_code.requestFocus();
-                return;
-            }
-            
-            /* Se chequea si el producto tiene stock, 
-               o sea, cantidad superior a 0 */
-            if (productSearch.getProduct_quantity() == 0) {
-                JOptionPane.showMessageDialog(null, "Este producto no tiene stock para la venta.\nPara agregar este producto, se debe asegurar de que tenga un stock superior a 0.");
-                cleanSomeFieldsSales();
-                views.txt_sale_product_code.requestFocus();
-                return;
-            }
-
-            /* Si se cumpen las dos condiciones anteriores, se llenan los 
-               campos de ID de producto, precio, nombre de producto, 
-               y stock del producto */
-            views.txt_sale_product_id.setText("" + productSearch.getId());
-            views.txt_sale_product_id.setEnabled(true);
-            views.txt_sale_price.setText("" + productSearch.getUnit_price());
-            views.txt_sale_price.setEnabled(true);
-            views.txt_sale_product_name.setText(productSearch.getName());
-            views.txt_sale_product_name.setEnabled(true);
-            views.txt_sale_stock.setText("" + productSearch.getProduct_quantity());
-            views.txt_sale_stock.setEnabled(true);
-            // Se habilita campo de ID de cliente
-            views.txt_sale_customer_id.setEnabled(true);
-            views.txt_sale_customer_id.setEditable(true);
-            // Se habilita y pone foco en campo de cantidad de producto
-            views.txt_sale_quantity.setEnabled(true);
-            views.txt_sale_quantity.setEditable(true);
-            views.txt_sale_quantity.requestFocus();
+            cleanSomeFieldsSales();
+            return;
         }
+
+        /* Si es así, con el código se obtienen los datos del producto para
+           llenar en los campos  */
+        int code = Integer.parseInt(views.txt_sale_product_code.getText());
+        product = productDAO.searchProductQuantityCode(code);
+        
+        // Se chequea si se ha obtenido producto con ese código 
+        if (product.getName() == null) {
+            JOptionPane.showMessageDialog(null, "No existe ningún producto con ese código");
+            cleanSomeFieldsSales();
+            views.txt_sale_product_code.requestFocus();
+            return;
+        }
+
+        /* Se chequea si el producto tiene stock, o sea, cantidad 
+           superior a 0 */
+        if (product.getProduct_quantity() == 0) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Este producto no tiene stock para la venta.\nPara agregar este producto, se debe asegurar de que tenga un stock superior a 0."
+            );
+            cleanSomeFieldsSales();
+            views.txt_sale_product_code.requestFocus();
+            return;
+        }
+        
+        /* Se chequea si el producto no está en la venta actual */
+        if (checkIfProductIsInCurrentSale()) {
+            JOptionPane.showMessageDialog(
+                        null,
+                        "El producto ya está registrado en la tabla de ventas"
+            );
+            cleanSomeFieldsSales();
+            views.txt_sale_product_code.requestFocus();
+            return;
+        }
+
+        /* Si se cumplen las condiciones anteriores, se llenan los campos de 
+           ID de producto, precio, nombre de producto, y stock del producto */
+        views.txt_sale_product_id.setText("" + product.getId());
+        views.txt_sale_product_id.setEnabled(true);
+        views.txt_sale_price.setText("" + product.getUnit_price());
+        views.txt_sale_price.setEnabled(true);
+        views.txt_sale_product_name.setText(product.getName());
+        views.txt_sale_product_name.setEnabled(true);
+        views.txt_sale_stock.setText("" + product.getProduct_quantity());
+        views.txt_sale_stock.setEnabled(true);
+        // Se habilita campo de ID de cliente
+        views.txt_sale_customer_id.setEnabled(true);
+        views.txt_sale_customer_id.setEditable(true);
+        // Se habilita y pone foco en campo de cantidad de producto
+        views.txt_sale_quantity.setEnabled(true);
+        views.txt_sale_quantity.setEditable(true);
+        views.txt_sale_quantity.requestFocus();
     }
 
     /* Campo de ID del cliente + tecla ENTER: 
@@ -552,7 +582,7 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             } else {
                 /* De lo contrario, se vacía los campos de ID y nombre del cliente,
                    y se avisa que el cliente no existe */
-                JOptionPane.showMessageDialog(null, "El cliente no existe");
+                JOptionPane.showMessageDialog(null, "No se encontró cédula asociada a este cliente");
                 views.txt_sale_customer_id.setText("");
                 views.txt_sale_customer_name.setText("");
                 views.txt_sale_customer_id.requestFocus();
@@ -578,5 +608,4 @@ public class SalesController implements ActionListener, MouseListener, KeyListen
             views.txt_sale_subtotal.setText("" + (quantity * price));
         }
     }
-
 }
